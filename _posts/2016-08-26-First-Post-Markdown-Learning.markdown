@@ -2,27 +2,34 @@
 layout: post
 title: "First Post Test"
 date: 2016-08-26 14:49:39 +0800
-categories: test
 ---
 
-#First - Link
+# First - Link
+
 This is a [link](http://halomaple.com)
-##Second - Font
+
+## Second - Font
+
 This is a *itallic* (using \*\* ) _text_ (using \_ \_ ).
 
 And this is a **bold** (using \*\* \*\* ) __font__ (using \_ \_&nbsp;&nbsp;\_ \_ )
 
-###Third - Language
+### Third - Language
+
 Markdown 也支持中文, 日本語の, 한국어, русский, El español, Português, svenska, In Italiano, 
-####Fourth - List
+
+#### Fourth - List
+
 I'd like to see a list
 
 * Hello
 * こんにちは
 * 你好
 
-#####Fifth - HTML & Table
+##### Fifth - HTML & Table
+
 I can create a table using:
+
 ```
 <table>
 	<thead>
@@ -47,7 +54,9 @@ I can create a table using:
     </tr>
 </table>
 ```
+
 And then it shows like:
+
 <table>
 	<thead>
 		<tr>
@@ -70,8 +79,11 @@ And then it shows like:
         <td>Coo4</td>
     </tr>
 </table>
-######Sixth - JS code
+
+###### Sixth - JS code
+
 And what about js code?
+
 ```
 <script type="text/javascript">
 	console.log("Hello there!");
@@ -79,5 +91,3 @@ And what about js code?
 ```
 
 It seems fine using \`\`\`
-
-
