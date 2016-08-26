@@ -2,6 +2,8 @@
 layout: post
 title: "Markdown Learning"
 date: 2016-08-26 14:49:39 +0800
+category: Markdown
+tag: study
 ---
 
 # First - Link
@@ -11,7 +13,6 @@ This is a [link](http://halomaple.com)
 ## Second - Font
 
 This is a *itallic* (using \*\* ) _text_ (using \_ \_ ).
-
 And this is a **bold** (using \*\* \*\* ) __font__ (using \_ \_&nbsp;&nbsp;\_ \_ )
 
 ### Third - Language
@@ -40,23 +41,24 @@ I can create a table using:
             <th>Head4</th>
         </tr>
     </thead>
-    <tr>
-        <td>Foo</td>
-        <td>Foo2</td>
-        <td>Foo3</td>
-        <td>Foo4</td>
-    </tr>
-    <tr>
-        <td>Coo</td>
-        <td>Coo2</td>
-        <td>Coo3</td>
-        <td>Coo4</td>
-    </tr>
+    <tbody>
+        <tr>
+            <td>Foo</td>
+            <td>Foo2</td>
+            <td>Foo3</td>
+            <td>Foo4</td>
+        </tr>
+        <tr>
+            <td>Coo</td>
+            <td>Coo2</td>
+            <td>Coo3</td>
+            <td>Coo4</td>
+        </tr>
+    </tbody>
 </table>
 ```
 
 And then it shows like:
-
 <table>
     <thead>
         <tr>
@@ -66,18 +68,20 @@ And then it shows like:
             <th>Head4</th>
         </tr>
     </thead>
-    <tr>
-        <td>Foo</td>
-        <td>Foo2</td>
-        <td>Foo3</td>
-        <td>Foo4</td>
-    </tr>
-    <tr>
-        <td>Coo</td>
-        <td>Coo2</td>
-        <td>Coo3</td>
-        <td>Coo4</td>
-    </tr>
+    <tbody>
+        <tr>
+            <td>Foo</td>
+            <td>Foo2</td>
+            <td>Foo3</td>
+            <td>Foo4</td>
+        </tr>
+        <tr>
+            <td>Coo</td>
+            <td>Coo2</td>
+            <td>Coo3</td>
+            <td>Coo4</td>
+        </tr>
+    </tbody>
 </table>
 
 ###### Sixth - JS code

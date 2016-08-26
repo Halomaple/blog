@@ -1,1 +1,1 @@
-Halomaple's blog using Git pages
+Halomaple's blog using Git pages, Jekyll and Jacman
