@@ -1,9 +1,10 @@
 ---
 layout: post
-title:  "First Post Test"
-date:   2016-08-26 14:49:39 +0800
+title: "First Post Test"
+date: 2016-08-26 14:49:39 +0800
 categories: test
 ---
+
 #First - Link
 This is a [link](http://halomaple.com)
 ##Second - Font
