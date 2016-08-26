@@ -1,16 +1,20 @@
-<!DOCTYPE html>
-<html>
+---
+layout: default
+---
 
-<head>
-    <title>Halomaple</title>
-    <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
-</head>
+<div class="home">
 
-<body>
-    <h1>Blog test</h1>
-    <img src="./images/icon200x200.JPG">
-</body>
+  <h1 class="page-heading">Posts</h1>
 
-</html>
+  <ul class="post-list">
+    {% for post in site.posts %}
+      <li>
+        <span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span>
+
+        <h2>
+          <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title | escape }}</a>
+        </h2>
+      </li>
+    {% endfor %}
+  </ul>
+</div>
