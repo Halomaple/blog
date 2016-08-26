@@ -32,14 +32,14 @@ I can create a table using:
 
 ```
 <table>
-	<thead>
-		<tr>
-			<th>Head</th>
-			<th>Head2</th>
-			<th>Head3</th>
-			<th>Head4</th>
-		</tr>
-	</thead>
+    <thead>
+        <tr>
+            <th>Head</th>
+            <th>Head2</th>
+            <th>Head3</th>
+            <th>Head4</th>
+        </tr>
+    </thead>
     <tr>
         <td>Foo</td>
         <td>Foo2</td>
@@ -58,14 +58,14 @@ I can create a table using:
 And then it shows like:
 
 <table>
-	<thead>
-		<tr>
-			<th>Head</th>
-			<th>Head2</th>
-			<th>Head3</th>
-			<th>Head4</th>
-		</tr>
-	</thead>
+    <thead>
+        <tr>
+            <th>Head</th>
+            <th>Head2</th>
+            <th>Head3</th>
+            <th>Head4</th>
+        </tr>
+    </thead>
     <tr>
         <td>Foo</td>
         <td>Foo2</td>
@@ -86,7 +86,7 @@ And what about js code?
 
 ```
 <script type="text/javascript">
-	console.log("Hello there!");
+    console.log("Hello there!");
 </script>
 ```
 Fine!
