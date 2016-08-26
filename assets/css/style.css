@@ -543,11 +543,11 @@ body >header a {
     padding: .5em;
 }
 
-@media only screen and (min-width:1024px) {
+/*@media only screen and (min-width:1024px) {*/
     .navbar {
         display: none
     }
-}
+/*}*/
 
 .navbutton::before {
     font-family: "FontAwesome";
@@ -561,8 +561,8 @@ body >header a {
 }
 
 header nav {
-    float: left;
-    width: 100%;
+    /*float: left;*/
+    /*width: 100%;*/
     font-size: 112.5%;
     padding-top: .5em;
     max-height: .01em;
@@ -572,43 +572,43 @@ header nav {
     -ms-transition: max-height 1s ease-out;
     transition: max-height 1s ease-out;
 }
-
+/*
 @media only screen and (min-width:568px) {
     header nav {
         width: 50%
     }
-}
+}*/
 
-@media only screen and (min-width:1024px) {
+/*@media only screen and (min-width:1024px) {*/
     header nav {
         float: right;
         width: auto;
-        margin-top: 1em;
+        /*margin-top: 1em;*/
         max-height: none
     }
-}
+/*}*/
 
-@media only screen and (min-width:1024px) {
+/*@media only screen and (min-width:1024px) {*/
     header nav ul {
         float: right
     }
-}
+/*}*/
 
-@media only screen and (min-width:1024px) {
+/*@media only screen and (min-width:1024px) {*/
     header nav ul li {
         float: left
     }
-}
+/*}*/
 
 header nav ul li a {
     padding: .2em 0 .2em 1em;
 }
 
-@media only screen and (min-width:1024px) {
+/*@media only screen and (min-width:1024px) {*/
     header nav ul li a {
         padding: .2em 1.5em
     }
-}
+/*}*/
 
 header nav ul li a:hover {
     background: #1b7f9e;

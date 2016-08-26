@@ -12,10 +12,10 @@
 			</a></div>
 			<nav class="animated">
 				<ul>
-					<ul>
-					 {% for m in site.menu %}
-						<li><a href="{{ site.baseurl }}{{ m[1] }}">{{ m[0] }}</a></li>
+					{% for m in site.menu %}
+					<li><a href="{{ site.baseurl }}{{ m[1] }}">{{ m[0] }}</a></li>
 					{% endfor %}
+					
 					<li>
  					{% if site.google_cse.enable %}
 					<form class="search" action="{{ site.baseurl }}/search/" method="get" accept-charset="utf-8">
