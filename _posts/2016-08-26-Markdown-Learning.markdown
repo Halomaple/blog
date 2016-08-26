@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "First Post Test"
+title: "Markdown Learning"
 date: 2016-08-26 14:49:39 +0800
 ---
 
@@ -89,5 +89,4 @@ And what about js code?
 	console.log("Hello there!");
 </script>
 ```
-
-It seems fine using \`\`\`
+Fine!
