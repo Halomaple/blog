@@ -610,11 +610,17 @@ header nav ul li a {
     padding: .2em 0 .2em 1em;
 }
 
-/*@media only screen and (min-width:1024px) {*/
+/*@media only screen and (min-width:1024px) {
     header nav ul li a {
         padding: .2em 1.5em
     }
-/*}*/
+}*/
+
+@media only screen and (max-width: 768px){
+    header nav ul li a {
+        padding: .2em .5em
+    }
+}
 
 header nav ul li a:hover {
     background: #1b7f9e;
