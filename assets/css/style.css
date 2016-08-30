@@ -98,13 +98,6 @@ a img {
 
 /* custom Font*/
 
-@font-face {
-    font-family: "covered_by_your_graceregular";
-    font-weight: normal;
-    font-style: normal;
-    src: url("../font/coveredbyyourgrace-webfont.eot");
-    src: url("../font/coveredbyyourgrace-webfont.eot?#iefix") format('embedded-opentype'), url("../font/coveredbyyourgrace-webfont.svg#covered_by_your_graceregular") format('svg'), url("../font/coveredbyyourgrace-webfont.woff") format('woff'), url("../font/coveredbyyourgrace-webfont.ttf") format('truetype')
-}
 
 /* icon Font */
 @font-face {
@@ -494,7 +487,6 @@ body >header a {
 
 #textlogo h1.site-name {
     width: 86%;
-    /*font-family: "covered_by_your_graceregular";*/
     font-family: "Microsoft YaHei";
     font-size: 200%;
     line-height: 1.5;
@@ -2273,7 +2265,8 @@ footer {
 }
 
 #footer {
-    width: 95%;
+    width: 100%;
+    min-height: 200px;
     margin: 0 auto;
     overflow: hidden;
     position: relative;
@@ -2343,7 +2336,6 @@ footer {
 }
 
 .info {
-    font-family: "covered_by_your_graceregular";
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     font-size: 150%;
@@ -2464,11 +2456,9 @@ footer {
 .copyright {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    font-family: "covered_by_your_graceregular";
     width: 100%;
     color: #fff;
     text-align: center;
-    display: none;
 }
 
 @media only screen and (min-width:768px) {
