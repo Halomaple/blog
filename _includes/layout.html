@@ -24,6 +24,7 @@
           {{ content }}
         </div>
         <footer>{% include _partial/footer.html %}</footer>
+        {% include _partial/after_footer.html %}
       </body>
      </html>
 {% elsif page.type == 'search' %}
@@ -36,6 +37,7 @@
       {% include _partial/search.html %}
       </div>
       <footer>{% include _partial/footer.html %}</footer>
+      {% include _partial/after_footer.html %}
     </body>
    </html>
 {% elsif page.type == 'categories' or page.type == 'tags' or page.type == 'archives' %}
@@ -63,6 +65,7 @@
       {% include _partial/sidebar.html %}
     </div>
     <footer>{% include _partial/footer.html %}</footer>
+    {% include _partial/after_footer.html %}
   </body>
  </html>
 {% endif %}
