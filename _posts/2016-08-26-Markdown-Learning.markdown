@@ -36,6 +36,7 @@ and a ordered list
 3. Be happy
 
 ##### Fifth - HTML & Table
+
 I can create a table using:
 
 ```
@@ -64,6 +65,7 @@ I can create a table using:
     </tbody>
 </table>
 ```
+
 And it shows like this:
 <table>
     <thead>
@@ -99,6 +101,7 @@ Or using:
 | col 2 is      | centered      |   $12 |
 | zebra stripes | are neat      |    $1 |
 ```
+
 which shows like
 
 | Tables        | Are           | Cool  |
@@ -108,11 +111,14 @@ which shows like
 | zebra stripes | are neat      |    $1 |
 
 ###### Sixth - JS code
+
 \`\`\` &nbsp;&nbsp; \`\`\` is use for presenting codes
+
 ```
 console.log("Hello there!");
 console.info("How good the weather it is!");
 ```
+
 I also can use &lt;code&gt; &lt;/code&gt;:
 
 <code>
