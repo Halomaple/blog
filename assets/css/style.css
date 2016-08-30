@@ -2816,6 +2816,7 @@ pre .javascript .function {
     bottom: 5em;
     right: 1em;
     cursor: pointer;
+    font-size: 200%;
 }
 
 @media only screen and (max-width:1024px) {
