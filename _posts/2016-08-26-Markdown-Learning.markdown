@@ -9,12 +9,18 @@ tag: markdown
 **6 Headings using #**
 
 # First - Link
+
 This is a [link](http://halomaple.com) to Halomaple.com
+
 ## Second - Font
+
 This is a *itallic* (using \*\* ) _text_ (using \_ \_ ).
 And this is a **bold** (using \*\* \*\* ) __font__ (using \_ \_&nbsp;&nbsp;\_ \_ )
+
 ### Third - Language
+
 Markdown supports 中文, 日本語の, 한국어, русский, El español, Português, svenska, In Italiano ...
+
 #### Fourth - List
 
 I'd like to see a unordered list(using *, + or - ).
