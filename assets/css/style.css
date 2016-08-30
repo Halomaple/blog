@@ -465,14 +465,14 @@ body >header a {
 
 @media only screen and (min-width:768px) {
     #imglogo {
-        width: 5em
+        width: 5em;
         height: 5em;
     }
 }
 
 @media only screen and (min-width:1024px) {
     #imglogo {
-        width: 5.5em
+        width: 5.5em;
         height: 5.5em;
     }
 }
@@ -484,15 +484,15 @@ body >header a {
 
 @media only screen and (min-width:768px) {
     #imglogo img {
-        width: 5em
+        width: 5em;
         height: 5em;
     }
 }
 
 @media only screen and (min-width:1024px) {
     #imglogo img {
-        width: 5.5em
-        height: 5.5em
+        width: 5.5em;
+        height: 5.5em;
     }
 }
 
