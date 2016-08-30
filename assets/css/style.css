@@ -1084,6 +1084,7 @@ article .article-content {
     padding: 1.5em 4%;
     color: #413f3f;
     font-size: 100%;
+    min-height: 500px;
 }
 
 article .article-content:before,

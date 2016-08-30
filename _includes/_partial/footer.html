@@ -47,7 +47,9 @@
 		<p class="copyright">
 		{% if site.author.name %}
 			<a href="{{ site.root }}about" target="_blank" title="{{ site.author.name }}">{{ site.author.name }}</a>
-		{% else %}
+		{% endif %}
+			
+		{% if site.author.site_name %}
 			<a href="{{ site.root }}" title="{{ site.title }}">{{ site.title }}</a>
 		{% endif %}
 		</p>
