@@ -2819,12 +2819,6 @@ pre .javascript .function {
     font-size: 200%;
 }
 
-@media only screen and (max-width:1024px) {
-    #totop {
-        display: none !important
-    }
-}
-
 article .article-content img.emoji {
     padding: 0px;
     margin: 0em 0.2em 0.25em 0.2em;
