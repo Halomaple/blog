@@ -73,7 +73,7 @@ mathjax: false      #enable mathjax if true
 
 #### Author information
 author:
-  #name: Jeff      ## e.g. wuchong Author name
+  name: Jeff      ## e.g. wuchong Author name
   #intro_line1:  "Welcome to Halomaple"    ## your introduction on the bottom of the page
   #intro_line2:  "This is my blog,believe it or not."  ## the 2nd line
   #site_name: ##set the site name
