@@ -3,7 +3,7 @@ layout: post
 title: "函数属性和方法"
 date: 2016-08-26 23:00:00 +0800
 category: Javascript
-tag: function, property
+tag: [function, property]
 ---
 
 对于ECMAScript 中的引用而言Prototype是保存它们所有实例方法的真正所在。换句话说，诸如toString()和valueOf()等方法实际上都保存在prototype名下，只不过是通过各自对象的实例访问。在ECMAScript5中，prototype属性是不可枚举的因此，使用for-in无法发现。
