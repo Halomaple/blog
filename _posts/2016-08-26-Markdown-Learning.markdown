@@ -6,22 +6,25 @@ category: Learning
 tag: markdown
 ---
 
-**6 Headings using #**
+# First - Headings
 
-# First - Link
+There are two ways to generate headings: # and ==
 
-This is a [link](http://halomaple.com) to Halomaple.com
+A # and a blank after it will generate a first level heading as this section title. 
+An = (can be more) or a - will also generate a first level heading.
 
-## Second - Font
+\#\# for second level heading and \#\#\# for third level heading and so on.
+
+# Second - Font 
 
 This is a *itallic* (using \*\* ) _text_ (using \_ \_ ).
 And this is a **bold** (using \*\* \*\* ) __font__ (using \_ \_&nbsp;&nbsp;\_ \_ )
 
-### Third - Language
+# Third - Language
 
 Markdown supports 中文, 日本語の, 한국어, русский, El español, Português, svenska, In Italiano ...
 
-#### Fourth - List
+# Fourth - List
 
 I'd like to see a unordered list(using *, + or - ).
 
@@ -35,7 +38,7 @@ and a ordered list
 2. Talk to someone
 3. Be happy
 
-##### Fifth - HTML & Table
+# Fifth - HTML & Table
 
 I can create a table using:
 
@@ -110,7 +113,7 @@ which shows like
 | col 2 is      | centered      |   $12 |
 | zebra stripes | are neat      |    $1 |
 
-###### Sixth - JS code
+# Sixth - JS code
 
 \`\`\` &nbsp;&nbsp; \`\`\` is use for presenting codes
 
@@ -131,10 +134,8 @@ Or \`  \` for inline code: `alert("inline code")`
 
 ---
 
-**2 Headings using = and -**
+# Seventh - Split lines
 
-Seventh - Split lines
-=======
 *** or --- at new lines can generate split lines.
 
 ***
@@ -148,8 +149,10 @@ line3
 
 ---
 
-Eighth - Image
---
+# Eighth - Image & Link
+
 ![This is an image](http://halomaple.com/assets/img/logo.png "logo image")
 
 Currently markdown can't control the width and height of an image.
+
+This is a [link](http://xkcd.com) to xkcd.com(a funny website. I am sure you will love it).
