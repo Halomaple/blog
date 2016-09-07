@@ -9,19 +9,6 @@
 <script src="{{ site.assets }}/js/toc.js"></script>
 
 <script type="text/javascript">
-  if(typeof jQuery == 'undefined'){
-    //Second choice: css and js from https://cdnjs.com
-    document.write(unescape("%3Clink rel='text/stylesheet' href='http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css' type='text/css' %3E/%3E"));
-    document.write(unescape("%3Clink rel='text/stylesheet' href='http://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css' type='text/css' %3E/%3E"));
-
-    document.write(unescape("%3Cscript type='text/javascript' src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js'%3E/script%3E"));
-    document.write(unescape("%3Cscript type='text/javascript' src='http://cdnjs.cloudflare.com/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js'%3E/script%3E"));
-    document.write(unescape("%3Cscript type='text/javascript' src='http://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js'%3E/script%3E"));
-    document.write(unescape("%3Cscript type='text/javascript' src='http://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/2.1.0/jquery.imagesloaded.min.js'%3E/script%3E"));
-  }
-</script>
-
-<script type="text/javascript">
 $(document).ready(function(){ 
   $('.navbar').click(function(){
     $('header nav').toggleClass('shownav');
@@ -266,6 +253,19 @@ $(document).ready(function(){
 }); 
 </script>
 {% endif %}
+
+<script type="text/javascript">
+  if(typeof jQuery == 'undefined'){
+    //Second choice: css and js from https://cdnjs.com
+    document.write(unescape("%3Clink rel='text/stylesheet' href='http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css' type='text/css' %3E/%3E"));
+    document.write(unescape("%3Clink rel='text/stylesheet' href='http://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css' type='text/css' %3E/%3E"));
+
+    document.write(unescape("%3Cscript type='text/javascript' src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js'%3E/script%3E"));
+    document.write(unescape("%3Cscript type='text/javascript' src='http://cdnjs.cloudflare.com/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js'%3E/script%3E"));
+    document.write(unescape("%3Cscript type='text/javascript' src='http://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js'%3E/script%3E"));
+    document.write(unescape("%3Cscript type='text/javascript' src='http://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/2.1.0/jquery.imagesloaded.min.js'%3E/script%3E"));
+  }
+</script>
 
 <!-- Analytics Begin -->
 {% include _partial/analytics.html %}
