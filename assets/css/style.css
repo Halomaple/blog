@@ -654,6 +654,7 @@ header nav ul li a:hover {
     width: 95%;
     margin: 0 auto;
     overflow: hidden;
+    min-height: 729px;
 }
 
 @media only screen and (min-width:768px) {
@@ -1067,7 +1068,6 @@ article .article-content {
     padding: 1.5em 4%;
     color: #413f3f;
     font-size: 100%;
-    min-height: 520px;
 }
 
 article .article-content:before,
