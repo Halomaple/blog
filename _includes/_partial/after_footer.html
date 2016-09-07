@@ -9,6 +9,12 @@
 <script src="{{ site.assets }}/js/toc.js"></script>
 
 <script type="text/javascript">
+  if(typeof jQuery == undefined){
+    document.write(unescape("%3Cscript type='text/javascript' src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.js'%3E/script%3E"));
+  }
+</script>
+
+<script type="text/javascript">
 $(document).ready(function(){ 
   $('.navbar').click(function(){
     $('header nav').toggleClass('shownav');
