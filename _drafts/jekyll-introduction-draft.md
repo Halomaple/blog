@@ -1,37 +1,6 @@
 ---
 layout: post
-title: "Git 命令大全"
-date: 2016-09-07 14:49:39 +0800
-category: Learning
-tag: [Git]
+title: "draft"
+category: category
+tag: [tag]
 ---
-
-最近常用到的一些命令，记录下来
----
-git 显示命令和帮助
-
-git help <command\> 打开对应命令的帮助信息
-
-git add <file\>缓存修改 
-
-git add . 缓存所有修改,同git add -all (-a)
-
-git commit -m "<comment\>" 提交修改并添加comment
-
-git push 将本地分支的更新,推送到远程主机
-
-git pull 拉取远程代码到本地
-
-git checkout --<file\> 撤销未缓存的文件修改
-
-git reset HEAD <file\> 撤销已缓存的文件修改
-
-git reset HEAD~1 --hard 通过reset HEAD的方式来撤销一次提交 (~2 两次)
-
-git push <remote\> <branch\> --force (-f) 推送到服务器
-
-git rm <file\> 删除文件,之后需要commit
-
-git config --global alias.acm '!git commit -a -m ' 可以自定义acm命令,实现add + commit -m的功能
-
-未完待续...
