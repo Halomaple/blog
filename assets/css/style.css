@@ -654,7 +654,7 @@ header nav ul li a:hover {
     width: 95%;
     margin: 0 auto;
     overflow: hidden;
-    min-height: 729px;
+    min-height: 704px;
 }
 
 @media only screen and (min-width:768px) {
@@ -1675,12 +1675,12 @@ footer.article-footer {
 }
 
 .article-nav {
-    padding: 0 10%;
+    padding: 20px 10%;
 }
 
 @media only screen and (min-width:768px) {
     .article-nav {
-        padding: 0 4%
+        padding: 20px 4%;
     }
 }
 
@@ -2079,7 +2079,7 @@ section.comment {
 }
 
 .archiveslist li {
-    font-size: .8em;
+    font-size: 1em;
     line-height: 2em;
 }
 
