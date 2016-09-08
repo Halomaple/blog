@@ -48,7 +48,8 @@ tag: [Git]
 `git push <remote> <branch> --force (-f)` 推送到服务器
 
 <br />
-`git rm <file>` 删除文件，之后需要commit
+
+git rm <file\> 删除文件,之后需要commit
 
 <br />
 `git config --global alias.acm '!git commit -a -m'` 可以自定义acm命令，实现add + commit -m的功能，之后就可以使用`git acm`了
