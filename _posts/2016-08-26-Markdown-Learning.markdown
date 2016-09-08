@@ -95,7 +95,7 @@ And it shows like this:
     </tbody>
 </table>
 
-Or using: 
+Or using:
 
 ```
 | Tables        | Are           | Cool  |
