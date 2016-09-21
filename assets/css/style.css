@@ -610,8 +610,6 @@ header nav ul li a:hover {
 }
 
 .search {
-    display: none;
-/*Hide search temporary*/
     padding: .1em 0 0 1em;
 }
 
