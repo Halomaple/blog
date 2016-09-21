@@ -24,9 +24,9 @@
 			</form>
 			{% elsif site.baidu_search.enable %}
 				<form class="search" onsubmit="return baiduWithHttps(this)" action="http://www.baidu.com/baidu" target="_blank">
-				    <input name="tn" type="hidden" value="SE_zzsearchcode_shhzc78w">
-				    <input type="text"  onfocus="checkHttps" name="word"  size="30">
-				    <input type="submit"value="百度搜索">
+					<input name="tn" type="hidden" value="SE_zzsearchcode_shhzc78w">
+					<input type="text" name="word" size="30">
+					<input aria-hidden="true" type="submit" value="百度搜索">
 				</form>
 				<script src="http://s1.bdstatic.com/r/www/cache/global/js/BaiduHttps_20150714_zhanzhang.js"></script>
 			{% endif %}
