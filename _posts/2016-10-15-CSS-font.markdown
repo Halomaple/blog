@@ -1,0 +1,65 @@
+---
+layout: post
+title: "CSS Font"
+date: 2016-10-15 17:40:00 +0800
+category: [Learning, CSS]
+tag: [CSS, font-family]
+---
+
+## CSS 字体系列
+
+CSS定义了5种通用的字体系列。
+
+* Serif 字体——成比例，有上下短线，包括: Times、Georgia和New Century Schoolbook
+* Sans-serif 字体——成比例，没有上下短线，包括：GenevaVendana、Arial和Univers
+* Monospace 字体——等宽，可能有上下短线，用于模拟打字机文本和老式点阵打印机的输出，包括: Courier、Courier New 和 Andale Mono
+* Cursive 字体——模仿手写体，包括：Zapf Chancery、Author和Comic Sans
+* Fantasy 字体——无法用特征来定义，包括: Western、Woodblock和Klingon
+
+## font-family
+
+```font-family: [[<family-name> | <generic-family>], ]* [<family-name> | ```
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;```<generic-family>] | inherit```
+
+初始值： 用户代理指定的值
+
+应用于： 所有元素
+
+继承性：　有
+
+计算值： 根据指定值确定
+
+font-family可以使用**通用字体系列**和**指定字体系列**。
+
+> 如果希望文档使用一种sans-serif字体而不关心是哪一种具体字体时可以用：①```body {font-family:sans-serif;} ```这样用户代理就会从sans-serif字体系列中选择一个字体来应用到body元素。
+
+> 如果使用具体字体：②```h1{font-family: Georgia;}```如果Georgia字体可用，用户代理将对所有的h1使用Georgia字体。如果不可用，规则无效，采用用户代理的默认字体显示h1。
+
+> 当然可以通过结合特定字体和通用字体来达到文档的尽量统一： ```h1 {font-family: Georgia, serif;}```此声明表示如果Georgia可用则使用Georgia字体，否则使用另外一种serif字体。
+
+强烈建议在所有的font-family规则中都提供一个通用字体系列（备选），因为在一个跨平台的环境，将无法知道谁安装了什么字体。
+
+Note: 如果字体名中出现一个或多个空格，或者包含#或$之类的符号时，尽量使用引号 ' ' 来包住:```h1 {font-family: 'New Century Schoolbook'}```
+
+CSS2.1 规定包含符号的字体并不一定要加引号，但是这是安全的做法，是“最佳实践”。但如果字体名字和关键字相同，尽管没有空格或特殊符号，也必须使用引号，如"cursive"字体。在指定具体的通用系列时不能加引号，否则用户代理会认为你需要一个与此同名的特字体如serif，而不是一个通用字体。
+
+## font-weight
+
+### - - 格式
+
+```font-weight: normal | bold | bolder | lighter | 100 | 200 | 300 | 400 | 500 | ```
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;```600 | 700 | 800 | 900 | inherit```
+
+初始值： normal
+
+应用于： 所有元素
+
+继承性：　有
+
+计算值： 数字值(如100等等)，或某个数字值加上某个相对数(bolder或lighter)
+
+```p {font-weight: bold}```会使字体加粗显示，实际上是使用字体的一种加粗变形来显示p元素。如果p的使用字体是Times, 那么加粗的p则是使用TimesBold字体。
+
+### - - 如何加粗
+
+加粗等级分成9级： 100 200 ... ~  ... 900 
