@@ -2,7 +2,7 @@
 layout: post
 title: "Git 命令大全"
 date: 2016-09-07 14:49:39 +0800
-category: Learning
+category: [Learning, Git]
 tag: [Git]
 ---
 
