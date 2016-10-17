@@ -45,7 +45,7 @@ CSS2.1 规定包含符号的字体并不一定要加引号，但是这是安全�
 
 ## font-weight
 
-### - - 格式
+### - 格式
 
 ```font-weight: normal | bold | bolder | lighter | 100 | 200 | 300 | 400 | 500 | ```
 &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;```600 | 700 | 800 | 900 | inherit```
@@ -60,6 +60,29 @@ CSS2.1 规定包含符号的字体并不一定要加引号，但是这是安全�
 
 ```p {font-weight: bold}```会使字体加粗显示，实际上是使用字体的一种加粗变形来显示p元素。如果p的使用字体是Times, 那么加粗的p则是使用TimesBold字体。
 
-### - - 如何加粗
+### - 如何加粗
 
-加粗等级分成9级： 100 200 ... ~  ... 900 
+加粗等级分成9级： 100 200 ... ~  ... 900
+
+> CSS规范只是指出，每个数对应一个加粗度，它至少与前一个数指定的加粗的相同。因此100、200、300和400都可能映射到同样的较细变形；500和600可能对应到同样的较粗字体变形；而700、800和900可能都生成同样的很粗的字体变形。只要一个关键字的变形不会比前一个关键字所对应的变形更细，就都是允许的。
+
+100到900的数字表现要字体指定，一般400定义为normal，700对应于bold。
+
+两个特殊值：bolder会导致加粗度上移，同理lighter会导致加粗度下移。
+
+## font-size
+
+```font-size: xx-small | x-small | small | medium | large | x-large | xx-large |```
+ &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;```smaller | larger | <length> | <percentage> | inherit```
+
+ 初始值： medium
+
+ 应用于： 所有元素
+
+ 继承性：　有
+
+ 百分数： 根据父元素的字体大小来计算
+
+ 计算值： 绝对长度
+
+ 
