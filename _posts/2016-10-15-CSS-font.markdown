@@ -6,7 +6,7 @@ category: [Learning, CSS]
 tag: [CSS, font-family]
 ---
 
-## CSS 字体系列
+## CSS 字体
 
 CSS定义了5种通用的字体系列。
 
@@ -16,7 +16,7 @@ CSS定义了5种通用的字体系列。
 * Cursive 字体——模仿手写体，包括：Zapf Chancery、Author和Comic Sans
 * Fantasy 字体——无法用特征来定义，包括: Western、Woodblock和Klingon
 
-## font-family
+## font-family 字体系列
 
 ```font-family: [[<family-name> | <generic-family>], ]* [<family-name> | ```
 &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;```<generic-family>] | inherit```
@@ -43,7 +43,7 @@ Note: 如果字体名中出现一个或多个空格，或者包含#或$之类的
 
 CSS2.1 规定包含符号的字体并不一定要加引号，但是这是安全的做法，是“最佳实践”。但如果字体名字和关键字相同，尽管没有空格或特殊符号，也必须使用引号，如"cursive"字体。在指定具体的通用系列时不能加引号，否则用户代理会认为你需要一个与此同名的特字体如serif，而不是一个通用字体。
 
-## font-weight
+## font-weight 字体加粗
 
 ### - 格式
 
@@ -70,19 +70,145 @@ CSS2.1 规定包含符号的字体并不一定要加引号，但是这是安全�
 
 两个特殊值：bolder会导致加粗度上移，同理lighter会导致加粗度下移。
 
-## font-size
+## font-size 字体大小
 
 ```font-size: xx-small | x-small | small | medium | large | x-large | xx-large |```
  &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;```smaller | larger | <length> | <percentage> | inherit```
 
- 初始值： medium
+初始值： medium
 
- 应用于： 所有元素
+应用于： 所有元素
 
- 继承性：　有
+继承性：　有
 
- 百分数： 根据父元素的字体大小来计算
+百分数： 根据父元素的字体大小来计算
 
- 计算值： 绝对长度
+计算值： 绝对长度
 
- 
+font-size属性与用户看到的实际字体大小直径的具体关系由字体的设计者来确定，这种关系设置为字体本身中的一个em方框。em不一定指示字体中字符建立边界，相反，它指示如果没有定义额外行间距（line-height）设置字体时基线间的距离。某种字体的的字符可能比基线要高，但大部分字体都定义字符小于其em框。font-size的作用是为给定字体的em框提供一个大小，而不能保证实际显示的字符就是这种大小。
+
+* 绝对大小：xx-small, x-small, small medium, large, x-large, xx-large。 CSS1规范，一个绝对大小与下一个绝对大小之间的差别（或缩放因子）应当是向上1.5或者往下0.66，这个缩放因子由用户代理来定义。
+
+* 相对大小：smaller & larger 相对于其父元素大小在绝对大小梯度采用计算因子上移或下移
+
+`p {font-size: medium}`
+`strong, em{font-size: larger}`
+
+```
+<p> medium
+	<strong> large
+		<em> x-large
+			<strong>xx-large</strong>
+		</em>
+	</strong>
+<p>
+```
+
+* 百分数和大小：根据父元素继承的大小来计算。
+
+* 字体大小和继承：根据计算值继承
+
+```
+p {font-size: 12px;}
+em {font-size: 120%;}
+strong {font-size: 135%;}
+```
+
+其中strong元素的大小值计算如下：
+12px ✖ 120% = 14.4px （可能取整为14px）
+14.4px ✖ 135% = 19.44px（可能取整为19px）
+
+* 使用长度单位
+
+```
+p.one {font-size: 36pt;}
+p.two {font-size: 3pc;}
+p.three {font-size: 0.5in;}
+p.four {font-size: 1.27cm;}
+p.five {font-size: 12.7mm;}
+```
+
+## font-style 字体风格
+
+值： normal | oblique | normal | inherit
+
+初始值： normal
+
+应用于： 所有元素
+
+继承性：　有
+
+计算值： 根据指定确定
+
+italic 和 oblique的区别：斜体（italic）是一种单独的字体风格，对每个字母的结构有一些小改动。而倾斜（oblique）则是正常竖直（normal）文本的一个倾斜版！
+
+## font-variant 字体变形
+
+值： small-caps | normal | inherit
+
+初始值： normal
+
+应用于： 所有元素
+
+继承性：　有
+
+计算值： 根据指定确定
+
+若定义规则
+```
+h1 {font-variant: small-caps;}
+```
+在h1元素的显示中，只要文本源中出现大写字母则显示一个更大的大写字母，出现一个小写字母，就显示一个小型的大写字母。
+
+small-caps由字体来定义。若没有这样的字体则：1）用户代理自己缩放大写字母来创建一个small-caps字体。2）让所有字母都大写，而且大小相同（和声明text-transform:upper-case;一样）。
+
+## font-stretch 拉伸字体
+
+值： normal | wider | narrower | ultra-condensed | extra-condensed | condensed | semi-condensed | semi-expanded | expanded | extra-expanded | ultra-expanded | inherit
+
+初始值： normal
+
+应用于： 所有元素
+
+继承性：　有
+
+这个属性用于让一种字体的字符更胖或更瘦。
+
+## font-size-adjust 调整字体
+
+值： &lt;number&gt; | none | inherit
+
+初始值： none
+
+应用于： 所有元素
+
+继承性：　有
+
+
+## font 属性
+
+值： [[&lt;font-style&gt; || &lt;font-varian&gt; || &lt;font-weight&gt;] ? &lt;font-size&gt; [/&lt;line-height&gt;] ? &lt;font-family&gt;] | caption | icon | menu | message-box | small-caption | status-bar | inherit
+
+初始值： 根据单个属性
+
+应用于： 所有元素
+
+继承性：　有
+
+百分数： 对于&lt;font-size&gt;要相对于父元素来计算；对于 &lt;line-height&gt;则相对于元素的&lt;font-size&gt;来计算
+
+计算值： 见单个属性（font-style等）
+
+* 前三个属性 - 只有前面三个属性&lt;font-style&gt; || &lt;font-varian&gt; || &lt;font-weight&gt; 可以按照任何顺序来写。如果三个中某一属性为normal，则可以忽略。
+
+* 两个必要属性 - font-size一定要在font-family前面，而且font声明里面必须有这两个值，其他值都是可选的。
+
+* line-height - 增加行高，它是一个文本属性，但也可以作为对font-size的一个补充，用一个斜线（／）与之分隔：`h2 {font: bold italic 200%/1.2 Verdana, Helvertica, Arial, sans-serif;}`line-height是可选的，如果出现必须在font-size／后面。
+
+* 简写 - 所有被忽略（没写出来的属性）都会重置为其默认值。
+
+* 使用系统字体 - 取得操作系统中的元素字体大小、字体系列、字体加粗、字体风格和变形，并将其应用到一个元素。例如把一个按钮的字体设置为与操作系统的按钮字体完全相同：`button {font: caption}`。系统字体可能只能整体设置，字体系列、大小、加粗、风格等一起设置。不过一旦设置了系统字体，就可以修改其中的单个值。如：确保按钮的字体与其父元素的字体大小相等：`button{font: caption; font-size: 1em;}`。在需要一个系统字体但用户机器上找不到的时候，用户代理可能试图找一种近似的字体。
+
+## 字体匹配
+
+过程比较复杂......
