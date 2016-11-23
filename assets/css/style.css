@@ -1217,7 +1217,7 @@ article .article-content table td>code {
     color: #d14;
     text-shadow: 0 1px #fff;
     white-space: normal;
-    white-space: nowrap;
+    word-break: break-word;
     font-size: 90%;
     font-family: Monaco, Menlo, Consolas, Courier New, monospace;
 }
@@ -2865,7 +2865,6 @@ article .article-content img.emoji {
 .highlight .vg { color: #f8f8f2 } /* Name.Variable.Global */
 .highlight .vi { color: #f8f8f2 } /* Name.Variable.Instance */
 .highlight .il { color: #ae81ff } /* Literal.Number.Integer.Long */
-
 .highlight .gh { } /* Generic Heading & Diff Header */
 .highlight .gu { color: #75715e; } /* Generic.Subheading & Diff Unified/Comment? */
 .highlight .gd { color: #f92672; } /* Generic.Deleted & Diff Deleted */
