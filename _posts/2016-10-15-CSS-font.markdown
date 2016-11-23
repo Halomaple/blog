@@ -18,8 +18,7 @@ CSS定义了5种通用的字体系列。
 
 ## font-family 字体系列
 
-```font-family: [[<family-name> | <generic-family>], ]* [<family-name> | ```
-&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;```<generic-family>] | inherit```
+```font-family: [[<family-name> | <generic-family>], ]* [<family-name> | <generic-family>] | inherit```
 
 初始值： 用户代理指定的值
 
@@ -47,8 +46,7 @@ CSS2.1 规定包含符号的字体并不一定要加引号，但是这是安全�
 
 ### - 格式
 
-```font-weight: normal | bold | bolder | lighter | 100 | 200 | 300 | 400 | 500 | ```
-&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;```600 | 700 | 800 | 900 | inherit```
+```font-weight: normal | bold | bolder | lighter | 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900 | inherit```
 
 初始值： normal
 
@@ -72,8 +70,7 @@ CSS2.1 规定包含符号的字体并不一定要加引号，但是这是安全�
 
 ## font-size 字体大小
 
-```font-size: xx-small | x-small | small | medium | large | x-large | xx-large |```
- &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;```smaller | larger | <length> | <percentage> | inherit```
+```font-size: xx-small | x-small | small | medium | large | x-large | xx-large | smaller | larger | <length> | <percentage> | inherit```
 
 初始值： medium
 
@@ -130,7 +127,7 @@ p.five {font-size: 12.7mm;}
 
 ## font-style 字体风格
 
-值： normal | oblique | normal | inherit
+值： `normal | oblique | normal | inherit`
 
 初始值： normal
 
@@ -144,7 +141,7 @@ italic 和 oblique的区别：斜体（italic）是一种单独的字体风格�
 
 ## font-variant 字体变形
 
-值： small-caps | normal | inherit
+值： `small-caps | normal | inherit`
 
 初始值： normal
 
@@ -164,7 +161,7 @@ small-caps由字体来定义。若没有这样的字体则：1）用户代理自
 
 ## font-stretch 拉伸字体
 
-值： normal | wider | narrower | ultra-condensed | extra-condensed | condensed | semi-condensed | semi-expanded | expanded | extra-expanded | ultra-expanded | inherit
+值： `normal | wider | narrower | ultra-condensed | extra-condensed | condensed | semi-condensed | semi-expanded | expanded | extra-expanded | ultra-expanded | inherit`
 
 初始值： normal
 
@@ -176,7 +173,7 @@ small-caps由字体来定义。若没有这样的字体则：1）用户代理自
 
 ## font-size-adjust 调整字体
 
-值： &lt;number&gt; | none | inherit
+值： `<number>; | none | inherit`
 
 初始值： none
 
@@ -187,7 +184,7 @@ small-caps由字体来定义。若没有这样的字体则：1）用户代理自
 
 ## font 属性
 
-值： [[&lt;font-style&gt; || &lt;font-varian&gt; || &lt;font-weight&gt;] ? &lt;font-size&gt; [/&lt;line-height&gt;] ? &lt;font-family&gt;] | caption | icon | menu | message-box | small-caption | status-bar | inherit
+值： `[[<font-style> || <font-varian> || <font-weight>] ? <font-size> [/<line-height>] ? <font-family>] | caption | icon | menu | message-box | small-caption | status-bar | inherit`
 
 初始值： 根据单个属性
 
