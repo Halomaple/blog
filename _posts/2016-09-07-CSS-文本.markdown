@@ -40,7 +40,7 @@ p {width: 200px;}
 </div>
 ```
 
-![InheritanceOfTextIndent](http://halomaple.com/images/InheritanceOfTextIndent.png)
+![InheritanceOfTextIndent](../images/InheritanceOfTextIndent.png)
 
 ## text-align
 
