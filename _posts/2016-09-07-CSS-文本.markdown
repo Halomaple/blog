@@ -83,7 +83,7 @@ line-height属性指文本行基线之间的距离，而不是字体大小。
 文本行中的每个元素都会生成一个内容区，由字体的大小确定。这个内容区会生成一个**行内框**(inline box)
 要确定行间距，只需将line-height的计算值减去font-size的计算值（可能为负）。然后行间距除以2，得到的值平均分别应用到内容的顶部和底部，结果就是该元素的行内框。
 
-![inline box](http://halomaple.com/images/inline-box.png)
+![inline box](../images/inline-box.png)
 
 
 
