@@ -6,9 +6,6 @@ category: [Learning, CSS文本属性]
 tag: [CSS, text]
 ---
 
-
-## 缩紧和水平对齐
-
 ## text-indent
 
 值： `<lenght> | <percentage> | inherit`
@@ -43,4 +40,4 @@ p {width: 200px;}
 </div>
 ```
 
-![InheritanceOfTextIndent](../_images/InheritanceOfTextIndent.png)
+![InheritanceOfTextIndent](http://halomaple.com/assets/img/InheritanceOfTextIndent.png)
