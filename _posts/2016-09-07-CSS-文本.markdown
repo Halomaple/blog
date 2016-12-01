@@ -1,0 +1,46 @@
+---
+layout: post
+title: "CSS 文本"
+date: 2016-11-28 19:40:00 +0800
+category: [Learning, CSS文本属性]
+tag: [CSS, text]
+---
+
+
+## 缩紧和水平对齐
+
+## text-indent
+
+值： `<lenght> | <percentage> | inherit`
+
+初始值： 0
+
+应用于： 块级元素
+
+继承性：　有
+
+百分数： 相对于包含块的宽度
+
+计算值： 对于百分数值，要根据指定确定；对于长度值，则为绝对长度
+
+例：`p {text-indent: 3em;}`
+
+注意text-indent无法应用于行内元素，但如果首行有一个图像（行内元素）也会随着文本移动。
+
+<p style="text-indent: -6em">text-indent也可以设置为负值，利用这种技术，可以实现“悬挂缩进”，即第一行悬挂在余下元素的左边。注意文字可能超出浏览器的窗口边界</p>
+
+text-indent是可以继承的。下面代码中p首行也会缩进10%：
+
+```
+div#inner {text-indent: 10%;}
+p {width: 200px;}
+
+<div id="inner">
+	This first line of the OlV is indented by 50 pixels.
+	<p>
+		This paragraph is 200px wide. ond the first line of the paragraph is indented SOpx. Thia is because canputed values for are inherited, instead of the declared values.
+	</p>
+</div>
+```
+
+![InheritanceOfTextIndent](../_images/InheritanceOfTextIndent.png)
