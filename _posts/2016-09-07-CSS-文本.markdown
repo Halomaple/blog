@@ -8,7 +8,7 @@ tag: [CSS, text]
 
 ## text-indent
 
-值： `<lenght> | <percentage> | inherit`
+值： `<length> | <percentage> | inherit`
 
 初始值： 0
 
@@ -40,4 +40,56 @@ p {width: 200px;}
 </div>
 ```
 
-![InheritanceOfTextIndent](http://halomaple.com/assets/img/InheritanceOfTextIndent.png)
+![InheritanceOfTextIndent](http://halomaple.com/images/InheritanceOfTextIndent.png)
+
+## text-align
+
+CSS2.1 值： `left | center | right | justify | inherit`
+
+CSS2 值： `left | center | right | justify | <string> | inherit`
+
+初始值： 用户代理特定的值；还可能取决于书写方向
+
+应用于： 块级元素
+
+继承性： 有
+
+计算值： 根据指定确定
+
+说明： CSS2 包含一个&lt;string&gt;值，因为没有相应实现，所以在CSS2.1中已经去除
+
+text-align不会控制元素的对齐（&lt;<CENTER&gt;不仅影响文本，还把整个元素居中），而只影响其内部内容。
+
+justify使文本对齐在父元素的内边界上。对齐的方法有用户代理确定：1）采用单词之间增加额外空间；2）平均分配增加字母间隔（CSS规范指出，如果`letter-spacing`为一个长度值，则此方法无效）。
+
+CSS也没有指出换行时的连字符，因为不同的语言有不同的连字符规则，而用户代理通常不会自动加连字符，所以两端对齐文本基本没有连字符。
+
+## line-height
+
+line-height属性指文本行基线之间的距离，而不是字体大小。
+
+值： `<length> | <percentage> | <number> | normal | inherit `
+
+初始值： `normal`
+
+应用于： 所有元素
+
+继承性： 有
+
+百分数： 相对于元素的字体大小
+
+计算值： 对于长度和百分数值是绝对数值；否则，根据指定确定
+
+文本行中的每个元素都会生成一个内容区，由字体的大小确定。这个内容区会生成一个**行内框**(inline box)
+要确定行间距，只需将line-height的计算值减去font-size的计算值（可能为负）。然后行间距除以2，得到的值平均分别应用到内容的顶部和底部，结果就是该元素的行内框。
+
+![inline box](http://halomaple.com/images/inline-box.png)
+
+
+
+
+
+
+
+
+
