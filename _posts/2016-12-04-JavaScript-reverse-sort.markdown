@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "JavaScript中reverse()和sort()方法"
+title: "JavaScript中reverse( )和sort( )方法"
 date: 2016-12-04 22:40:00 +0800
 category: [Learning, JavaScript, reverse(),sort()]
 tag: [JS, reverse(), sort()]
