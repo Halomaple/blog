@@ -31,16 +31,15 @@ text-indent是可以继承的。下面代码中p首行也会缩进10%：
 ```
 div#inner {text-indent: 10%;}
 p {width: 200px;}
-
 <div id="inner">
-	This first line of the OlV is indented by 50 pixels.
-	<p>
-		This paragraph is 200px wide. ond the first line of the paragraph is indented SOpx. Thia is because canputed values for are inherited, instead of the declared values.
-	</p>
+This first line of the OlV is indented by 50 pixels.
+<p>
+This paragraph is 200px wide. ond the first line of the paragraph is indented SOpx. Thia is because canputed values for are inherited, instead of the declared values.
+</p>
 </div>
 ```
 
-![InheritanceOfTextIndent](../images/InheritanceOfTextIndent.png)
+![文本缩进继承](../images/InheritanceOfTextIndent.png)
 
 ## text-align
 
@@ -58,7 +57,7 @@ CSS2 值： `left | center | right | justify | <string> | inherit`
 
 说明： CSS2 包含一个&lt;string&gt;值，因为没有相应实现，所以在CSS2.1中已经去除
 
-text-align不会控制元素的对齐（&lt;<CENTER&gt;不仅影响文本，还把整个元素居中），而只影响其内部内容。
+text-align不会控制元素的对齐（&lt;CENTER&gt;不仅影响文本，还把整个元素居中），而只影响其内部内容。
 
 justify使文本对齐在父元素的内边界上。对齐的方法有用户代理确定：1）采用单词之间增加额外空间；2）平均分配增加字母间隔（CSS规范指出，如果`letter-spacing`为一个长度值，则此方法无效）。
 
@@ -85,11 +84,228 @@ line-height属性指文本行基线之间的距离，而不是字体大小。
 
 ![inline box](../images/inline-box.png)
 
+line-height默认值为normal，通常是字体大小的1.2倍。当其是从父元素继承来的一个值时，要从父元素计算，而不是在子元素上。
+
+```
+body {font-size: 10px;}
+div {line-height: 1em;}  //父元素 10px
+p {font-size: 18px;}  //子元素：line-height是继承值1em(10px 这里会出现font-size大于line-height的情况)
+```
+
+当其是一个数时，line-height值会根据其font-size的值计算
+
+```
+body {font-size: 10px;}
+div {line-height: 1;}
+p {font-size: 18px;}   //line-height: 18px * 1 = 18px;
+
+div2 {line-height: 1.5}
+p2 {font-size: 18px}   //line-height:18px * 1.5 = 27px;
+```
+
+## vertical-align
+
+值： `baseline | sub | supper | top | text-top | middle | bottom | text-bottom | <percentage> | <length> | inherit`
+
+初始值： baseline
+
+应用于： 行内元素和表单元格
+
+继承性： 无
+
+百分数： 相对于元素的line-height值
+
+计算值： 对于百分数和长度值，为绝对长度；否则，根据指定确定
+
+说明： 应用到表单元格时，只能识别baseline、top、middle和bottom等值
 
 
+注意：vertical-align不影响块级元素内容的对齐，不过，可以影响表单元格中的垂直对齐
+
+* `vertical-align: baseline`  //如果垂直对齐元素没有基线，那么该元素的低端与其父元素的基线对齐。
+
+```
+img {vertical-align: baseline}
+<p>The image found in this paragraph <img src="dot.gif"alt="A dot"/>has its bottom edge aligned with the baseline of the text in the paragraph</p>
+```
+
+![图像的基线对齐](../images/bottomAlignedWithFatherbaseline.png)
+
+* `vertical-align: sub`  //使一个元素变成下标，元素基线（或者低端）相对于其父元素的基线降低，规范未定义降低的距离。
+
+* `vertical-align: super`  //和sub刚好相反，元素基线（或者低端）相对于父元素的基线升高。注意sub和super不会改变元素的字体大小！
+
+```
+span.raise {vertical-align: super;}
+span.lower {vertical-align: sub;}
+
+<p>This paragraph contains <span class="raise">superscripted</span> and <span class="lower">subscripted</span> text.</p>
+```
+
+![上标和下标对齐](../images/subandsuper.png)
+
+* `vertical-align: bottom`  //将元素行内框的底端与行框的底端对齐。
+
+* `vertical-align: text-bottom`  //元素的行内底框和文本框的底端对齐。非文本元素（替换元素）会忽略这个值，考虑一个“默认的”文本框，由父元素的font-size获得。
+
+* `vertical-align: top` //和bottom刚好相反
+
+* `vertical-align: middle`  //把行内元素的中点与父元素基线上方0.5ex处的一个点对齐，这里1ex相对于父元素的font-size定义。大多数用户代理把1ex处理为0.5em，middle往往将元素的垂直中点与父元素基线上方0.25em处的一个点对齐。
+
+![居中对齐的详细说明](../images/vertical-align-middle.png)
+
+* `vertical-align: <percentage>`  //百分数（正负值）会把元素的基线（或替换元素的底边）相对于父元素的基线升高或降低指定的量，这个量由百分数和元素本身（定义或继承来）的line-height计算得到
+
+* `vertical-align: x px`  //（正负）长度对齐，把一个元素升高或者降低指定的距离。
+
+垂直对齐的文本不会成为另一行的一部分，页不会覆盖其他行的文本。
+
+![垂直对齐会使文本行变高](../images/vertical-align-effect.png)
+
+可以看到，所有垂直对齐的元素都会影响行高。因为行内框的高度要足以包含最高行内框的顶端和最低行内框的底端，这包括因垂直对齐上升或下降的行内框。
+
+## word-spacing
+
+值： `<length> | normal | inherit`
+
+初始值： normal
+
+应用于： 所有元素
+
+继承性： 有
+
+计算值： 对于normal，为绝对长度0；否则时绝对长度
+
+如果提供一个正长度值，字之间的间隔就会增加，负值则会将字拉近。这里“字”的定义是任何非空白符字符组成的串，并由某种空白符包围。
+
+![改变字间间隔](../images/word-spacing1.png)
+
+## letter-spacing
+
+值： `<length> | normal | inherit`
+
+初始值： normal
+
+应用于： 所有元素
+
+继承性： 有
+
+计算值： 对于长度值，为绝对长度；否则，为normal
+
+word-spacing遇到的许多问题同样出现在letter-spacing中，唯一不同的是letter-spacing改变的是字符或字母之间的间隔。
+
+![各种字母间隔](../images/letter-spacing1.png)
+
+word-spacing的值可能受text-align属性值影响（调整字之间的距离来大道两端对齐）。letter-spacing为长度值时不受text-align的影响，为normal时则会受影响。无法为word-spacing和letter-spacing定义一个可继承的缩放因子来取代计算值。如果想要字母间隔与文本大小成比例，唯一的办法就是显式地设置：
+
+```
+p {letter-spacing: 0.25em}
+small {font-size: 50%; letter-spacing: 0.25em;}
+```
+
+## text-transform
+
+值： `uppercase | lowercase | capitalize | none | inherit`
+
+初始值： none
+
+应用于： 所有元素
+
+继承性： 有
+
+计算值： 根据指定确定
+
+`text-transform: capitalize`可能会因为不同用户代理的处理不同而有不同的效果。例如heading-one可能显示为Heading-One, 也可能显示为Heading-one。CSS规范里capitalize只要求用户代理大写首字母，可以忽略单词的余下部分。
+
+## text-decoration
+
+值： `none | [underline || overline || line-through || blink ]| inherit`
+
+初始值： none
+
+应用于： 所有元素
+
+继承性： 无
+
+计算值： 根据指定确定
+
+text-decoration的值会替换而不是累积，如果定义了两个规则，胜出的规则会完全取代另一个规则。没有办法去掉父元素生成的下划线（或者上划线货贯穿线），考虑以下代码：
+
+```
+p {text-decoration: underline;}
+span {color: gray; text-decoration: none;}
+```
+尽管在span中已经声明了没有下划线，但还是会有下划线，因为在它的父元素p中声明下划线，穿过了span。有些浏览器会违反规范，不给span加下划线。
 
 
+## text-shadow
 
+值： `none | [<color> || <length> <length> <length>?,]* [<color> || <length> <length> <length>?] | inherit`
 
+初始值： none
 
+应用于： 所有元素
 
+继承性： 无
+
+CSS2定义了text-shadow，CSS2.1中没有保留，CSS3中包含了。前两个长度确定了阴影与文本的偏移距离，第三个长度可以。要定义一个相对于文本向右偏移0.5em的绿色阴影，而且不模糊，可以写作：
+
+```
+p {text-shadow: green 5px 0.5em;}
+```
+
+语法更新：`text-shadow: h-shadow v-shadow blur color`
+
+## white-space
+
+值： `normal | nowrap | pre | pre-wrap | pre-line | inherit`
+
+初始值： normal
+
+应用于： 所有元素（CSS2.1）；块级元素（CSS1 和 CSS2）
+
+继承性： 无
+
+计算值： 根据指定确定
+
+`p {white-space: normal;}`告诉浏览器按照平常一样去做，去掉多余的空格（换行字符会转换为空格，一行中的多个空格也会转换为一个空格）。
+
+`p {white-space: pre;}` 像pre元素一样，空白符、回车、tab 不会被忽略。
+
+`p {white-space: nowrap;}` 防止元素中的文本换行，除非使用了一个br元素。
+
+`p {white-space: pre-wrap;}` 保留空白符序列，但是文本行会正常地换行。原本的换行符以及生成的换行符也会保留。
+
+`p {white-space: pre-line;}` 和pre-wrap相反，合并空白符但保留换行符。
+
+![white-space属性](..images/white-space-table.png) 
+
+## direction
+
+值： `ltr | rtl | inherit`
+
+初始值： ltr
+
+应用于： 所有元素
+
+继承性： 有
+
+计算值： 根据指定确定
+
+direction影响块级元素文本的书写方向、表中列布局的方向、内容水平填充其元素框的方向，以及两端对齐元素中最后一行的位置。对于行内元素，只有当unicode-bidi属性设置为embed或bidi-override时才有效。
+
+## unicode-bidi
+
+值： `normal | embed | bidi-override | inherit`
+
+初始值： normal
+
+应用于： 所有元素
+
+继承性： 无
+
+计算值： 根据指定确定
+
+`{unicode-bidi: normal;}`元素不会对双向算法打开附加的一层嵌套。对于行内元素，顺序的隐式重拍会跨元素边界进行。
+`{unicode-bidi: embed;}`如果是行内元素，这个值对于双向算法会打开附加的一层嵌套。这个嵌套层的方向有direction属性指定。会在元素内部隐式地完成顺序重排。
+`{unicode-bidi: bidi-override;}`为行内元素创建一个覆盖。对于块级元素将为不在另一块的行内后代创建一个覆盖。顺序重排在元素内部严格按照direction属性进行；忽略了双向算法的隐式部分。
