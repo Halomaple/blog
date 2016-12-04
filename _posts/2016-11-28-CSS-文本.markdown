@@ -268,17 +268,17 @@ p {text-shadow: green 5px 0.5em;}
 
 计算值： 根据指定确定
 
-`p {white-space: normal;}`告诉浏览器按照平常一样去做，去掉多余的空格（换行字符会转换为空格，一行中的多个空格也会转换为一个空格）。
+* `p {white-space: normal;}`告诉浏览器按照平常一样去做，去掉多余的空格（换行字符会转换为空格，一行中的多个空格也会转换为一个空格）。
 
-`p {white-space: pre;}` 像pre元素一样，空白符、回车、tab 不会被忽略。
+* `p {white-space: pre;}` 像pre元素一样，空白符、回车、tab 不会被忽略。
 
-`p {white-space: nowrap;}` 防止元素中的文本换行，除非使用了一个br元素。
+* `p {white-space: nowrap;}` 防止元素中的文本换行，除非使用了一个br元素。
 
-`p {white-space: pre-wrap;}` 保留空白符序列，但是文本行会正常地换行。原本的换行符以及生成的换行符也会保留。
+* `p {white-space: pre-wrap;}` 保留空白符序列，但是文本行会正常地换行。原本的换行符以及生成的换行符也会保留。
 
-`p {white-space: pre-line;}` 和pre-wrap相反，合并空白符但保留换行符。
+* `p {white-space: pre-line;}` 和pre-wrap相反，合并空白符但保留换行符。
 
-![white-space属性](..images/white-space-table.png) 
+![white-space属性](../images/white-space-table.png) 
 
 ## direction
 
@@ -306,6 +306,6 @@ direction影响块级元素文本的书写方向、表中列布局的方向、�
 
 计算值： 根据指定确定
 
-`{unicode-bidi: normal;}`元素不会对双向算法打开附加的一层嵌套。对于行内元素，顺序的隐式重拍会跨元素边界进行。
-`{unicode-bidi: embed;}`如果是行内元素，这个值对于双向算法会打开附加的一层嵌套。这个嵌套层的方向有direction属性指定。会在元素内部隐式地完成顺序重排。
-`{unicode-bidi: bidi-override;}`为行内元素创建一个覆盖。对于块级元素将为不在另一块的行内后代创建一个覆盖。顺序重排在元素内部严格按照direction属性进行；忽略了双向算法的隐式部分。
+* `{unicode-bidi: normal;}`元素不会对双向算法打开附加的一层嵌套。对于行内元素，顺序的隐式重拍会跨元素边界进行。
+* `{unicode-bidi: embed;}`如果是行内元素，这个值对于双向算法会打开附加的一层嵌套。这个嵌套层的方向有direction属性指定。会在元素内部隐式地完成顺序重排。
+* `{unicode-bidi: bidi-override;}`为行内元素创建一个覆盖。对于块级元素将为不在另一块的行内后代创建一个覆盖。顺序重排在元素内部严格按照direction属性进行；忽略了双向算法的隐式部分。
