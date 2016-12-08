@@ -1051,14 +1051,14 @@ article header.article-info >p.article-author {
 article header.article-info >p.article-time {
     float: right;
     margin-bottom: -2.7em;
-    padding-top: .1em;
+    padding-top: .3em;
     text-align: center;
     font-size: .9em;
 }
 
 article header.article-info >p.article-time:before {
     content: "\f017";
-    font-size: 130%;
+    font-size: 120%;
     font-family: "FontAwesome";
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
