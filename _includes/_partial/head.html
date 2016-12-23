@@ -1,33 +1,31 @@
 <!DOCTYPE HTML>
 <html {% if site.language %}lang="{{ site.language }}"{% endif %}>
 <head>
-  <meta charset="UTF-8">
+    <meta charset="UTF-8">
     {% assign title = page.title %}
     {% if page.type == 'archives' %}
-    {% assign title = '归档' %}
+        {% assign title = '归档' %}
     {% endif %}
     {% if page.type == 'categories' %}
-    {% assign title = '分类' %}
+        {% assign title = '分类' %}
     {% endif %}
     {% if page.type == 'tags' %}
-    {% assign title = '标签' %}
+        {% assign title = '标签' %}
     {% endif %}
     <title>{% if title %}{{ title }} | {% endif %}{{ site.title }}</title>
     
-
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     {% if site.author.name %}
-    <meta name="author" content="{{ site.author.name }}">
+        <meta name="author" content="{{ site.author.name }}">
     {% endif %}
-
     {% if page.keywords %}<meta name="keywords" content="{{ page.keywords }}">{% endif %}
     <!--<%- open_graph({twitter_id: theme.author.twitter, google_plus: theme.author.google_plus}) %>-->
     
     <meta name="description" content="page.description">
     {% if page.type == 'post' %}
-    <meta property="og:type" content="article">
+        <meta property="og:type" content="article">
     {% else %}
-    <meta property="og:type" content="website">
+        <meta property="og:type" content="website">
     {% endif %}
     <meta property="og:title" content="{{ page.title }}">
     <meta property="og:url" content="{{ site.baseurl }}{{ page.url }}">
@@ -38,32 +36,28 @@
     <meta name="twitter:description" content="page.description">
     <meta name="twitter:creator" content="@{{ site.author.twitter }}">
     <link rel="publisher" href="{{ site.author.google_plus }}">
-
     {% if site.rss %}
-    <link rel="alternative" href="{{ site.rss }}" title="{{ site.title }}" type="application/atom+xml" />
+        <link rel="alternative" href="{{ site.rss }}" title="{{ site.title }}" type="application/atom+xml" />
     {% endif %}
     {% if site.favicon %}
-    <link rel="icon" href="{{ site.assets }}/{{ site.favicon }}" />
+        <link rel="icon" href="{{ site.assets }}/{{ site.favicon }}" />
     {% endif %}
     {% if site.apple_icon %}
-    <link rel="apple-touch-icon" href="{{ site.assets }}/{{ site.apple_icon }}">
-    <link rel="apple-touch-icon-precomposed" href="{{ site.assets }}/{{ site.apple_icon }}"/>
+        <link rel="apple-touch-icon" href="{{ site.assets }}/{{ site.apple_icon }}">
+        <link rel="apple-touch-icon-precomposed" href="{{ site.assets }}/{{ site.apple_icon }}"/>
     {% endif %}
-
     <script src="//cdn.bootcss.com/jquery/2.0.3/jquery.min.js"></script>
-
     <script type="text/javascript">
     if(typeof jQuery != 'undefined'){
-        document.write(unescape("%3Clink rel='stylesheet' href='//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css' type='text/css'/%3E"));
-        document.write(unescape("%3Clink rel='stylesheet' href='//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css' type='text/css'/%3E"));
+    document.write(unescape("%3Clink rel='stylesheet' href='//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css' type='text/css'/%3E"));
+    document.write(unescape("%3Clink rel='stylesheet' href='//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css' type='text/css'/%3E"));
     }else{
-        //Second choice: css from https://cdnjs.com
-        document.write(unescape("%3Clink rel='stylesheet' href='http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css' type='text/css'/%3E"));
-        document.write(unescape("%3Clink rel='stylesheet' href='http://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css' type='text/css'/%3E"));
+    //Second choice: css from https://cdnjs.com
+    document.write(unescape("%3Clink rel='stylesheet' href='http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css' type='text/css'/%3E"));
+    document.write(unescape("%3Clink rel='stylesheet' href='http://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css' type='text/css'/%3E"));
     }
     </script>
-
-<!-- <link rel="stylesheet" href="{{ site.assets }}/fancybox/jquery.fancybox.css" media="screen" type="text/css"> -->
-    <link rel="stylesheet" href="{{ site.assets }}/css/style.min.css" type="text/css"/>
+    <!-- <link rel="stylesheet" href="{{ site.assets }}/fancybox/jquery.fancybox.css" media="screen" type="text/css"> -->
+    <link rel="stylesheet" href="{{ site.assets }}/css/style.css" type="text/css"/>
     
 </head>

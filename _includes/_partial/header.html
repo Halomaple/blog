@@ -1,8 +1,8 @@
 <div>
-    {% if site.imglogo.enable && site.imglogo.src %}
-	<div id="imglogo">
-		<a href="{{ site.baseurl }}/"><img src="{{ site.assets }}/{{ site.imglogo.src }}" alt="{{ site.title }}" title="{{ site.title }}"/></a>
-	</div>
+	{% if site.imglogo.enable && site.imglogo.src %}
+		<div id="imglogo">
+			<a href="{{ site.baseurl }}/"><img src="{{ site.assets }}/{{ site.imglogo.src }}" alt="{{ site.title }}" title="{{ site.title }}"/></a>
+		</div>
 	{% endif %}
 	<div id="textlogo">
 		<h1 class="site-name"><a href="{{ site.baseurl }}/" title="{{ site.title }}">{{ site.title }}</a></h1>
@@ -13,24 +13,24 @@
 	<nav class="animated">
 		<ul>
 			{% for m in site.menu %}
-			<li><a href="{{ site.baseurl }}{{ m[1] }}">{{ m[0] }}</a></li>
+				<li><a href="{{ site.baseurl }}{{ m[1] }}">{{ m[0] }}</a></li>
 			{% endfor %}
 			
 			<li>
 				{% if site.google_cse.enable %}
-			<form class="search" action="{{ site.baseurl }}/search/" method="get" accept-charset="utf-8">
-				<label>Search</label>
-				<input type="search" id="search" autocomplete="off" name="q" maxlength="20" placeholder="搜索" />
-			</form>
-			{% elsif site.baidu_search.enable %}
-				<form class="search" onsubmit="return baiduWithHttps(this)" action="http://www.baidu.com/baidu" target="_blank">
-					<input name="tn" type="hidden" value="SE_zzsearchcode_shhzc78w">
-					<input type="text" name="word" size="30">
-					<input class="hidden" type="submit" value="百度搜索">
-				</form>
-				<script src="http://s1.bdstatic.com/r/www/cache/global/js/BaiduHttps_20150714_zhanzhang.js"></script>
-			{% endif %}
+					<form class="search" action="{{ site.baseurl }}/search/" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" autocomplete="off" name="q" maxlength="20" placeholder="搜索" />
+					</form>
+					{% elsif site.baidu_search.enable %}
+					<form class="search" onsubmit="return baiduWithHttps(this)" action="http://www.baidu.com/baidu" target="_blank">
+						<input name="tn" type="hidden" value="SE_zzsearchcode_shhzc78w">
+						<input type="text" name="word" size="30">
+						<input class="hidden" type="submit" value="百度搜索">
+					</form>
+					<script src="http://s1.bdstatic.com/r/www/cache/global/js/BaiduHttps_20150714_zhanzhang.js"></script>
+				{% endif %}
 			</li>
 		</ul>
-	</nav>	
+	</nav>
 </div>
