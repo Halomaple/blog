@@ -289,3 +289,51 @@ h1 { margin-top: 20px;}
 * 知道了所有行内框会放在哪里，再计算最后的行框高度。只需将基线与最高行内框顶端之间的距离加上基线与最低行内框低端之间的距离。
 
 ### 3.3 行内格式化
+
+行的高度（或行框的高度）由其组成元素和其他内容（如文本）的高度确定。line-height实际上只影响行内元素和其他行内内容，而不影响块级元素。也可以为一个块级元素设置line-height值，但是这个值只是应用到块级元素的内联内容，并未该块级元素的内容设置一个最小行距高度。
+
+### 3.4 行内非替换元素
+
+#### 3.4.1 建立框
+
+对于行内替换元素或匿名文本的一部分，font-size值确定了内容区的高度。如果一个行内元素font-size为15px，则内容区的高度为15像素，因为元素中所有em框的高度都是15像素，如下图示：
+
+![em框确定内容区高度](../images/emdeterminsline-height.JPG)
+
+行内框的生成： line-height（21px）减去font-size（15px）之后均分两半（3px）分别应用到内容区的顶部和底部，这就得到了行内框。
+
+![内容区加上行间距就等于行内框](../images/inlineelement.JPG)
+
+考虑一下代码：
+
+```
+<p style="font-size: 12px; line-height: 12px;">
+	This is text, <em>some of which is emphasized</em>, plus other text <br>
+	which is <strong style="font-size: 24px;">strongly emphasized</strong>
+	and which is <br>
+	larger than the surrounding text.
+</p>
+```
+
+![行中的行内框](../images/inline-box-in-a-row.JPG)
+
+对于font-size和line-height都为12px的个部分文本，行内框高度为12px。对于**strong**文本，line-height和font-size相差-12px（两半-6px分别应用到顶部底部），最后行内框高度为12px。12px高的行内框在元素内容区（24px）中垂直居中，所以行内框实际上小于内容区。如果有上下行，可能会发生重叠。
+
+![段落中的行框](../images/inline-box-in-a-paragraph.JPG)
+
+#### 3.4.2 垂直对齐
+
+如果改变行内框的垂直对齐，会应用同样的高度确定原则。假设为**strong**元素指定垂直对齐为4px：
+
+```
+<p style="font-size: 12px; line-height: 12px;">
+	This is text, <em>some of which is emphasized</em>, plus other text <br>
+	which is <strong style="font-size: 24px; vertical-align: 4px;">strongly emphasized</strong>
+	and which is <br>
+	larger than the surrounding text.
+</p>
+```
+
+这个改动会把元素上升4px，这会同时提升其内容区和行内框。由于strong元素的行内框顶端已经是行中最高点，对垂直对齐的这个修改会把整个行框的顶端也向上移4px，如下图所示：
+
+![垂直对齐影响行框高度](../images/vertical-align-affects-inline-box-height.JPG)
