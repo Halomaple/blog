@@ -32,14 +32,22 @@ tag: [Git]
 <br />
 `git branch` 查看当前分支
 
+`git branch -a` 查看所有分支（local和remote）
+
 `git branch <newBranch>` 切换新的分支 newBranch
 
 `git checkout <branch>` 切换到branch分支
 
 `git checkout -b <newBranch>` 创建并切换到新的分支newBranch
 
+`git branch -d <branchName>` 删除local分支
+
+`git push origin --delete <branchName>` 或者 `git push origin :<branchName>` 删除远程分支
+
 <br />
 `git checkout --<file>` 撤销未缓存的文件修改
+
+`git rm --cached <file>` 修改ignore后删除已提交的文件
 
 `git reset HEAD <file>` 撤销已缓存的文件修改
 
