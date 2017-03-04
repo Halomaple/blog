@@ -40,20 +40,14 @@ tag: [Git]
 
 `git checkout -b <newBranch>` 创建并切换到新的分支newBranch
 
-<<<<<<< HEAD
-`git branch -d <branchName>` 删除local分支
-
-`git push origin --delete <branchName>` 或者 `git push origin :<branchName>` 删除远程分支
-=======
 `git branch -d <branch_name>` 删除本地分支
 
-`git push origin -d <branch_name>` 或者 `git push origin :<branch_name>` 删除远程分支
->>>>>>> bb7fd7637aaef233bdcc19234980f1706f687368
+`git push origin -d <branch_name>`, `git push origin --delete <branchName>` 或者 `git push origin :<branch_name>` 删除远程分支
 
 <br />
 `git checkout --<file>` 撤销未缓存的文件修改
 
-`git rm --cached <file>` 修改ignore后删除已提交的文件
+`git rm --cached <file>`，`git rm -r --cached <files>` 删除新加入ignore的文件
 
 `git reset HEAD <file>` 撤销已缓存的文件修改
 
