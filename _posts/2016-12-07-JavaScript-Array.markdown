@@ -74,15 +74,41 @@ alert(people.toLocaleString());	//Nikolaos,Grigorios
 
 栈是LIFO（Last-In-First-Out）的数据结构。ECMAScript为数组提供了：
 
-* 1). `push()`接收任意数量的参数，逐个添加到数组末尾，并返回修改后数组的长度； 
+* 1). `push()`接收任意数量的参数，逐个添加到数组末尾，并返 回修改后数组的长度； 
+
+```
+var arr = [1,2,3,4];
+arr.push(5, 6);
+console.log(arr);	//[1,2,3,4,5,6]
+```
+
 * 2). `pop()`从数组的末尾移除最后一项，减少数组的length值，并返回移除的项。
+
+```
+var arr = [1,2,3,4];
+var item = arr.pop();
+console.log(item, arr);		//4, [1,2,3]
+```
 
 ## 队列方法
 
 队列是FIFO（First-In-First-Out）。ECMAScript也提供了两个方法：
 
 * 1). `shift()`移除数组中的第一项兵返回该项，同时将数组长度减1；结合push()方法使用来模拟队列；
+
+```
+var arr = [1,2,3,4];
+var item = arr.shift();
+console.log(item, arr);		//1, [2,3,4]
+```
+
 * 2). `unshift()`在数组的前端添加任意个项并返回新数组的长度；结合pop()方法使用来模拟队列。
+
+```
+var arr = [1,2,3,4];
+var count = arr.unshift(-1,0);
+console.log(count, arr);	//6, [-1,0,1,2,3,4]
+```
 
 ## 重排序方法
 
@@ -167,7 +193,7 @@ numbers.forEach(function(item, index, array){
 
 * 2). `reduceRight()`从最后一项开始迭代所有的项，构建最终返回值
 
-两个方法（IE9+）都接收两个参数：一个在每一项上调用函数和（可选）作为基础的初始值。传给reduce()和reduceRight()的函数接收4个参数：前一个值，当前址，项的索引和数组对象，函数的任何返回值都会作为第一个参数自动传给下一项。
+两个方法（IE9+）都接收两个参数：一个在每一项上调用函数和（可选）作为基础的初始值。传给reduce()和reduceRight()的函数接收4个参数：前一个值，当前值，项的索引和数组对象，函数的任何返回值都会作为第一个参数自动传给下一项。
 
 ```
 var values = [1, 2, 3, 4, 5];
