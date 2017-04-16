@@ -50,11 +50,104 @@ var person2 = new Person('Greg', 27, 'Doctor');
 
 log(person1.constructor == Person);
 log(person2.constructor == Person);
-newline()
+newline();
 log(person1 instanceof Object);
 log(person1 instanceof Person);
 </pre>
+<pre>
+//6.2.1 将构造函数当作函数
+function Person(name, age, job){
+	this.name = name;
+	this.age = age;
+	this.job = job;
+	this.sayName = function(){
+		log(this.name);
+	}
+}
+//当作构造函数用
+var person = new Person('Nicholas', 29, 'Software Engineer');
+person.sayName();	//'Nicholas'
 
+//作为普通函数调用
+Person('Greg', 27, 'Doctor');	//在全局作用域中调用，this=>window
+window.sayName();	//'Greg'
+
+//在另一个对象的作用域中调用
+var anotherObject = new Object();
+Person.call(anotherObject, 'Kristen', 25, 'Nurse');
+anotherObject.sayName();	//'Kristen'
+</pre>
+<pre>
+//6.2.2 构造函数的问题
+//sayName()为两个不同的Function实例
+function Person(name, age, job){
+	this.name = name;
+	this.age = age;
+	this.job = job;
+	this.sayName = new Function("log(this.name)");	//与声明函数等价
+}
+
+var person1 = new Person('Nicholas', 29, 'Software Engineer');
+var person2 = new Person('Greg', 27, 'Doctor');
+
+log(person1.sayName == person2.sayName);		//false
+</pre>
+<pre>
+//共用一个sayName函数
+function Person(name, age, job){
+	this.name = name;
+	this.age = age;
+	this.job = job;
+	this.sayName = sayName;
+}
+
+function sayName(){
+	log(this.name);
+}
+
+var person1 = new Person('Nicholas', 29, 'Software Engineer');
+var person2 = new Person('Greg', 27, 'Doctor');
+
+log(person1.sayName == person2.sayName);		//true
+</pre>
+
+<pre>
+//6.2.3 原型模式
+
+//共用一个sayName函数
+function Person(){
+}
+
+Person.prototype.name = 'Nicholas';
+Person.prototype.age = 29;
+Person.prototype.job = 'Software Engineer';
+Person.prototype.sayName = function (){
+	log(this.name);
+}
+
+var person1 = new Person();
+person1.sayName();	//'Nicholas'
+
+var person2 = new Person();
+person2.sayName();	//'Nicholas'
+
+log(person1.sayName == person2.sayName);		//true
+newline();
+
+//创建function Person(){}时es会为Person函数创建一个prototype属性指向函数的原型对象。
+//默认情况下，原型对象会自动获得一个constructor属性指向prototype所在函数Person。
+log(Person.prototype.constructor);		//function Person(){}
+
+//当函数创建新实例后，该实例内部将包含一个指针指向函数的原型对象(叫作[[Prototype]]，Firefox,Chrome,Safari可以用__proto__来访问)。
+//用isPrototypeOf() 来判断&lt;--实例和原型对象之间--&gt;否存在[[Prototype]]的这种关系：
+log(Person.prototype.isPrototypeOf(person1));	//true
+log(Person.prototype.isPrototypeOf(person2));	//true
+newline();
+
+//(ES5)用getPrototypeOf()取得[[Prototype]]的值：
+log(Object.getPrototypeOf(person1) == Person.prototype);	//true
+log(Object.getPrototypeOf(person2).name);	//'Nicholas'
+</pre>
 
 </div>
 
@@ -66,18 +159,18 @@ log(person1 instanceof Person);
 	});
 
 	function newline(){
-		if($($('#code-collection > pre')[elementPreIndex]).text().indexOf('//---------output----------:') > -1){
-			$('#code-collection > pre')[elementPreIndex].append('//--------------\n');
+		if($($('#code-collection > pre')[elementPreIndex]).text().indexOf('/*---------output----------*/') > -1){
+			$('#code-collection > pre')[elementPreIndex].append('/*--------------*/\n');
 		}else{
-			$('#code-collection > pre')[elementPreIndex].append('//---------output----------:\n');
+			$('#code-collection > pre')[elementPreIndex].append('\n//---------output----------:\n');
 		}
 	}
 
 	function log(output){
-		if($($('#code-collection > pre')[elementPreIndex]).text().indexOf('//---------output----------:') > -1){
+		if($($('#code-collection > pre')[elementPreIndex]).text().indexOf('/*---------output----------*/') > -1){
 			$('#code-collection > pre')[elementPreIndex].append('//' + output + '\n');
 		}else{
-			$('#code-collection > pre')[elementPreIndex].append('//---------output----------:\n//' + output + '\n');
+			$('#code-collection > pre')[elementPreIndex].append('\n/*---------output----------*/\n//' + output + '\n');
 		}
 	}
 </script>
