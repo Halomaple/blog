@@ -79,7 +79,7 @@ anotherObject.sayName();	//'Kristen'
 </pre>
 <pre>
 //6.2.2 构造函数的问题
-//sayName()为两个不同的Function实例
+//a. sayName()为两个不同的Function实例
 function Person(name, age, job){
 	this.name = name;
 	this.age = age;
@@ -93,7 +93,7 @@ var person2 = new Person('Greg', 27, 'Doctor');
 log(person1.sayName == person2.sayName);		//false
 </pre>
 <pre>
-//共用一个sayName函数
+//b. 共用一个sayName函数
 function Person(name, age, job){
 	this.name = name;
 	this.age = age;
@@ -113,8 +113,6 @@ log(person1.sayName == person2.sayName);		//true
 
 <pre>
 //6.2.3 原型模式
-
-//共用一个sayName函数
 function Person(){
 }
 
@@ -153,24 +151,23 @@ log(Object.getPrototypeOf(person2).name);	//'Nicholas'
 
 <script type="text/javascript">
 	var elementPreIndex = 0;
+	var logCount = 1;
 	$('#code-collection > pre').each(function(index, el) {
 		elementPreIndex = index;
 		eval($(el).text());
+		$('#code-collection > pre')[elementPreIndex].append('--------------------------------*/\n');
+		logCount = 1;
 	});
 
-	function newline(){
-		if($($('#code-collection > pre')[elementPreIndex]).text().indexOf('/*---------output----------*/') > -1){
-			$('#code-collection > pre')[elementPreIndex].append('/*--------------*/\n');
-		}else{
-			$('#code-collection > pre')[elementPreIndex].append('\n//---------output----------:\n');
-		}
+	function newline(text){
+		$('#code-collection > pre')[elementPreIndex].append('-----------------\n');
 	}
 
 	function log(output){
-		if($($('#code-collection > pre')[elementPreIndex]).text().indexOf('/*---------output----------*/') > -1){
-			$('#code-collection > pre')[elementPreIndex].append('//' + output + '\n');
-		}else{
-			$('#code-collection > pre')[elementPreIndex].append('\n/*---------output----------*/\n//' + output + '\n');
-		}
+		if(logCount == 1)
+			$('#code-collection > pre')[elementPreIndex].append('\n/*------------output--------------\n');
+
+		$('#code-collection > pre')[elementPreIndex].append(logCount + ': ' + output + '\n');
+		logCount++;
 	}
 </script>
