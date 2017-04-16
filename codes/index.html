@@ -1,0 +1,73 @@
+---
+layout: page
+type: page
+title: Code
+date: 2017-04-16 18:00:00 +0800
+---
+<style type="text/css">
+	#code-collection > pre{
+		text-align: left;
+		font-size: 12px;
+		color: #555;
+	}
+</style>
+
+<div id="code-collection">
+
+<h3>6.1 工厂模式</h3>
+<pre>
+function createPerson(name, age, job){
+	var o = new Object();
+	o.name = name;
+	o.age = age;
+	o.job = job;
+	o.sayName = function(){
+		consoleLog(this.name);
+	};
+	return o;
+}
+
+var person1 = createPerson('Nicholas', 29, 'Software Engineer');
+var person2 = createPerson('Greg', 27, 'Doctor');
+
+person1.sayName();
+</pre>
+
+<h3>6.2 构造函数模式</h3>
+<pre>
+function Person(name, age, job){
+	this.name = name;
+	this.age = age;
+	this.job = job;
+	this.sayName = function(){
+		consoleLog(this.name);
+	}
+}
+
+//这两个对象都有一个constructor属性，这个属性指向Person
+var person1 = new Person('Nicholas', 29, 'Software Engineer');
+var person2 = new Person('Greg', 27, 'Doctor');
+
+consoleLog(person1.constructor == Person);
+consoleLog(person2.constructor == Person);
+</pre>
+
+
+
+</div>
+
+<script type="text/javascript">
+	var preIndex = 0;
+	$('#code-collection > pre').each(function(index, el) {
+		preIndex = index;
+		eval($(el).text());
+	});
+
+	function consoleLog(text){
+		if($($('#code-collection > pre')[preIndex]).text().indexOf('//---------output----------:') > -1){
+			$('#code-collection > pre')[preIndex].append('//' + text + '\n');
+		}else{
+			$('#code-collection > pre')[preIndex].append('//---------output----------:\n//' + text + '\n');
+		}
+	}
+</script>
