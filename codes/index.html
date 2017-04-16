@@ -22,7 +22,7 @@ function createPerson(name, age, job){
 	o.age = age;
 	o.job = job;
 	o.sayName = function(){
-		consoleLog(this.name);
+		log(this.name);
 	};
 	return o;
 }
@@ -40,7 +40,7 @@ function Person(name, age, job){
 	this.age = age;
 	this.job = job;
 	this.sayName = function(){
-		consoleLog(this.name);
+		log(this.name);
 	}
 }
 
@@ -48,26 +48,36 @@ function Person(name, age, job){
 var person1 = new Person('Nicholas', 29, 'Software Engineer');
 var person2 = new Person('Greg', 27, 'Doctor');
 
-consoleLog(person1.constructor == Person);
-consoleLog(person2.constructor == Person);
+log(person1.constructor == Person);
+log(person2.constructor == Person);
+newline()
+log(person1 instanceof Object);
+log(person1 instanceof Person);
 </pre>
-
 
 
 </div>
 
 <script type="text/javascript">
-	var preIndex = 0;
+	var elementPreIndex = 0;
 	$('#code-collection > pre').each(function(index, el) {
-		preIndex = index;
+		elementPreIndex = index;
 		eval($(el).text());
 	});
 
-	function consoleLog(text){
-		if($($('#code-collection > pre')[preIndex]).text().indexOf('//---------output----------:') > -1){
-			$('#code-collection > pre')[preIndex].append('//' + text + '\n');
+	function newline(){
+		if($($('#code-collection > pre')[elementPreIndex]).text().indexOf('//---------output----------:') > -1){
+			$('#code-collection > pre')[elementPreIndex].append('//--------------\n');
 		}else{
-			$('#code-collection > pre')[preIndex].append('//---------output----------:\n//' + text + '\n');
+			$('#code-collection > pre')[elementPreIndex].append('//---------output----------:\n');
+		}
+	}
+
+	function log(output){
+		if($($('#code-collection > pre')[elementPreIndex]).text().indexOf('//---------output----------:') > -1){
+			$('#code-collection > pre')[elementPreIndex].append('//' + output + '\n');
+		}else{
+			$('#code-collection > pre')[elementPreIndex].append('//---------output----------:\n//' + output + '\n');
 		}
 	}
 </script>
