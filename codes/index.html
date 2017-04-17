@@ -146,6 +146,55 @@ newline();
 log(Object.getPrototypeOf(person1) == Person.prototype);	//true
 log(Object.getPrototypeOf(person2).name);	//'Nicholas'
 </pre>
+<pre>
+//读取对象的某个属性时，会执行一次搜索。首先搜索对象实例本身，如找到则返回该属性值；如果没有找到则继续搜索指针指向的原型对象，在原型对象中找到则改回该属性值。
+//对象实例能访问但不能重写原型中的值。如果在实例中添加了一个属性，该属性与实例原型中的一个属性同名，则在实例中创建该属性。
+function Person(){
+}
+Person.prototype.name = 'Nicholas';
+Person.prototype.age = 29;
+Person.prototype.job = 'Software Engineer';
+Person.prototype.sayName = function (){
+	log(this.name);
+}
+
+var person1 = new Person();
+var person2 = new Person();
+
+person1.name = 'Greg';
+log(person1.name);		//'Greg'--来自实例
+log(person2.name);		//'Nicholas'--来自原型
+
+//如果对象实例新建一个prototype里不存在的属性，也只会在对象实例里
+person1.sex = 'male';
+newline();
+log(person1.sex);	//'male'--来自实例
+log(Object.getPrototypeOf(person1).sex);		//'undefined'
+log(Person.prototype.sex);		//'undefined'
+
+//实例中的与原型上同名的属性会屏蔽原型对象中的属性。意味着该属性会阻止代码访问原型对象中的同名属性，即使该属性的值被设为null
+//可以使用delete操作符来删除实例属性并得以访问原型中的属性。
+newline();
+person1.name = null;
+log(person1.name);		//null--来自实例
+delete person1.name;
+log(person1.name);		//'Nicholas'--来自原型
+
+//hasOwnProperty()可以检测一个属性是否存在于实例中。
+newline();
+person2.name = 'Ape';
+log(person2.name);		//'Ape'--来自实例
+log(person2.hasOwnProperty('name'));	//true--name属性来自实例person2
+delete person2.name;
+log(person2.name);		//'Nicholas'--来自原型
+log(person2.hasOwnProperty('name'));	//false--person中name属性被删除之后，name属性来自原型
+
+//es5中Object.getOwnPropertyDescriptor()只能用于实例属性。若要获得原型属性的描述符，必须直接在原型对象上调用该方法。
+log(JSON.stringify(Object.getOwnPropertyDescriptor(person1, 'sex')));
+log(JSON.stringify(Object.getOwnPropertyDescriptor(person2, 'name')));	//undefind--因为经过上面的delete person2.name 之后实例person2上已经没有name属性。
+log(JSON.stringify(Object.getOwnPropertyDescriptor(Person.prototype, 'name')));
+</pre>
+
 
 </div>
 
