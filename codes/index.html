@@ -193,8 +193,183 @@ log(person2.hasOwnProperty('name'));	//false--person中name属性被删除之后
 log(JSON.stringify(Object.getOwnPropertyDescriptor(person1, 'sex')));
 log(JSON.stringify(Object.getOwnPropertyDescriptor(person2, 'name')));	//undefind--因为经过上面的delete person2.name 之后实例person2上已经没有name属性。
 log(JSON.stringify(Object.getOwnPropertyDescriptor(Person.prototype, 'name')));
+log(JSON.stringify(Object.getOwnPropertyDescriptor(Person.prototype, 'toString')));
 </pre>
 
+<pre>
+//in 操作符：
+//a. 单独使用-通过对象能访问属性时返回true，无论该属性存在于实例还是原型中。
+function Person(){
+}
+Person.prototype.name = 'Nicholas';
+Person.prototype.age = 29;
+Person.prototype.job = 'Software Engineer';
+Person.prototype.sayName = function (){
+	log(this.name);
+}
+
+var person = new Person();
+log('name' in person);		//true --来自原型
+log('male' in person);		//false --实例和原型都没找到
+person.sex = 'male';
+log('male' in person);		//true --来自实例
+
+//可以搭配hasOwnProperty()使用
+newline();
+function hasPrototypeProperty(object, name){
+	return !object.hasOwnProperty() && (name in object);
+}
+log(hasPrototypeProperty(person, 'name'));		//true
+person.name = 'Bill';
+log(hasPrototypeProperty(person, 'name'));		//false
+
+//b. for-in方式
+//for-in能够访问存在于实例中和原型中的属性，也包括屏蔽了原型对象中不可枚举属性的实例中的属性。
+newline();
+var o = {
+	toString: function(){
+		return 'My Object';
+	}
+};
+//toString 在Object.prototype中不可枚举
+log(JSON.stringify(Object.getOwnPropertyDescriptor(Object.prototype, 'toString')));
+newline();
+
+//默认的不可枚举属性有：
+//hasOwnProperty(), propertyIsEnumerable(), toLocaleString(), toString(), valueOf(), constructor(es5) 以及 prototype(es5)
+for(var prop in o){
+	if(prop == 'toString')
+		log('Found ' + prop);
+}
+//可以使用Object.keys()来取得对象上所有可枚举的实例属性（无论是否可枚举，都可以用getOwnPropertyNames()来获得）。
+log(Object.keys(Person.prototype));		//'name, age, job, sayName'
+var person1 = new Person();
+log(Object.keys(person1));		//''
+person1.name = 'Jeff';
+person1.age = '26';
+log(Object.keys(person1));
+log(Object.getOwnPropertyNames(Person.prototype));
+</pre>
+
+<pre>
+//更简单的原型语法
+//可以用一个包含所有属性和方法的对象字面量来封装原型的功能
+function Person(){
+}
+
+Person.prototype = {
+	name: 'Nicholas',
+	age: 29,
+	job: 'Software Engineer',
+	sayName : function(){
+		log(this.name);
+	}
+};
+
+//但是上面的写法会导致constructor属性不再指向Person。因为每创建一个函数，就会同时创建它的prototype对象，这个对象会自动获得constructor属性。而上面完全重写了prototype对象，因此constructor变成了新对象的属性，指向Object。
+var friend = new Person();
+log(friend instanceof Object);		//true
+log(friend instanceof Person);		//true
+log(friend.constructor == Person);	//false
+log(friend.constructor == Object);	//true
+newline();
+//可以如此设置constructor的指向：
+Person.prototype = {
+	constructor:  Person,
+	name: 'Nicholas',
+	age: 29,
+	job: 'Software Engineer',
+	sayName : function(){
+		log(this.name);
+	}
+}
+//此方式设置的constructor属性是可枚举的，默认是不可枚举。
+log(JSON.stringify(Object.getOwnPropertyDescriptor(Person.prototype, 'constructor')));
+
+//(es5)可以通过Object.defineProperty()来设置属性constructor的[[Enumerable]]：
+Object.defineProperty(Person.prototype, 'constructor',{
+	enumerable: false,
+	value: Person
+});
+log(JSON.stringify(Object.getOwnPropertyDescriptor(Person.prototype, 'constructor')));
+</pre>
+
+<pre>
+//原型的动态性：由于在原型中查找值的过程是一场搜索，所以对原型对象所做的任何修改都能立即从实例上反映出来。
+function Person(){
+}
+
+var friend = new Person();
+
+Person.prototype.sayHi = function(){
+	log('Hi');
+};
+
+friend.sayHi();		//没有问题
+//实例和原型之间的连接是一个指针，而非一个副本
+</pre>
+
+<pre>
+//调用构造函数时会为实例添加一个指向最初原型的[[Prototype]]指针。如果重写prototype对象，就会切断构造函数与最初原型之间的联系。
+//而实例中的指针仅指向原型，而不指向构造函数。
+function Person(){
+}
+
+var friend = new Person();
+
+Person.prototype = {
+	constructor:  Person,
+	name: 'Nicholas',
+	age: 29,
+	job: 'Software Engineer',
+	sayName : function(){
+		log(this.name);
+	}
+};
+
+//friend.sayName();		//报错
+</pre>
+
+<pre>
+//原生对象的原型：原生对象例如Object, Array, String等等也是在其构造函数的原型上定义了方法。
+log(typeof Array.prototype.sort);		//'function'
+log(typeof String.prototype.substring);	//'function'
+
+//可以为原生对象的原型添加自定义的方法（需谨慎）。
+String.prototype.startWith = function(text){
+	return this.indexOf(text) == 0;
+};
+
+var msg = 'Hello World!';
+log(msg.startWith('Hello'));	//true
+</pre>
+
+<pre>
+//原型的问题：省略了为构造函数传递初始化参数的环节，导致默认情况下都将取得相同的属性值，而且该属性值是共享的！
+
+function Person(){
+}
+
+Person.prototype = {
+	constructor: Person,
+	name: 'Nicholas',
+	age: 29,
+	job: 'Software Engineer',
+	friends: ['Bill', 'Jeff'],
+	sayName : function(){
+		log(this.name);
+	}
+};
+
+var person1 = new Person();
+var person2 = new Person();
+
+person1.friends.push('Van');
+
+log(person1.friends);	//'Bill','Jeff','Van'
+log(person2.friends);	//'Bill','Jeff','Van'
+//两个log结果相同，因为共享同一个Person.prototype的friends值
+</pre>
 
 </div>
 
@@ -204,7 +379,8 @@ log(JSON.stringify(Object.getOwnPropertyDescriptor(Person.prototype, 'name')));
 	$('#code-collection > pre').each(function(index, el) {
 		elementPreIndex = index;
 		eval($(el).text());
-		$('#code-collection > pre')[elementPreIndex].append('--------------------------------*/\n');
+		if($(el).text().indexOf('/*------------output--------------') > -1)
+			$('#code-collection > pre')[elementPreIndex].append('--------------------------------*/\n');
 		logCount = 1;
 	});
 
