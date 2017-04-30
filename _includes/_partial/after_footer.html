@@ -1,4 +1,4 @@
-<script type="text/javascript">
+<!--script type="text/javascript">
   if(typeof jQuery != 'undefined'){
     //First choice: js from https://bootcdn.cn
     document.write(unescape("%3Cscript type='text/javascript' src='//cdn.bootcss.com/jquery.imagesloaded/2.1.0/jquery.imagesloaded.min.js'%3E%3C/script%3E"));
@@ -11,13 +11,13 @@
     document.write(unescape("%3Cscript type='text/javascript' src='http://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js'%3E%3C/script%3E"));
     document.write(unescape("%3Cscript type='text/javascript' src='http://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/2.1.0/jquery.imagesloaded.min.js'%3E%3C/script%3E"));
   }
-</script>
+</script-->
 
-<!-- <script src="{{ site.assets }}/js/jquery-2.0.3.min.js"></script> -->
-<!-- <script src="{{ site.assets }}/js/jquery.imagesloaded.min.js"></script> -->
-<!-- <script src="{{ site.assets }}/js/gallery.js"></script> -->
+<script src="{{ site.assets }}/js/jquery.imagesloaded.min.js"></script>
+<script src="{{ site.assets }}/js/gallery.js"></script>
 <!-- <script src="{{ site.assets }}/js/jquery.qrcode-0.12.0.min.js"></script> -->
 <!-- <script src="{{ site.assets }}/js/toc.js"></script> -->
+<script src="{{ site.assets }}/fancybox/jquery.fancybox.pack.js"></script>
 
 <script type="text/javascript">
   (function($){
@@ -395,8 +395,6 @@ $(document).ready(function(){
 {% endif %}
 
 {% if site.fancybox %}
-<!-- <link rel="stylesheet" href="{{ site.assets }}/fancybox/jquery.fancybox.css" media="screen" type="text/css"> -->
-<!-- <script src="{{ site.assets }}/fancybox/jquery.fancybox.pack.js"></script> -->
 <script type="text/javascript">
 $(document).ready(function(){ 
   $('.article-content').each(function(i){
