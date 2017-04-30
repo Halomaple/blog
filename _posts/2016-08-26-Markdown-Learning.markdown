@@ -151,7 +151,7 @@ line3
 
 # Eighth - Image & Link
 
-![This is an image](http://halomaple.com/assets/img/logo.png "logo image")
+![This is an image](../images/logo.png "logo image")
 
 Currently markdown can't control the width and height of an image.
 
