@@ -7,4 +7,49 @@ date: 2017-04-22 18:00:00 +0800
 <script type="text/javascript" src="content.js"></script>
 <div id="code-article-page">
 
+实现继承一般有两种方法：接口继承和实现继承。接口继承只继承方法签名，而实现继承则继承实际的方法。ES里面没有重载，函数没有签名，所以只支持实现继承。
+<h4>6.3.1 原型链</h4>
+概念：每个构造函数都有一个原型对象，这个对象包含一个指向构造函数的指针，而实例都包含一个指向原型对象内部的指针。假如让原型对象等于另一个类型的实例，此时原型对象将包含指向另一个原型的指针，相应地，另一个原型中也包含着一个指向另一个构造函数的指针。假如另一个原型又是另一个类型的实例，那么
+<pre>
+//实现原型的一种基本模式：
+function SuperType(){
+	this.property = true;
+}
+SuperType.prototype.getSuperValue = function(){
+	return this.property;
+};
+function SubType(){
+	this.subproperty = false;
+}
+
+//继承了SuperType
+SubType.prototype = new SuperType();
+SubType.prototype.getSubValue = function(){
+	return this.subproperty;
+};
+var instance = new SubType();
+
+log(instance.getSuperValue());		//true, 搜索实例》搜索SubType.prototype》搜索SuperType.prototype
+log(SubType.prototype.property);	//true
+log(instance.constructor);		//SuperType
+
+log(SubType.prototype.constructor);		//SubType的原型指向SuperType的原型，而这个原型对象的constructor属性指向SuperType
+log(instance.toString());	//toString()方法来自由实例SuperType继承的Object.prototype.toString()。所有函数的默认原型都是Object的实例。
+
+newline();
+//用instanceof操作符来确定实例之间的关系。只要是原型链中出现过的构造函数，结果就会返回true。
+log(instance instanceof Object);	//true
+log(instance instanceof SuperType);	//true
+log(instance instanceof SubType);	//true
+
+newline();
+//用isPrototypeOf()方法来检测原型链中出现过的原型。
+log(Object.prototype.isPrototypeOf(instance));	//true
+log(SuperType.prototype.isPrototypeOf(instance)); //true
+log(SubType.prototype.isPrototypeOf(instance));	//true
+</pre>
+
+<pre>
+
+</pre>
 </div>
