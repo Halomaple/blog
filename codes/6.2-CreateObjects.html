@@ -212,7 +212,7 @@ log('male' in person);		//true --来自实例
 //可以搭配hasOwnProperty()使用
 newline();
 function hasPrototypeProperty(object, name){
-	return !object.hasOwnProperty() && (name in object);
+	return !object.hasOwnProperty('name') && (name in object);
 }
 log(hasPrototypeProperty(person, 'name'));		//true
 person.name = 'Bill';
