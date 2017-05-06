@@ -141,4 +141,110 @@ log(instance1.age);
 
 //借用构造函数的问题：方法都在构造函数中定义，函数复用就无从谈起了。而且，在超类型的原型中定义的方法，对于子类型而言也是不可见的。结果所有类型都只能使用构造函数模式。所以此模式也是比较少单独使用。
 </pre>
+
+<h4>6.3.3 组合继承</h4>
+组合继承（combination inheritance），也叫经典继承，是将原型链和借用构造函数组合到一起，从而发挥二者之长的继承模式。
+其背后的思路是使用原型链实现对原型属性和方法的继承，而通过借用构造函数来实现对实例属性的继承。这样，既通过在原型上定义方法实现了函数复用，又能够保证每个实例都有它自己的属性。
+<pre>
+function SuperType(name){
+	this.name = name;
+	this.colors = ['red','blue','green'];
+}
+SuperType.prototype.sayName = function(){
+	log(this.name);
+};
+
+function SubType(name, age){
+	//继承属性
+	SuperType.call(this, name);
+	this.age = age;
+}
+
+//继承方法
+SubType.prototype = new SuperType();
+SubType.prototype.constructor = SubType();
+SubType.prototype.sayAge = function(){
+	log(this.age)
+};
+
+var instance1 = new SubType('Nicholas', 29);
+instance1.colors.push('black');
+log(instance1.colors);	//'red,blue,green,black'
+instance1.sayName();	//'Nicholas'
+instance1.sayAge();		//29
+
+newline();
+
+var instance2 = new SubType('Greg', 27);
+log(instance2.colors);	//'red,blue,green'
+instance2.sayName();	//'Greg'
+instance2.sayAge();		//27
+//两个不同的SubType实例instance1和instance2分别拥有自己的属性name和colors以及age，又可以使用相同的方法sayName和sayAge。
+//组合继承避免了原型链和借用构造函数的缺陷，融合了它们的优点，成为javascript中最常用的继承模式。而且instanceof和isPrototypeOf()也能够用于识别基于组合继承创建的对象。
+</pre>
+
+<h4>6.3.4 原型式继承</h4>
+Douglas Crockford在2006年写了名为Prototypal Inheritance in JavaScript，提出了原型式继承。
+这种方法没有使用严格意义上的构造函数，而是借助原型可以基于已有的对象创建新对象，同时还不必因此创建自定义类型。
+<pre>
+function object(o){
+	function F(){}
+	F.prototype = o;
+	return new F();
+}
+//在object()函数内部，先创建一个临时性的构造函数，然后将传入对象作为这个构造函数的原型，最后返回了这个临时类型的一个新实例。从本质上讲，object()对传入其中的对象执行了一次浅复制。
+</pre>
+<pre>
+function object(o){
+	function F(){}
+	F.prototype = o;
+	return new F();
+}
+var person = {
+	name: 'Nicholas',
+	friends: ['Shelby','Court','Van']
+};
+var anotherPerson = object(person);
+anotherPerson.name = 'Greg';
+anotherPerson.friends.push('Rob');
+
+var yetAnotherPerson = object(person);
+yetAnotherPerson.name = 'Linda';
+yetAnotherPerson.friends.push('Barbie');
+
+log(person.friends);	//'Shelby, Court, Van, Rob, Barbie'
+//Douglas Crockford主张的这种模式要求必须有一个对象作为另一个对象的基础。object返回一个以person为原型的新对象，而原型person里面有一个基本类型和一个引用类型值属性。这意味着person.friends不仅属于person所有，而且会被所有object()生成的新对象（示例中是anotherPerson 和 yetAnotherPerson）共享。
+</pre>
+<pre>
+//ES5通过新增了Object.create()方法规范化了原型式继承（膜拜老道）。这个方法接受两个参数：一个用作新对象原型的对象和（可选的）一个为新对象定义额外属性的对象。在传入一个参数的情况下，Object.create()和object()的行为相同。
+var person = {
+	name: 'Nicholas',
+	friends: ['Shelby','Court','Van']
+};
+var anotherPerson = Object.create(person);
+anotherPerson.name = 'Greg';
+anotherPerson.friends.push('Rob');
+
+var yetAnotherPerson = Object.create(person);
+yetAnotherPerson.name = 'Linda';
+yetAnotherPerson.friends.push('Barbie');
+
+log(person.friends);	//'Shelby, Court, Van, Rob, Barbie'
+</pre>
+
+<pre>
+//Object.create()方法和Object.defineProperties()方法的第二个参数相同：每一个属性都是通过自己的描述符定义的。以这种方法指定的任何属性都会覆盖原型对象上的同名属性。
+var person = {
+	name: 'Nicholas',
+	friends: ['Shelby','Court','Van']
+};
+
+var anotherPerson = Object.create(person, {
+	name:{
+		value: 'Greg'
+	}
+});
+log(anotherPerson.name);	//'Greg'
+</pre>
+在没有必要创建构造函数的情况下，想要一个对象和另一个对象保持类似，原型式继承完全可以胜任。
 </div>
