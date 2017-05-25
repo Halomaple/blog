@@ -2586,6 +2586,9 @@ article .article-content img.emoji {
 	margin-top: 0;
 	padding-bottom: 0;
 }
+#code-page section.post a h1 span{
+	font-size: 50%;
+}
 #code-article-page > pre {
 	text-align: left;
 	font-size: 12px;
