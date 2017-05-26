@@ -2057,6 +2057,7 @@ footer {
 	background: inherit;
 	/*color: white;*/
 	text-shadow: none;
+	font-size: 12px;
 }
 .article-content .highlight {
 	overflow: auto;
