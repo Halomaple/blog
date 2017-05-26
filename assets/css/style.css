@@ -2026,8 +2026,8 @@ footer {
 	-webkit-border-radius: .35em;
 	-webkit-border-radius: .35em;
 	border-radius: .35em;
-	background: #333;
-	color: #ccc;
+	/*background: #333;*/
+	/*color: #ccc;*/
 	word-wrap: break-word;
 	font-size: .8em;
 	line-height: 1.5;
@@ -2054,8 +2054,8 @@ footer {
 }
 .article-content pre code {
 	padding: 0;
-	background: none;
-	color: white;
+	background: inherit;
+	/*color: white;*/
 	text-shadow: none;
 }
 .article-content .highlight {
