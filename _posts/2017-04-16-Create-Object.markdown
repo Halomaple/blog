@@ -1,0 +1,500 @@
+---
+layout: post
+title: "6.2 创建对象"
+date: 2017-04-16 18:00:00 +0800
+category: [Learning, JavaScript, Create Object]
+tag: [JS, Object]
+---
+
+
+## 1. 工厂模式
+
+```
+function createPerson(name, age, job){
+	var o = new Object();
+	o.name = name;
+	o.age = age;
+	o.job = job;
+	o.sayName = function(){
+		log(this.name);
+	};
+	return o;
+}
+
+var person1 = createPerson('Nicholas', 29, 'Software Engineer');
+var person2 = createPerson('Greg', 27, 'Doctor');
+
+person1.sayName();
+```
+
+## 2. 构造函数模式
+
+```
+function Person(name, age, job){
+	this.name = name;
+	this.age = age;
+	this.job = job;
+	this.sayName = function(){
+		log(this.name);
+	}
+}
+
+//这两个对象都有一个constructor属性，这个属性指向Person
+var person1 = new Person('Nicholas', 29, 'Software Engineer');
+var person2 = new Person('Greg', 27, 'Doctor');
+
+log(person1.constructor == Person);
+log(person2.constructor == Person);
+newline();
+log(person1 instanceof Object);
+log(person1 instanceof Person);
+```
+
+### 2.1 将构造函数当作函数
+
+```
+function Person(name, age, job){
+	this.name = name;
+	this.age = age;
+	this.job = job;
+	this.sayName = function(){
+		log(this.name);
+	}
+}
+//当作构造函数用
+var person = new Person('Nicholas', 29, 'Software Engineer');
+person.sayName();	//'Nicholas'
+
+//作为普通函数调用
+Person('Greg', 27, 'Doctor');	//在全局作用域中调用，this=>window
+window.sayName();	//'Greg'
+
+//在另一个对象的作用域中调用
+var anotherObject = new Object();
+Person.call(anotherObject, 'Kristen', 25, 'Nurse');
+anotherObject.sayName();	//'Kristen'
+```
+
+### 2.2 构造函数的问题
+
+a. sayName()为两个不同的Function实例
+
+```
+function Person(name, age, job){
+	this.name = name;
+	this.age = age;
+	this.job = job;
+	this.sayName = new Function("log(this.name)");	//与声明函数等价
+}
+
+var person1 = new Person('Nicholas', 29, 'Software Engineer');
+var person2 = new Person('Greg', 27, 'Doctor');
+
+log(person1.sayName == person2.sayName);		//false
+```
+
+b. 共用一个sayName函数
+
+```
+function Person(name, age, job){
+	this.name = name;
+	this.age = age;
+	this.job = job;
+	this.sayName = sayName;
+}
+
+function sayName(){
+	log(this.name);
+}
+
+var person1 = new Person('Nicholas', 29, 'Software Engineer');
+var person2 = new Person('Greg', 27, 'Doctor');
+
+log(person1.sayName == person2.sayName);		//true
+```
+
+## 3. 原型模式
+
+```
+function Person(){
+}
+
+Person.prototype.name = 'Nicholas';
+Person.prototype.age = 29;
+Person.prototype.job = 'Software Engineer';
+Person.prototype.sayName = function (){
+	log(this.name);
+}
+
+var person1 = new Person();
+person1.sayName();	//'Nicholas'
+
+var person2 = new Person();
+person2.sayName();	//'Nicholas'
+
+log(person1.sayName == person2.sayName);		//true
+newline();
+
+//创建function Person(){}时es会为Person函数创建一个prototype属性指向函数的原型对象。
+//默认情况下，原型对象会自动获得一个constructor属性指向prototype所在函数Person。
+log(Person.prototype.constructor);		//function Person(){}
+
+//当函数创建新实例后，该实例内部将包含一个指针指向函数的原型对象(叫作[[Prototype]]，Firefox,Chrome,Safari可以用__proto__来访问)。
+//用isPrototypeOf() 来判断&lt;--实例和原型对象之间--&gt;否存在[[Prototype]]的这种关系：
+log(Person.prototype.isPrototypeOf(person1));	//true
+log(Person.prototype.isPrototypeOf(person2));	//true
+newline();
+
+//(ES5)用getPrototypeOf()取得[[Prototype]]的值：
+log(Object.getPrototypeOf(person1) == Person.prototype);	//true
+log(Object.getPrototypeOf(person2).name);	//'Nicholas'
+```
+
+### 3.1 理解原型对象
+
+```
+//读取对象的某个属性时，会执行一次搜索。首先搜索对象实例本身，如找到则返回该属性值；如果没有找到则继续搜索指针指向的原型对象，在原型对象中找到则改回该属性值。
+//对象实例能访问但不能重写原型中的值。如果在实例中添加了一个属性，该属性与实例原型中的一个属性同名，则在实例中创建该属性。
+function Person(){
+}
+Person.prototype.name = 'Nicholas';
+Person.prototype.age = 29;
+Person.prototype.job = 'Software Engineer';
+Person.prototype.sayName = function (){
+	log(this.name);
+}
+
+var person1 = new Person();
+var person2 = new Person();
+
+person1.name = 'Greg';
+log(person1.name);		//'Greg'--来自实例
+log(person2.name);		//'Nicholas'--来自原型
+
+//如果对象实例新建一个prototype里不存在的属性，也只会在对象实例里
+person1.sex = 'male';
+newline();
+log(person1.sex);	//'male'--来自实例
+log(Object.getPrototypeOf(person1).sex);		//'undefined'
+log(Person.prototype.sex);		//'undefined'
+
+//实例中的与原型上同名的属性会屏蔽原型对象中的属性。意味着该属性会阻止代码访问原型对象中的同名属性，即使该属性的值被设为null
+//可以使用delete操作符来删除实例属性并得以访问原型中的属性。
+newline();
+person1.name = null;
+log(person1.name);		//null--来自实例
+delete person1.name;
+log(person1.name);		//'Nicholas'--来自原型
+
+//hasOwnProperty()可以检测一个属性是否存在于实例中。
+newline();
+person2.name = 'Ape';
+log(person2.name);		//'Ape'--来自实例
+log(person2.hasOwnProperty('name'));	//true--name属性来自实例person2
+delete person2.name;
+log(person2.name);		//'Nicholas'--来自原型
+log(person2.hasOwnProperty('name'));	//false--person中name属性被删除之后，name属性来自原型
+
+//es5中Object.getOwnPropertyDescriptor()只能用于实例属性。若要获得原型属性的描述符，必须直接在原型对象上调用该方法。
+log(JSON.stringify(Object.getOwnPropertyDescriptor(person1, 'sex')));
+log(JSON.stringify(Object.getOwnPropertyDescriptor(person2, 'name')));	//undefind--因为经过上面的delete person2.name 之后实例person2上已经没有name属性。
+log(JSON.stringify(Object.getOwnPropertyDescriptor(Person.prototype, 'name')));
+log(JSON.stringify(Object.getOwnPropertyDescriptor(Person.prototype, 'toString')));
+```
+
+
+### 3.2 in 操作符
+
+```
+//a. 单独使用-通过对象能访问属性时返回true，无论该属性存在于实例还是原型中。
+function Person(){
+}
+Person.prototype.name = 'Nicholas';
+Person.prototype.age = 29;
+Person.prototype.job = 'Software Engineer';
+Person.prototype.sayName = function (){
+	log(this.name);
+}
+
+var person = new Person();
+log('name' in person);		//true --来自原型
+log('male' in person);		//false --实例和原型都没找到
+person.sex = 'male';
+log('male' in person);		//true --来自实例
+
+//可以搭配hasOwnProperty()使用
+newline();
+function hasPrototypeProperty(object, name){
+	return !object.hasOwnProperty('name') && (name in object);
+}
+log(hasPrototypeProperty(person, 'name'));		//true
+person.name = 'Bill';
+log(hasPrototypeProperty(person, 'name'));		//false
+
+//b. for-in方式
+//for-in能够访问存在于实例中和原型中的属性，也包括屏蔽了原型对象中不可枚举属性的实例中的属性。
+newline();
+var o = {
+	toString: function(){
+		return 'My Object';
+	}
+};
+//toString 在Object.prototype中不可枚举
+log(JSON.stringify(Object.getOwnPropertyDescriptor(Object.prototype, 'toString')));
+newline();
+
+//默认的不可枚举属性有：
+//hasOwnProperty(), propertyIsEnumerable(), toLocaleString(), toString(), valueOf(), constructor(es5) 以及 prototype(es5)
+for(var prop in o){
+	if(prop == 'toString')
+		log('Found ' + prop);
+}
+//可以使用Object.keys()来取得对象上所有可枚举的实例属性（无论是否可枚举，都可以用getOwnPropertyNames()来获得）。
+log(Object.keys(Person.prototype));		//'name, age, job, sayName'
+var person1 = new Person();
+log(Object.keys(person1));		//''
+person1.name = 'Jeff';
+person1.age = '26';
+log(Object.keys(person1));
+log(Object.getOwnPropertyNames(Person.prototype));
+```
+
+### 3.3 更简单的原型语法
+
+可以用一个包含所有属性和方法的对象字面量来封装原型的功能
+
+```
+function Person(){
+}
+
+Person.prototype = {
+	name: 'Nicholas',
+	age: 29,
+	job: 'Software Engineer',
+	sayName : function(){
+		log(this.name);
+	}
+};
+
+//但是上面的写法会导致constructor属性不再指向Person。因为每创建一个函数，就会同时创建它的prototype对象，这个对象会自动获得constructor属性。而上面完全重写了prototype对象，因此constructor变成了新对象的属性，指向Object。
+var friend = new Person();
+log(friend instanceof Object);		//true
+log(friend instanceof Person);		//true
+log(friend.constructor == Person);	//false
+log(friend.constructor == Object);	//true
+newline();
+//可以如此设置constructor的指向：
+Person.prototype = {
+	constructor:  Person,
+	name: 'Nicholas',
+	age: 29,
+	job: 'Software Engineer',
+	sayName : function(){
+		log(this.name);
+	}
+}
+//此方式设置的constructor属性是可枚举的，默认是不可枚举。
+log(JSON.stringify(Object.getOwnPropertyDescriptor(Person.prototype, 'constructor')));
+
+//(es5)可以通过Object.defineProperty()来设置属性constructor的[[Enumerable]]：
+Object.defineProperty(Person.prototype, 'constructor',{
+	enumerable: false,
+	value: Person
+});
+log(JSON.stringify(Object.getOwnPropertyDescriptor(Person.prototype, 'constructor')));
+```
+
+### 3.4 原型的动态性
+
+由于在原型中查找值的过程是一场搜索，所以对原型对象所做的任何修改都能立即从实例上反映出来。
+
+```
+function Person(){
+}
+
+var friend = new Person();
+
+Person.prototype.sayHi = function(){
+	log('Hi');
+};
+
+friend.sayHi();		//没有问题
+//实例和原型之间的连接是一个指针，而非一个副本
+```
+
+
+```
+//调用构造函数时会为实例添加一个指向最初原型的[[Prototype]]指针。如果重写prototype对象，就会切断构造函数与最初原型之间的联系。
+//而实例中的指针仅指向原型，而不指向构造函数。
+function Person(){
+}
+
+var friend = new Person();
+
+Person.prototype = {
+	constructor:  Person,
+	name: 'Nicholas',
+	age: 29,
+	job: 'Software Engineer',
+	sayName : function(){
+		log(this.name);
+	}
+};
+
+//friend.sayName();		//报错
+```
+
+### 3.5 原生对象的原型
+
+原生对象例如Object, Array, String等等也是在其构造函数的原型上定义了方法。
+
+```
+log(typeof Array.prototype.sort);		//'function'
+log(typeof String.prototype.substring);	//'function'
+
+//可以为原生对象的原型添加自定义的方法（需谨慎）。
+String.prototype.startWith = function(text){
+	return this.indexOf(text) == 0;
+};
+
+var msg = 'Hello World!';
+log(msg.startWith('Hello'));	//true
+```
+
+### 3.6 原型的问题
+
+省略了为构造函数传递初始化参数的环节，导致默认情况下都将取得相同的属性值，而且该属性值是共享的！
+
+```
+function Person(){
+}
+
+Person.prototype = {
+	constructor: Person,
+	name: 'Nicholas',
+	age: 29,
+	job: 'Software Engineer',
+	friends: ['Bill', 'Jeff'],
+	sayName : function(){
+		log(this.name);
+	}
+};
+
+var person1 = new Person();
+var person2 = new Person();
+person1.friends.push('Van');
+
+log(person1.friends);	//'Bill','Jeff','Van'
+log(person2.friends);	//'Bill','Jeff','Van'
+//两个log结果相同，因为共享同一个Person.prototype的friends值
+```
+
+## 4. 组合使用构造函数模式和原型模式
+
+构造函数模式用语定义实例属性，而原型模式用于定义方法和共享的属性。
+
+```
+function Person(name, age, job){
+	this.name = name;
+	this.age = age;
+	this.job = job;
+	this.friends = ['Shelby', 'Court'];
+}
+
+Person.prototype = {
+	constructor: Person,
+	sayName: function(){
+		log(this.name);
+	}
+}
+
+var person1 = new Person('Nicholas', 29, 'Software Engineer');
+var person2 = new Person('Greg', 27, 'Doctor');
+
+person1.friends.push('Van');
+log(person1.friends);
+log(person2.friends);
+log(person1.friends == person2.friends);	//不同的实例属性
+log(person1.sayName == person2.sayName);	//同样的prototype对象上的方法
+```
+
+## 5. 动态原型模式
+
+将所有信息都封装在构造函数中，通过在构造函数中初始化原型（仅在有必要的情况下），又保持了同时使用构造函数和原型的优点
+
+```
+function Person(name, age, job){
+	//属性
+	this.name = name;
+	this.age = age;
+	this.job = job;
+	//方法
+	if(typeof this.sayName != 'function'){
+		Person.prototype.sayName = function(){
+			log(this.name);
+		}
+	}
+}
+
+var friend = new Person('Nicholas', 29, 'Software Engineer');
+friend.sayName();	//'Nicholas'
+//这里对原型所做的修改能够立即在所有实例中得到反映（'搜索过程'）。不能重写prototype，否则会切断现有实例与新原型之间的联系
+```
+
+## 6. 寄生构造函数模式
+
+创建一个函数，该函数的作用仅仅是封装创建对象的代码，然后将该对象返回。
+除了使用new操作符并把包装函数叫做构造函数之外，这个模式跟工厂模式是一样的。
+
+```
+function Person(name, age, job){
+	var o = new Object();
+	o.name = name;
+	o.age = age;
+	o.job = job;
+	o.sayName = function(){
+		log(this.name);
+	};
+	return o;
+}
+var friend = new Person('Nicholas', 29, 'Software Engineer');
+friend.sayName();
+
+//这个模式在特殊的晴空下用来为对象创建构造函数。
+//假设我们想创建一个具有额外方法的特殊数组。由于不能直接修改Array构造函数，因此可以使用这个模式：
+function SpecialArray(){
+	var values = new Array();
+	values.push.apply(values, arguments);
+	values.toPipedString = function(){
+		return this.join('|');
+	};
+	return values;
+}
+var colors = new SpecialArray('red','green','blue');
+log(colors.toPipedString());		//'red|green|blue'
+
+//寄生模式返回的对象与构造函数或者与构造函数的原型属性之间没有关系（和构造函数外创建的对象没有什么不同），因此不能用instanceof操作符来确定对象类型
+log(friend instanceof Person);		//false
+log(colors instanceof SpecialArray);	//false
+```
+
+## 7. 稳妥构造函数模式
+
+稳妥对象（durable objects）指的是没有公共属性，而且其方法也不引用this的对象。
+与寄生模式类似但有两点不同：一是新创建的对象实例方法不引用this；二是不使用new操作符调用构造函数。
+
+```
+function Person(name, age, job){
+	var o = new Object();
+	o.logInfo = function(){
+		log(name, age, job);
+	};
+	return o;
+}
+var friend = Person('Nicholas', 29, 'Software Engineer');
+friend.logInfo();	//'Nicholas', 29, 'Software Engineer'
+newline()
+log(friend.job);	//undefind
+```
+
+friend中保存的是一个稳妥对象，除了调用logInfo()方法外，没有别的方法可以访问其数据成员。即使有代码会为其添加方法或数据成员，但也不可能访问传入构造函数的原始数据。

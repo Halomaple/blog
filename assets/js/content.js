@@ -3,8 +3,12 @@ $(document).ready(function(){
 	var logCount = 1;
 	$('pre > code').each(function(index, el) {
 		elementPreIndex = index;
-		eval($(el).text());
-		if ($(el).text().indexOf('/*------------output--------------') > -1)
+		try{
+			eval($(el).text());
+		}catch(e){
+			console.log(e,'NOT JS code');
+		}
+		if ($(el).text().indexOf('/*------------Output--------------') > -1)
 			$('pre > code')[elementPreIndex].append('--------------------------------*/\n');
 		logCount = 1;
 	});
@@ -15,9 +19,13 @@ $(document).ready(function(){
 
 	function log(output) {
 		if (logCount == 1)
-			$('pre > code')[elementPreIndex].append('\n/*------------output--------------\n');
+			$('pre > code')[elementPreIndex].append('\n/*------------Output--------------\n');
 
-		$('pre > code')[elementPreIndex].append(logCount + ': ' + output + '\n');
+		var result = '';
+		for(var i = 0; i < arguments.length; i++){
+			result += arguments[i] + ', ';
+		}
+		$('pre > code')[elementPreIndex].append(logCount + ': ' + result.slice(0, result.length-2) + '\n');
 		logCount++;
 	}
 });

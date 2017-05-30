@@ -872,12 +872,19 @@ article .article-content .kb {
 	white-space: nowrap;
 	line-height: 1.5;
 }
-article .article-content h1, article .article-content h2 {
+article .article-content h1{
 	margin-top: 1.5em;
 	padding-bottom: .3em;
 	border-bottom: 2px solid #dbdbdb;
 	font-size: 180%;
 	line-height: 1.2em;
+}
+article .article-content h2 {
+	margin-top: 1.2em;
+	padding-bottom: .2em;
+	border-bottom: 1px solid #dbdbdb;
+	font-size: 160%;
+	line-height: 1.1em;
 }
 article .article-content h3 {
 	margin-top: 1.3em;

@@ -13,7 +13,7 @@ reverse( )仅仅会反转数组项的顺序，不进行对比。
 ```
 var values = [0, 1, 5, 10, 15, 3];
 values.reverse();
-console.log(values);  //[3, 15, 10, 5, 1, 0]
+log(values);  //[3, 15, 10, 5, 1, 0]
 ```
 
 ## sort( )
@@ -27,7 +27,7 @@ sort( )方法会调用每个数组项的toString( )转型方法，然后比较�
 ```
 var values = [0, 1, 5, 10, 15];
 values.sort();
-console.log(values);  //[0,1,10,15,5] 因为'10'，'15'在'5'的前面。
+log(values);  //[0,1,10,15,5] 因为'10'，'15'在'5'的前面。
 ```
 
 sort( )方法可以接收一个比较函数以便开发者指定哪个值位于哪个值前面。
@@ -40,7 +40,7 @@ sort( )方法可以接收一个比较函数以便开发者指定哪个值位于�
 function compareAsc(value1, value2){
 	if(value1 < value2){
 		return -1;
-	}else if(value1 < value 2){
+	}else if(value1 > value2){
 		return 1;
 	}else {
 		return 0;
@@ -49,7 +49,7 @@ function compareAsc(value1, value2){
 
 var values = [0, 1, 5, 10, 15, 3];
 values.sort(compareAsc);
-console.log(values);  //[0, 1, 3, 5, 10, 15] 
+log(values);  //[0, 1, 3, 5, 10, 15] 
 ```
 
 * 降序排序（相对于升序，只需修改函数返回值）：
@@ -58,7 +58,7 @@ console.log(values);  //[0, 1, 3, 5, 10, 15]
 function compareDsc(value1, value2){
 	if(value1 < value2){
 		return 1;
-	}else if(value1 < value 2){
+	}else if(value1 > value2){
 		return -1;
 	}else {
 		return 0;
@@ -66,8 +66,8 @@ function compareDsc(value1, value2){
 }
 
 var values = [0, 1, 5, 10, 15, 3];
-values.sort(compareAsc);
-console.log(values);  //[0, 1, 3, 5, 10, 15] 
+values.sort(compareDsc);
+log(values);  //[15, 10, 5, 3, 1, 0]
 ```
 
 * 对于数值类型或者其valueOf( )方法会返回数值类型的对象类型，可以使用一个更简单的比较函数：
@@ -79,13 +79,3 @@ function compareAsc(value1, value2){
 ```
 
 ！注意：reverse( )和sort( )方法的返回值是经过排序之后的数组（改变了原数组）。
-
-
-
-
-
-
-
-
-
-

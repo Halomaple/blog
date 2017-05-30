@@ -37,7 +37,7 @@
 		for (i = 0; i < this.top; i++) {
 			num += this.dataStore[i] + ".";
 		}
-		return '\u27A4 '+ num.slice(0, num.length - 1) + '&nbsp;&nbsp;&nbsp;&nbsp;';
+		return '\u27A4' + '&nbsp;&nbsp;';
 	}
 
 	function inc_number() {
