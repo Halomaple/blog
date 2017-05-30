@@ -1,23 +1,23 @@
 ---
-layout: page
-type: page
-title: 7 函数表达式
+layout: post
+title: "7 函数表达式"
 date: 2017-05-25 21:00:00 +0800
+category: [Learning, JavaScript, Function Expression]
+tag: [JS, Function Expression]
 ---
-<script type="text/javascript" src="content.js"></script>
-<div id="code-article-page">
 
 本章内容
-<ul>
-	<li>函数表达式的特征</li>
-	<li>使用函数实现递归</li>
-	<li>使用闭包定义私有变量</li>
-</ul>
 
-<p>定义函数的方式有两种：<b>函数声明</b>和<b>函数表达式</b></p>
+- 函数表达式的特征
+- 使用函数实现递归
+- 使用闭包定义私有变量
 
-<h4>1. 函数声明</h4>
-<pre>
+
+定义函数的方式有两种：**函数声明**和**函数表达式**
+
+## 1. 函数声明
+
+```
 function functionName(arg0, arg1, arg2){
 	//函数体
 }
@@ -25,21 +25,21 @@ function functionName(arg0, arg1, arg2){
 //Firefox, Opera, Safari和Chrome给函数定义了一个非标准的name属性，通过这个属性可以访问到给函数制定的名字。这个属性永远等于在function关键字后面的标识符
 
 log(functionName.name);	//'functionName'
-</pre>
+```
 
-<pre>
-//关于函数声明，有一个重要的特征就是“函数声明提升“（function declaration hoisting）,意思是在执行代码之前会先读取函数声明。意味着可以可函数声明放在调用它的语句后面。
+关于函数声明，有一个重要的特征就是“函数声明提升“（function declaration hoisting）,意思是在执行代码之前会先读取函数声明。意味着可以可函数声明放在调用它的语句后面。
+```
 
 sayHi();
 
 function sayHi(){
 	log("Hi!");
 }
-</pre>
+```
 
-<h4>2. 使用函数表达式</h4>
+## 2. 使用函数表达式
 
-<pre>
+```
 var functionName = function(arg0, arg1, arg2){
 	//函数体
 };
@@ -47,15 +47,20 @@ var functionName = function(arg0, arg1, arg2){
 //创建一个匿名函数（anonymous function）赋值给变量functionName。叫匿名函数是因为function后面没有标识符。（匿名函数有时候也叫拉姆达函数lamda function）匿名函数的name属性是空字符串。
 
 //函数表达式与其他表达式一样，使用前必须先赋值
-sayHi();	//错误：函数还不存在
+try {
+	sayHi();
+}catch(e){
+	log(e);//错误：函数还不存在
+}
 
 var sayHi = function(){
 	log('Hi!');
 };
-</pre>
+```
 
-<pre>
-//下面写法有风险
+下面写法有风险
+
+```
 var condition = true;
 
 if(condition){
@@ -80,11 +85,11 @@ if(condition){
 		log('Yo!');
 	}
 }
-</pre>
+```
 
-<pre>
-//能够创建函数在赋值给变量，也能把函数作为其他函数的值返回。
+能够创建函数在赋值给变量，也能把函数作为其他函数的值返回。
 
+```
 function createComparisonFunction(propertyName){
 	return function(obj1, obj2){
 		var value1 = obj1[propertyName];
@@ -99,7 +104,6 @@ function createComparisonFunction(propertyName){
 		}
 	};
 }
-//createComparisonFunction()返回了一个匿名函数，这个匿名可能赋值给一个变量或者被调用。在createComparisonFunction内部，它是匿名的。在把函数当成值来使用的情况下，都可以使用匿名函数。
-</pre>
+```
 
-</div>
+createComparisonFunction( )返回了一个匿名函数，这个匿名可能赋值给一个变量或者被调用。在createComparisonFunction内部，它是匿名的。在把函数当成值来使用的情况下，都可以使用匿名函数。

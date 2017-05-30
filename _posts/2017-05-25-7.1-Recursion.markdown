@@ -1,26 +1,27 @@
 ---
-layout: page
-type: page
-title: 7.1 递归
+layout: post
+title: "7.1 递归"
 date: 2017-05-25 22:00:00 +0800
+category: [Learning, JavaScript, Recursion]
+tag: [JS, Recursion]
 ---
-<script type="text/javascript" src="content.js"></script>
-<div id="code-article-page">
 
-<p>递归是在一个函数<b>调用自身</b>的情况下构成的</p>
+递归是在一个函数**调用自身**的情况下构成的
 
 下面是一个经典的递归阶乘函数
-<pre>
+
+```
 function factorial(num){
 	if(num < 1)
 		return 1;
 	else
 		return num * factorial(num -1);
 }
-</pre>
+```
 
 上面的写法受制于函数名。将factorial置空之后将会出错
-<pre>
+
+```
 function factorial(num){
 	if(num < 1)
 		return 1;
@@ -32,10 +33,12 @@ factorial = null;
 //log(anotherFactorial(4));
 //出错，因为在执行return num * factorial(num -1); 时factorial已经不再是函数，为 null。
 
-</pre>
+```
+
 使用arguments.callee可以解决这个问题。arguments.callee是指向正在执行的函数的指针，因此可用来实现对函数的递归调用。
 例如：
-<pre>
+
+```
 function factorial(num){
 	if(num < 1)
 		return 1;
@@ -46,11 +49,13 @@ function factorial(num){
 var anotherFactorial = factorial;
 factorial = null;
 log(anotherFactorial(4));	//24
-</pre>
+```
+
 编写递归时，通过使用arguments.callee代替函数名，比使用函数名更保险。
-<br/>
+
 但在严格模式下，不能访问arguments.callee，访问这个属性会导致错误。因此可以使用命名函数表达式来达成相同的效果。例如：
-<pre>
+
+```
 var factorial = (function f(num){
 	if(num <= 1)
 		return 1;
@@ -61,7 +66,6 @@ var factorial = (function f(num){
 var anotherFactorial = factorial;
 factorial = null;
 log(anotherFactorial(5));	//120
+```
 
-</pre>
 以上代码创建了一个名为f( )的命名函数，然后将它赋值给变量factorial。即便把函数赋值给另一个变量，函数的名字f仍然有效，所以递归调用能够正确完成。这种方式在严格模式和非严格模式都是允许的。
-</div>
