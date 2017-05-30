@@ -1,0 +1,42 @@
+---
+layout: page
+type: page
+title: 7.3 模仿块级作用域
+date: 2017-05-30 14:00:00 +0800
+---
+<script type="text/javascript" src="content.js"></script>
+<div id="code-article-page">
+JavaScript没有块级作用域的概念。这意味着在块级语句中定义的变量，实际上是在包含函数中而非语句中创建的。
+<pre>
+function outputNumbers(count){
+	for(var i = 0; i < count; i++){
+		log(i);
+	}
+	newline();
+	log(i);
+}
+outputNumbers(5);
+//这个函数中定义了一个for循环，而变量i的初始值被设置为0。在Java、C++等语言中，变量只会在for循环的语句块中有定义，循环一旦结束，变量i就会被销毁。可在JavaScript中，变量i是定义在outputNumbers()的活动对象中的，因此从它有定义开始，就可以在函数内部随处访问它。
+</pre>
+<pre>
+function outputNumbers(count){
+	for(var i = 0; i < count; i++){
+		log(i);
+	}
+	newline();
+	var i;	//重新声明变量
+	log(i);	//计数
+}
+outputNumbers(5);
+//JavaScript从来不会告诉你是否多次声明了同一个变量；遇到这种情况，它只会对后续的声明视而不见（不过，它会执行后续声明中的变量初始化。如果是var i = undefined;的，i最后的值就是undefined）
+
+//匿名函数可以用来模仿<b>块级作用域</b>（通常称为<b>私有作用域</b>）并避免这个问题。
+(function(){
+	//这里是块级作用域
+})();
+
+
+
+
+</pre>
+</div>
