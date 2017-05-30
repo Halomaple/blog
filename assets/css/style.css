@@ -1450,6 +1450,12 @@ section.comment {
 	font-size: .8em;
 	line-height: 1.3em;
 }
+@media(max-width: 768px){
+	#toc{
+		margin: 0;
+		float: none;
+	}
+}
 #toc .toc {
 	padding: 0;
 }
