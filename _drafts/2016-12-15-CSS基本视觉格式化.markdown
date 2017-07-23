@@ -6,7 +6,6 @@ category: [Learning, CSS]
 tag: [CSS, 盒模型, 块级元素, 行内元素, 对齐]
 ---
 
-
 ## 1 基本框
 
 CSS假定每个元素都会生成一个或多个矩形框（未来可能包括非矩形框），这称为元素框。各元素框中心有一个内容区（content area）。这个内容区周围有可选的内边距（padding）、边框（border）和外边距（margin），这些元素的宽度都可以设置为0。
@@ -337,3 +336,5 @@ h1 { margin-top: 20px;}
 这个改动会把元素上升4px，这会同时提升其内容区和行内框。由于strong元素的行内框顶端已经是行中最高点，对垂直对齐的这个修改会把整个行框的顶端也向上移4px，如下图所示：
 
 ![垂直对齐影响行框高度](../images/vertical-align-affects-inline-box-height.JPG)
+
+>【本文内容摘自：《CSS权威指南》（第三版） Eric A. Meyer 著   尹志忠 侯妍 译】

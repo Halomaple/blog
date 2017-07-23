@@ -79,3 +79,5 @@ function compareAsc(value1, value2){
 ```
 
 ！注意：reverse( )和sort( )方法的返回值是经过排序之后的数组（改变了原数组）。
+
+>【本文内容摘自：《JavaScript高级程序设计》（第3版）Nicholas C.Zakas 著   李松峰 曹力 译】

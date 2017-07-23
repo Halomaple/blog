@@ -6,7 +6,6 @@ category: [Learning, JavaScript, Array]
 tag: [JS, Array]
 ---
 
-
 ## Array基本
 
 构建：
@@ -220,3 +219,5 @@ var anotherSum = values.reduceRight(function(prev, cur, index, array){
 
 log(anotherSum);		//15
 ```
+
+>【本文内容摘自：《JavaScript高级程序设计》（第3版）Nicholas C.Zakas 著   李松峰 曹力 译】

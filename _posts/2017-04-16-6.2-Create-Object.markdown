@@ -6,7 +6,6 @@ category: [Learning, JavaScript, Create Object]
 tag: [JS, Object]
 ---
 
-
 ## 1. 工厂模式
 
 ```
@@ -498,3 +497,5 @@ log(friend.job);	//undefind
 ```
 
 friend中保存的是一个稳妥对象，除了调用logInfo()方法外，没有别的方法可以访问其数据成员。即使有代码会为其添加方法或数据成员，但也不可能访问传入构造函数的原始数据。
+
+>【本文内容摘自：《JavaScript高级程序设计》（第3版）Nicholas C.Zakas 著   李松峰 曹力 译】

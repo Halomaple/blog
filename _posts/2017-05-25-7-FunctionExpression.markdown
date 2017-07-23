@@ -107,3 +107,5 @@ function createComparisonFunction(propertyName){
 ```
 
 createComparisonFunction( )返回了一个匿名函数，这个匿名可能赋值给一个变量或者被调用。在createComparisonFunction内部，它是匿名的。在把函数当成值来使用的情况下，都可以使用匿名函数。
+
+>【本文内容摘自：《JavaScript高级程序设计》（第3版）Nicholas C.Zakas 著   李松峰 曹力 译】
