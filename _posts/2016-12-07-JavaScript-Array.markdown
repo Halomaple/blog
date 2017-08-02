@@ -68,9 +68,9 @@ var person2 = {
 
 var people = [person1, person2];
 
-log(people);					//Nicholas,Greg
-log(people.toString());		//Nicholas,Greg
-log(people.toLocaleString());	//Nikolaos,Grigorios
+console.log(people);					//Nicholas,Greg
+console.log(people.toString());		//Nicholas,Greg
+console.log(people.toLocaleString());	//Nikolaos,Grigorios
 ```
 
 ## 栈方法 
@@ -82,7 +82,7 @@ log(people.toLocaleString());	//Nikolaos,Grigorios
 ```
 var arr = [1,2,3,4];
 arr.push(5, 6);
-log(arr);	//[1,2,3,4,5,6]
+console.log(arr);	//[1,2,3,4,5,6]
 ```
 
 * 2). `pop()`从数组的末尾移除最后一项，减少数组的length值，并返回移除的项。
@@ -90,7 +90,7 @@ log(arr);	//[1,2,3,4,5,6]
 ```
 var arr = [1,2,3,4];
 var item = arr.pop();
-log(item, arr);		//4, [1,2,3]
+console.log(item, arr);		//4, [1,2,3]
 ```
 
 ## 队列方法
@@ -102,7 +102,7 @@ log(item, arr);		//4, [1,2,3]
 ```
 var arr = [1,2,3,4];
 var item = arr.shift();
-log(item, arr);		//1, [2,3,4]
+console.log(item, arr);		//1, [2,3,4]
 ```
 
 * 2). `unshift()`在数组的前端添加任意个项并返回新数组的长度；结合pop()方法使用来模拟队列。
@@ -110,7 +110,7 @@ log(item, arr);		//1, [2,3,4]
 ```
 var arr = [1,2,3,4];
 var count = arr.unshift(-1,0);
-log(count, arr);	//6, [-1,0,1,2,3,4]
+console.log(count, arr);	//6, [-1,0,1,2,3,4]
 ```
 
 ## 重排序方法
@@ -131,18 +131,18 @@ log(count, arr);	//6, [-1,0,1,2,3,4]
 ```
 var colors = ["red", "green", "blue"];
 var removed = colors.splice(0,1);		//删除第一项
-log(colors);		//green, blue
-log(removed);		//red, 返回数组中只包含一项（所删除的项）
+console.log(colors);		//green, blue
+console.log(removed);		//red, 返回数组中只包含一项（所删除的项）
 
-newline();
+console.line();
 removed = colors.splice(1, 0, "yellow", "orange");		//从位置1开始插入两项
-log(colors);		//green, yellow, orange, blue
-log(removed);		//返回的是一个空数组（没有删除）
+console.log(colors);		//green, yellow, orange, blue
+console.log(removed);		//返回的是一个空数组（没有删除）
 
-newline();
+console.line();
 removed = colors.splice(1, 1, "red", "purple");		//插入两项，删除一项
-log(colors);		//green, red, purple, orange, blue
-log(removed);		//yellow, 返回数组只包含一项（所删除的项）
+console.log(colors);		//green, red, purple, orange, blue
+console.log(removed);		//yellow, 返回数组只包含一项（所删除的项）
 ```
 
 ## 位置方法
@@ -168,22 +168,22 @@ var numbers = [1,2,3,4,5,4,3,2,1];
 var everyResult = numbers.every(function(item, index, array){
 	return item > 2;
 });
-log(everyResult);		//false
+console.log(everyResult);		//false
 
 var someResult = numbers.some(function(item, index, array){
 	return item > 2;
 });
-log(someResult); 		//true
+console.log(someResult); 		//true
 
 var filterResult = numbers.filter(function(item, index, array){
 	return item > 2;
 });
-log(filterResult);	//[3, 4, 5, 4, 3]
+console.log(filterResult);	//[3, 4, 5, 4, 3]
 
 var mapResult = numbers.map(function(item, index, array){
 	return item * 2;
 });
-log(mapResult);	//[2, 4, 6, 8, 10, 8, 6, 4, 2]
+console.log(mapResult);	//[2, 4, 6, 8, 10, 8, 6, 4, 2]
 
 numbers.forEach(function(item, index, array){
 	//执行某些操作
@@ -206,7 +206,7 @@ var sum = values.reduce(function(prev, cur, index, array){
 	return prev + cur;
 });
 
-log(sum);		//15
+console.log(sum);		//15
 ```
 
 reduceRight()的作用类似，只不过方向相反：
@@ -217,7 +217,7 @@ var anotherSum = values.reduceRight(function(prev, cur, index, array){
 	return prev + cur;
 });
 
-log(anotherSum);		//15
+console.log(anotherSum);		//15
 ```
 
 >【本文内容摘自：《JavaScript高级程序设计》（第3版）Nicholas C.Zakas 著   李松峰 曹力 译】

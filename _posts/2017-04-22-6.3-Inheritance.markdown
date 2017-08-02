@@ -32,24 +32,24 @@ SubType.prototype.getSubValue = function(){
 };
 var instance = new SubType();
 
-log(instance.getSuperValue());		//true, 搜索实例》搜索SubType.prototype》搜索SuperType.prototype
-log(SubType.prototype.property);	//true
-log(instance.constructor);		//SuperType
+console.log(instance.getSuperValue());		//true, 搜索实例》搜索SubType.prototype》搜索SuperType.prototype
+console.log(SubType.prototype.property);	//true
+console.log(instance.constructor);		//SuperType
 
-log(SubType.prototype.constructor);		//SubType的原型指向SuperType的原型，而这个原型对象的constructor属性指向SuperType
-log(instance.toString());	//toString()方法来自由实例SuperType继承的Object.prototype.toString()。所有函数的默认原型都是Object的实例。
+console.log(SubType.prototype.constructor);		//SubType的原型指向SuperType的原型，而这个原型对象的constructor属性指向SuperType
+console.log(instance.toString());	//toString()方法来自由实例SuperType继承的Object.prototype.toString()。所有函数的默认原型都是Object的实例。
 
-newline();
+console.line();
 //用instanceof操作符来确定实例之间的关系。只要是原型链中出现过的构造函数，结果就会返回true。
-log(instance instanceof Object);	//true
-log(instance instanceof SuperType);	//true
-log(instance instanceof SubType);	//true
+console.log(instance instanceof Object);	//true
+console.log(instance instanceof SuperType);	//true
+console.log(instance instanceof SubType);	//true
 
-newline();
+console.line();
 //用isPrototypeOf()方法来检测原型链中出现过的原型。
-log(Object.prototype.isPrototypeOf(instance));	//true
-log(SuperType.prototype.isPrototypeOf(instance)); //true
-log(SubType.prototype.isPrototypeOf(instance));	//true
+console.log(Object.prototype.isPrototypeOf(instance));	//true
+console.log(SuperType.prototype.isPrototypeOf(instance)); //true
+console.log(SubType.prototype.isPrototypeOf(instance));	//true
 ```
 
 ### 1.2 子类会覆盖超类型中的方法
@@ -81,7 +81,7 @@ SuperType.prototype = {
 };
 
 var instance = new SubType();
-log(instance.getSuperType);		//undefined
+console.log(instance.getSuperType);		//undefined
 ```
 
 ### 1.3 原型链的问题
@@ -100,10 +100,10 @@ SubType.prototype = new SuperType();
 
 var instance1 = new SubType();
 instance1.colors.push('black');	//来自prototype的colors
-log(instance1.colors);	//'red', 'blue', 'green', 'black'
+console.log(instance1.colors);	//'red', 'blue', 'green', 'black'
 
 var instance2 = new SubType();
-log(instance2.colors);	//'red', 'blue', 'green', 'black'
+console.log(instance2.colors);	//'red', 'blue', 'green', 'black'
 
 //SuperType构造函数定义了一个colors属性，该属性包含一个数组（引用类型值）。SuperType的每一个实例都会有各自包含数组的colors属性。当SubType通过原型链继承了SuperType之后，SubType.prototype就变成了SuperType的一个实例，因此拥有了一个colors属性--结果SubType所有的实例都会共享这一个colors属性（这个属性是在原型对象上的。搜索过程：实例本省=>原型对象）。所以对instance1.colors的修改会反映到instance2.colors，因为他们指向的是同一个地址。
 
@@ -124,11 +124,11 @@ function SubType(){
 
 var instance1 = new SubType();
 instance1.colors.push('black');
-log(!instance1.hasOwnProperty('colors') && ('colors' in instance1));	//false, 检测colors是否在prototype上
-log(instance1.colors);	//'red', 'blue', 'green', 'black', 操作instance1自身的属性colors
+console.log(!instance1.hasOwnProperty('colors') && ('colors' in instance1));	//false, 检测colors是否在prototype上
+console.log(instance1.colors);	//'red', 'blue', 'green', 'black', 操作instance1自身的属性colors
 
 var instance2 = new SubType();
-log(instance2.colors);	//'red', 'blue', 'green'
+console.log(instance2.colors);	//'red', 'blue', 'green'
 ```
 
 构造函数的一个优势是可以在子类型构造函数中向超类型构造函数传递参数。
@@ -145,8 +145,8 @@ function SubType(){
 }
 
 var instance1 = new SubType();
-log(instance1.name);
-log(instance1.age);
+console.log(instance1.name);
+console.log(instance1.age);
 //在SubType构造函数内部调用SuperType构造函数时，实际上是为SubType的实例设置了name属性。为了确保SuperType构造函数不会重写子类型的属性，可以在调用超类型构造函数之后，再添加应该在子类型中定义的属性。
 
 ```
@@ -163,7 +163,7 @@ function SuperType(name){
 	this.colors = ['red','blue','green'];
 }
 SuperType.prototype.sayName = function(){
-	log(this.name);
+	console.log(this.name);
 };
 
 function SubType(name, age){
@@ -176,19 +176,19 @@ function SubType(name, age){
 SubType.prototype = new SuperType();
 SubType.prototype.constructor = SubType;
 SubType.prototype.sayAge = function(){
-	log(this.age)
+	console.log(this.age)
 };
 
 var instance1 = new SubType('Nicholas', 29);
 instance1.colors.push('black');
-log(instance1.colors);	//'red,blue,green,black'
+console.log(instance1.colors);	//'red,blue,green,black'
 instance1.sayName();	//'Nicholas'
 instance1.sayAge();		//29
 
-newline();
+console.line();
 
 var instance2 = new SubType('Greg', 27);
-log(instance2.colors);	//'red,blue,green'
+console.log(instance2.colors);	//'red,blue,green'
 instance2.sayName();	//'Greg'
 instance2.sayAge();		//27
 //两个不同的SubType实例instance1和instance2分别拥有自己的属性name和colors以及age，又可以使用相同的方法sayName和sayAge。
@@ -227,7 +227,7 @@ var yetAnotherPerson = object(person);
 yetAnotherPerson.name = 'Linda';
 yetAnotherPerson.friends.push('Barbie');
 
-log(person.friends);	//'Shelby, Court, Van, Rob, Barbie'
+console.log(person.friends);	//'Shelby, Court, Van, Rob, Barbie'
 //Douglas Crockford主张的这种模式要求必须有一个对象作为另一个对象的基础。object返回一个以person为原型的新对象，而原型person里面有一个基本类型和一个引用类型值属性。这意味着person.friends不仅属于person所有，而且会被所有object()生成的新对象（示例中是anotherPerson 和 yetAnotherPerson）共享。
 ```
 
@@ -245,7 +245,7 @@ var yetAnotherPerson = Object.create(person);
 yetAnotherPerson.name = 'Linda';
 yetAnotherPerson.friends.push('Barbie');
 
-log(person.friends);	//'Shelby, Court, Van, Rob, Barbie'
+console.log(person.friends);	//'Shelby, Court, Van, Rob, Barbie'
 ```
 
 ```
@@ -260,7 +260,7 @@ var anotherPerson = Object.create(person, {
 		value: 'Greg'
 	}
 });
-log(anotherPerson.name);	//'Greg'
+console.log(anotherPerson.name);	//'Greg'
 ```
 在没有必要创建构造函数的情况下，想要一个对象和另一个对象保持类似，原型式继承完全可以胜任。
 
@@ -277,7 +277,7 @@ function object(o){
 function createAnother(original){
 	var clone = object(original);
 	clone.sayHi = function(){
-		log('Hi');
+		console.log('Hi');
 	};
 	return clone;
 }
@@ -302,7 +302,7 @@ function SuperType(name){
 	this.colors = ['red','blue','green'];
 }
 SuperType.prototype.sayName = function(){
-	log(this.name);
+	console.log(this.name);
 };
 
 function SubType(name, age){
@@ -315,7 +315,7 @@ function SubType(name, age){
 SubType.prototype = new SuperType();
 SubType.prototype.constructor = SubType;
 SubType.prototype.sayAge = function(){
-	log(this.age)
+	console.log(this.age)
 };
 
 //第一次调用SuperType构造函数时，SubType.prototype会得到两个属性：name和colors；它们都是SuperType的实例属性。只不过现在位于SubType的原型中。当调用SubType构造函数时，又会调用一次SuperType构造函数，这一次又在新对象上创建了实例属性name和colors。于是这两个属性就屏蔽了原型中的两个同名属性。
@@ -347,7 +347,7 @@ function SuperType(name){
 }
 
 SuperType.prototype.sayName = function(){
-	log(this.name);
+	console.log(this.name);
 };
 
 function SubType(name, age){
@@ -358,13 +358,13 @@ function SubType(name, age){
 inheritPrototype(SubType, SuperType);
 
 SubType.prototype.sayAge = function(){
-	log(this.age);
+	console.log(this.age);
 }
 
 var person = new SubType('Jeff', 29);
 person.sayName();
 person.sayAge();
-log(person.colors);
+console.log(person.colors);
 ```
 
 这个例子的高效在于它只调用了一次SuperType构造函数，并且因此避免了再SubType.prototype上面创建不必要的、多余的属性，同时原型链还能保持不变。

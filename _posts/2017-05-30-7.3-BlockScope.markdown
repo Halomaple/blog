@@ -13,10 +13,10 @@ JavaScript没有块级作用域的概念。这意味着在块级语句中定义�
 ```
 function outputNumbers(count){
 	for(var i = 0; i < count; i++){
-		log(i);
+		console.log(i);
 	}
-	newline();
-	log(i);
+	console.line();
+	console.log(i);
 }
 outputNumbers(5);
 ```
@@ -26,11 +26,11 @@ JavaScript从来不会告诉你是否多次声明了同一个变量；遇到这�
 ```
 function outputNumbers(count){
 	for(var i = 0; i < count; i++){
-		log(i);
+		console.log(i);
 	}
-	newline();
+	console.line();
 	var i;	//重新声明变量
-	log(i);	//计数
+	console.log(i);	//计数
 }
 outputNumbers(5);
 
@@ -53,7 +53,7 @@ function(){
 	//这里是块级作用域
 }();//出错！
 }catch(e){
-	log(e);
+	console.log(e);
 }
 //这段代码会导致语法错误，是因为JavaScript将function关键字当作一个函数声明的开始，而函数声明后面不能跟圆括号。然而，表达式的后面可以跟圆括号。要将函数声明转换成表达式，只要像下面这样给它加上一对圆括号即可。
 (function(){
@@ -69,7 +69,7 @@ function(){
 (function(){
 	var now = new Date();
 	if(now.getMonth() == 1 && now.getDate() == 1){
-		log('Happy new year!');
+		console.log('Happy new year!');
 	}
 })();
 //把这段代码放在全局作用域中，可以用来确定哪一天是1月1日；如果到了这一天，打印一条新年快乐的祝贺信息。其中的变量now是匿名函数中的局部变量。

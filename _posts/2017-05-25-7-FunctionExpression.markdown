@@ -24,7 +24,7 @@ function functionName(arg0, arg1, arg2){
 
 //Firefox, Opera, Safari和Chrome给函数定义了一个非标准的name属性，通过这个属性可以访问到给函数制定的名字。这个属性永远等于在function关键字后面的标识符
 
-log(functionName.name);	//'functionName'
+console.log(functionName.name);	//'functionName'
 ```
 
 关于函数声明，有一个重要的特征就是“函数声明提升“（function declaration hoisting）,意思是在执行代码之前会先读取函数声明。意味着可以可函数声明放在调用它的语句后面。
@@ -33,7 +33,7 @@ log(functionName.name);	//'functionName'
 sayHi();
 
 function sayHi(){
-	log("Hi!");
+	console.log("Hi!");
 }
 ```
 
@@ -50,11 +50,11 @@ var functionName = function(arg0, arg1, arg2){
 try {
 	sayHi();
 }catch(e){
-	log(e);//错误：函数还不存在
+	console.log(e);//错误：函数还不存在
 }
 
 var sayHi = function(){
-	log('Hi!');
+	console.log('Hi!');
 };
 ```
 
@@ -65,11 +65,11 @@ var condition = true;
 
 if(condition){
 	function sayHi(){
-		log('Hi!');
+		console.log('Hi!');
 	}
 } else {
 	function sayHi(){
-		log('Yo!');
+		console.log('Yo!');
 	}
 }
 //多数浏览器忽略条件返回第二个声明，Firefox会长condition为true时返回第一个声明。
@@ -78,11 +78,11 @@ if(condition){
 var sayHello;
 if(condition){
 	sayHello = function(){
-		log('Hello');
+		console.log('Hello');
 	}
 } else {
 	sayHello = function(){
-		log('Yo!');
+		console.log('Yo!');
 	}
 }
 ```

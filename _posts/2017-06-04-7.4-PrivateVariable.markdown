@@ -57,10 +57,10 @@ function Person(name){
 }
 
 var person = new Person('Nicholas');
-log(person.getName());	//'Nicholas'
+console.log(person.getName());	//'Nicholas'
 
 person.setName('Greg');
-log(person.getName());	//'Greg'
+console.log(person.getName());	//'Greg'
 //私有变量name在Person的每一个实例中都不同，因为每次调用构造函数都会重新创建这两个方法。
 ```
 
@@ -114,14 +114,14 @@ log(person.getName());	//'Greg'
 })();
 
 var person1 = new Person('Nicholas');
-log(person1.getName());	//'Nicholas'
+console.log(person1.getName());	//'Nicholas'
 
 person1.setName('Greg');
-log(person1.getName());	//'Greg'
+console.log(person1.getName());	//'Greg'
 
 var person2 = new Person('Michael');
-log(person1.getName());	//共享name现在变成了'Michael'
-log(person2.getName());	//'Michael'
+console.log(person1.getName());	//共享name现在变成了'Michael'
+console.log(person2.getName());	//'Michael'
 ```
 
 这个例子中Person与getName()和setName()方法一样，都用权访问私有变量name。在这个模式下，变量name就变成了一个静态的、由所有实例共享的属性。也就是说，在一个实例上调用setName()会影响所有实例。而调用setName()或新建一个Person实例都会赋予name属性一个新值。结果就是所有实例都会返回相同的值。

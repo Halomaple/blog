@@ -30,7 +30,7 @@ function factorial(num){
 }
 var anotherFactorial = factorial;
 factorial = null;
-//log(anotherFactorial(4));
+//console.log(anotherFactorial(4));
 //出错，因为在执行return num * factorial(num -1); 时factorial已经不再是函数，为 null。
 
 ```
@@ -48,7 +48,7 @@ function factorial(num){
 
 var anotherFactorial = factorial;
 factorial = null;
-log(anotherFactorial(4));	//24
+console.log(anotherFactorial(4));	//24
 ```
 
 编写递归时，通过使用arguments.callee代替函数名，比使用函数名更保险。
@@ -65,7 +65,7 @@ var factorial = (function f(num){
 
 var anotherFactorial = factorial;
 factorial = null;
-log(anotherFactorial(5));	//120
+console.log(anotherFactorial(5));	//120
 ```
 
 以上代码创建了一个名为f( )的命名函数，然后将它赋值给变量factorial。即便把函数赋值给另一个变量，函数的名字f仍然有效，所以递归调用能够正确完成。这种方式在严格模式和非严格模式都是允许的。
