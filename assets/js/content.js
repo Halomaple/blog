@@ -28,7 +28,10 @@ $(document).ready(function() {
 		try {
 			window.eval($(el).text());
 		} catch (e) {
-			console.warn(e, 'Exception!');
+			//Exclude Invalid character exception(not js code)
+			if(e.toString().indexOf('Invalid character') == -1){
+				console.warn(e, 'Exception!');
+			}
 		}
 		if ($(el).text().indexOf('/*------------Output--------------') > -1)
 			$('pre > code')[elementPreIndex].append('--------------------------------*/\n');
