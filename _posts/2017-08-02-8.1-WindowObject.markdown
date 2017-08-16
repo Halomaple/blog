@@ -1,0 +1,420 @@
+---
+layout: post
+title: "8.1 window对象"
+date: 2017-08-02 23:00:00  +0800
+category: [Learning, JavaScript]
+tag: [JS, BOM, window]
+---
+
+ECMAScript是JavaScript的核心，但如果在要在web中使用JavaScript，那么**BOM（Browser Object Model浏览器对象模型）**则是真正的核心。
+
+BOM的核心对象是**window**，它表示浏览器的一个实例。在浏览器中，window对象有双重角色，它既是：
+
+- 通过JavaScript访问浏览器的窗口的一个接口，
+- 又是ECMAScript规定的Global对象。
+
+这意味着在网页中定义的任何一个对象、变量和函数，都以window作为其Global对象，因此有权访问parseInt()等方法。
+
+
+## 1. 全局作用域
+
+由于window对象同时扮演着ECMAScript中Global对象的角色，因此所有在全局作用域中声明的变量、函数都会变成window对象的属性和方法。
+
+```
+var age = 25;
+function sayAge(){
+	console.log(this.age);
+}
+
+console.log(window.age);	//25
+sayAge();	//25
+window.sayAge();	//25 因为sayAge存在于全局作用域中，所以this.age被映射到window.age
+```
+
+全局变量与在window对象上直接定义属性的区别：全局变量不能通过**delete**操作符删除，而直接在window对象上的定义属性可以。
+
+```
+var age = 29;
+window.color = 'red';
+
+//在IE<9时抛出错误，在其他所有浏览器中都返回false
+delete window.age;
+
+//在IE<9时抛出错误，在其他所有浏览器中都返回true
+delete window.color; 	//returns true
+
+//console.log(window.age);	//29
+//console.log(window.color);	//undefined
+```
+
+使用var语句添加的window属性有一个名为[[Configurable]]的特性，这个特性的值被设置为false，因此这样定义的属性不可以通过delete操作符删除。IE8之前使用delete删除window属性时，不论如何最初是被创建的，都会抛出错误。
+
+
+另外：尝试访问未声明的变量会抛出错误，但是通过查询window对象，可以知道某个看你未声明的变量是否存在。
+
+```
+//这里会抛出错误，因为oldVal未定义
+var newVal = oldVal;
+
+//这不会抛出错误，因为这是一次属性查询
+var newVal = window.oldVal;
+```
+
+## 2. 窗口关系及框架
+
+如果页面中包含**框架**，则每个框架都拥有自己的window对象，并且保存在**frames集合**中。在frames集合中，可以通过数值索引（从0开始，从左至右，从上到下）或者**框架名称**来访问相应的window对象。每个window对象都有一个**name**属性，其中包含框架的名称。
+
+
+```
+<html>
+	<head>
+		<title>FrameSet Example</title>
+	</head>
+	<frameset rows="160, *">
+		<frame src="frame.html" name="topFrame">
+			<frameset cols="50%, 50%">
+				<frame src="anotherframe.html" name="leftFrame"></frame>
+				<frame src="yetanotherframe.html" name="rightFrame"></frame>
+			</frameset>
+		</frame>
+	</frameset>
+</html>
+```
+
+可以通过window.frames[0]或者window.frames["topFrame"]来引用上方的框架，也可以用top.frames[0]来引用。
+
+**top**对象始终指向最高（最外）层的框架，也就是浏览器窗口。使用它可以确保在一个框架中正确地访问另一个框架。因为对于在一个在框架中编写的任何代码来说，其中的window对象指向的都是那个框架的特定实例，而非最高层的框架。
+
+![在最高层窗口中通过代码来访问每个框架的不同方式](https://ws4.sinaimg.cn/large/006tNc79gy1fia1ybyvnnj30jg0e6jrx.jpg)
+
+与top相对的是另一个window对象是**parent**。parent对（父）对象始终指向当前框架的直接上层框架。在某些情况下，parent有可能等于top；但在没有框架的情况下，parent一定等于top（此时它们都等于window）。
+
+
+除非最高层窗口是通过window.open()打开的，否则其window对象的name属性不会包含任何值。
+
+与框架有关的最后一个self，它始终指向window；实际上，self和window对象可以互换使用。引入self对象的目的只是为了与top和parent对象对应起来，因此它不包含其他值。
+
+所有这些对象都是window对象的属性，可以通过window.parent、window.top等形式来访问。同时，这意味着可以将不同层次的window对象连缀起来：window.parent.parent.frames[0]
+
+在使用框架的情况下，浏览器会存在多个Global对象。在每个框架中定义的全局变量会自动成为框架中window对象的属性。由于每个window对象都包含原生类型的构造函数，因此每个框架都有一套自己的构造函数，这些构造函数一一对应，但并不相等。例如，top.Object并不等于top.frames[0].Object。这个问题会影响到对跨框架传递的对象使用instanceof操作符。
+
+## 3. 窗口位置
+
+用来确定和修改window对象的位置的属性和方法有很多。IE、Safari、Opera和Chrome都提供了**screenLeft**和**screenTop**属性，分别用于表示窗口相对于屏幕左边和上边的位置。Firefox则在**screenX**和**screenY**属性中提供相同的窗口位置星系，Safari和Chrome也同时支持这两个属性。Opera虽也支持但与screenLeft和screenTop属性并不对应，因此建议不要在Opera中使用。
+
+```
+var leftPos = (typeof window.screenLeft == "number") ? window.screenLeft : window.screenX;
+var topPos = (typeof window.screenTop == "number") ? window.screenTop : window.screenY;
+
+console.log(leftPos, 'left pos');
+console.log(topPos, 'top pos');
+```
+
+在使用这些值的过程中，需要注意一些小问题。在IE、Opera中，screenLeft和screenTop中保存的是从屏幕左边和上边到由window对象表示的页面可见区域的距离。换句话说，如果window对象是最外层对象，而且浏览器窗口紧贴屏幕最上端——即y轴坐标为0，那么screenTop的值就是位于页面可见区域上方的浏览器工具栏的像素高度。但是在Chrome、Firefox和Safari中，screenY或者screenTop中保存的是整个浏览器窗口相对于屏幕的坐标值，即在窗口y轴坐标为0时返回0。
+
+
+然而Firefox、Safari和Chrome始终返回页面中每个框架的top.screenX和top.screenY值。即使在页面犹豫被设置了外边距儿发生偏移的情况下，相对于window对象使用screenX和screenY每次也都会返回相同的值。而IE和Opera则会给出框架相对于屏幕边界的精确坐标值。
+
+最终结果就是无法在跨浏览器的情况下取得窗口左边合上编的精确坐标值。然而，使用**moveTo()**和**moveBy()**倒是有可能将窗口精确地移动到一个新位置。这两个方法都接受两个参数。moveTo()接受的是新位置x和y坐标值，而moveBy()接受的是在水平和垂直方向上移动的像素数。
+
+```
+//将窗口移动到屏幕左上角
+window.moveTo(0, 0);
+
+//将窗口向下移动100像素
+window.moveBy(0,100);
+
+//将窗口移动到(200, 300)
+window.moveTo(200, 300);
+
+//将窗口向左移动50像素
+window.moveBy(-50, 0);
+```
+
+需要注意的是，这两个方法可能会被浏览器禁用；而且在Opera和IE7（及更高版本）中默认就是禁用的。另外，这两个方法都不适用于框架，只能对最外层的window对象使用。
+
+## 4. 窗口大小
+
+IE9+、Firefox、Safari、Opera和Chrome都提供了4个属性：**innerWidth**、**innerHeight**、**outerWidth**和**outerHeight**。在IE9+、Safari和Firefox中，outerWidth和outerHeight返回浏览器窗口本身的尺寸（无论是从最外层的window对象还是从某个框架房屋）。在Opera中，这两个属性的值表示页面视图容器的大小（单个标签页对应的浏览器窗口）。而innerWidth和innerHeight则表示该容器中页面视图区的大小（减去边框宽度）。在Chrome中，outerWidth、outerHeight与innerWidth、innerHeight返回相同的值，即**视口**（**viewport**）大小而非浏览器窗口大小。
+
+IE8及更早的版本没有提供取得当前浏览器窗口尺寸的属性；不过，它通过DOM提供了页面可见区域的相关信息。
+
+在IE9、Firefox、Safari、Opera和Chrome中，**document.documentElement.clienWidth**和**document.documentElement.clienHeight**保存了页面视口的信息。在IE6中，这些属性必须在标准模式下才有效；如果是混杂模式，就必须通过**document.body.clientWidth**和**document.body.clientHeight**取得相同信息。而混杂模式下的Chrome，两种方式都可以取得视口的大小。
+
+虽然最终无法确定浏览器窗口本身的大小，但却可以取得页面视口的大小：
+
+```
+var pageWidth = window.innerWidth,
+	pageHeight = window.innerHeight;
+
+if(typeof pageWith != "number") {
+	if(document.compatMode == "CSS1Compat") {
+		pageWith = document.documentElement.clientWidth;
+		pageHeight = document.documentElement.clientHeight;
+	} else {
+		pageWidth = document.body.clientWidth;
+		pageHeight = document.body.clientHeight;
+	}
+}
+```
+document.compatMode用于判断页面是否处于标准模式（在第10章全面讨论）。
+
+对于移动设备，**window.innerWidth**和**window.innerHeight**保存着可见视口，也就是屏幕上可见页面区域的大小。移动IE浏览器不支持这些属性。但通过document.documentElement.clientWidth和document.documentElement.clientHeight提供了相同的信息。随着页面的缩放，这些值也会相应变化。
+
+在其他浏览器中，document.documentElement度量是布局视口，即渲染后页面的实际大小（与可见视口不同，可见视口只是整个页面的一小部分）。移动IE把布局视口的信息保存在document.body.clientWidth和document.body.clientHeight中。这些值不会随着页面缩放变化。
+
+由于与桌面浏览器间存在这些差异，最好是线检测一下用户是否在使用移动设备，然后再决定使用哪个属性。
+
+另外使用**resizeTo()**和**resizeBy()**方法可以调整浏览器窗口的大小。这两个方法都接受两个参数，其中resizeTo()接受浏览器窗口的新宽度和新高度，而resizeBy()接受新窗口与原窗口的宽度和高度之差。
+
+```
+//调整到100x100
+window.resizeTo(100, 100);
+
+//调整到200x150
+window.resizeBy(100, 50);
+
+//调整到300x300
+window.resizeTo(300, 300);
+```
+
+需要注意的是，这两个方法与移动窗口位置的方法类似，也有可能被浏览器禁用（IE7+ 和Opera）。另外，这两个方法只适用于最外层的window对象。
+
+## 5. 导航和打开窗口
+
+使用**window.open()**可以导航到一个特定的url，也可以打开一个新的浏览器窗口。这个方法接受4个参数：**要加载的URL**、**窗口目标**、**一个特性字符**以及**一个表示新页面是否取代浏览器历史记录中当前加载页面的布尔值**。通常只须传递第一个参数，最后一个参数只在不打开新窗口的情况下使用。
+
+如果为window.open()传递了第二个参数，而且该参数是已有窗口或框架的名称，那么就会在具有该名称的窗口或框架中加载第一个参数指定的URL。
+
+```
+//等同于<a href="http://www.wrox.com" target="topFrame"></a>
+window.open("http://www.wrox.com", "topFrame");
+```
+
+### 5.1 弹出窗口
+
+如果给window.open()传递的第二个参数不是一个已经存在的窗口或框架，那么该方法就会根据在第三个参数位置上传入的字符串创建一个新窗口或新标签页。如果没有传入第三个参数，那么就会打开一个带有全部默认设置（工具栏、地址栏和状态栏）的新浏览器窗口（或者标签页）。在不打开新窗口的情况下，会忽略第三个参数。
+
+![window.open()第三个参数(逗号分隔符的字符串)](https://ws2.sinaimg.cn/large/006tNc79gy1fig5lq235ej30zs0gcgnf.jpg)
+
+表中所列的全部设置选项，都可以通过逗号分隔的名值对列表来指定。名值对以等号表示（注意，整个特性字符串不允许出现空格）：
+
+```
+window.open("http://www.wrox.com", "wroxWindow", "height=400,width=400,top=10,left=10,resizable=yes");
+```
+
+这行代码会打开一个新的可以调整大小的窗口，窗口初始大小为400x400像素，并且距离屏幕上沿和左边各10像素。
+
+window.open()返回一个window对象，有些浏览器不允许对主浏览器窗口调整大小或移动位置，但却允许我们针对通过window.open()创建的窗口调整大小或移动位置。
+
+```
+var wroxWindow = window.open("http://www.wrox.com", "wroxWindow", "height=400,width=400,top=10,left=10,resizable=yes");
+
+wroxWindow.resizeTo(500, 500);
+
+wroxWindow.moveTo(100, 100);
+
+//调用close()方法还可以关闭新打开的窗口
+wroxWindow.close();
+```
+
+**window.close()**方法仅适用于通过window.open()打开的窗口。对于主浏览器窗口，没有得到用户的允许是不能关闭的。不过弹窗的窗口可以调用top.close()在不经用户允许的情况下关闭自己。
+
+新建的window对象有一个**opener**属性，其中保存着打开它的原始窗口对象。这个属性只在弹出窗口中的最外层window对象中有定义，而且指向window.open()的窗口或框架。
+
+```
+var wroxWindow = window.open("http://www.wrox.com", "wroxWindow", "height=400,width=400,top=10,left=10,resizable=yes");
+
+console.log(wroxWindow.opener == window);	//true
+```
+
+弹出窗口有一个指针窒息打开它的的原始窗口，但原始窗口中没有这样的指针指向弹出窗口。
+
+有些浏览器（IE8和Chrome）会在独立的进程中运行每个标签页。当一个标签页打开另一个标签页时，如果两个window对象之间需要彼此通信，那么新标签页就不能运行在独立的进程中。在Chrome中，将新创建的标签页的opener属性设置为null，即表示在单独的进程中运行新标签页，如下所示：
+
+```
+var wroxWindow = window.open("http://www.wrox.com", "wroxWindow", "height=400,width=400,top=10,left=10,resizable=yes");
+
+wroxWindow.opener = null;
+```
+
+将opener属性设置为null就是告诉浏览器新创建的标签页不需要与打开它的标签页通信，因此可以在独立的进程中运行。标签页之间的联系一旦切断，将没有办法恢复。
+
+### 5.2 安全限制
+
+曾经有一段时间，广告商在网上使用弹窗达到了肆无忌惮的地步。他们经常把弹出窗口伪装成系统对话框的模样，引诱用户去点击其中的广告。而用户难以分辨真假。
+
+WindowsXPSP2中的IE6对弹窗施加了多方面的安全限制，包括不允许在屏幕之外创建弹窗、不允许将弹窗移动到屏幕以外、不允许关闭状态栏等。IE7则增加了更多的安全限制，如不允许关闭地址栏、默认情况下不允许移动弹窗或调整大小。Firefox1从一开始就不支持修改状态栏。后来Firefox3 又强制始终在弹出窗口中显示地址栏。Opera只会在主浏览器窗口中打开弹窗，但不允许它们出现在可能与系统对话混淆的地方。
+
+此外有的浏览器只根据用户操作来创建弹出窗口。这样一来，在页面尚未加载完成时调用window.open()根本不会执行，而且还可能会将错误消息显示给用户。换句话说，只能通过单击或者键击来打开弹窗。
+
+对于那些不是用户有意打开的弹出窗口，Chrome采取了不同的处理方式。它不会像其他浏览器一样简单屏蔽这些弹窗，而是只显示它们的标题栏，并把它们放在浏览器窗口的左下角。
+
+### 5.3 弹出窗口和屏蔽程序
+
+大多数浏览器都内置有弹出窗口屏蔽程序，或者安装Yahoo等工具栏。所以在弹窗被屏蔽时，应该考虑两种可能性：
+
+- 如果浏览器内置的屏蔽程序阻止了弹窗，那么window.open()很可能会返回null（其实应该是undefined）。此时，只要检测这个返回的值就可以确定弹窗是否被屏蔽了。
+
+```
+var wroxWindow = window.open("http://www.wrox.com", "wroxWindow", "height=400,width=400,top=10,left=10,resizable=yes");
+
+if(wroxWindow.opener == null){
+	console.log('The popup was blocked!');
+}
+```
+
+- 如果是浏览器扩展或者其他程序阻止的弹出窗口，那么window.open()通常会抛出一个错误。
+
+因此，想要准确地检测出弹窗是否被屏蔽，必须在检测返回值的同时，将对window.open()的调用封装在一个**try-catch**语句里面：
+
+```
+var blocked = false;
+
+try {
+	var wroxWindow = window.open("http://www.wrox.com", "wroxWindow", "height=400,width=400,top=10,left=10,resizable=yes");
+
+	if(wroxWindow.opener == null){
+		blocked = true;
+	}
+} catch(ex) {
+	blocked = true;
+}
+
+if(blocked){
+	console.log("The popup was blocked!");
+}
+```
+
+在任何情况下，以上代码都可以检测出调用window.open()打开的弹窗是否被屏蔽了。但要注意的是，检测弹窗是否被屏蔽只是一方面，它并不会阻止浏览器显示与被屏蔽的弹窗有关的消息。
+
+## 6. 间歇调用和超时调用
+
+JavaScript是**单线程语言**，但它允许通过设置**超时值**和**间歇时间**来调度代码在特定的时刻执行。前者是在指定的时间过后执行代码，而后者则是每隔指定的时间就执行一次代码。
+
+### 6.1 超时调用
+
+超时需要使用window对象的**setTimeout()**方法，它接受两个参数：**要执行的代码**和**以毫秒表示的时间**（即在执行之前需要等待多少毫秒）。其中，第一个参数可以是一个包含JavaScript代码的字符串（和在eval()函数里面使用的字符串一个），也可以是一个函数。
+
+```
+//不建议传递字符串！
+setTimeout('console.log("Hello World!");', 1000);
+
+//推荐的方式
+setTimeout(function(){
+	console.log('Hello World!');
+}, 1000);
+```
+
+虽然这两种调用方式都没有问题，但由于传递字符串可能导致性能损失，因此不建议使用字符串作为第一个参数。
+
+第二个参数是一个表示等待多长时间的毫秒数，但经过该时间后指定的代码不一定会执行。JavaScript是一个单线程的解释器，因此一定时间内只能执行一段代码。为了控制要执行的代码，就有一个JavaScript任务队列。这些任务会按照它们添加到队列的顺序执行。setTimeout()的第二个参数告诉JavaScript再过多长时间把当前任务添加到队列中。如果队列是空的，那么添加的代码会立即执行；如果队列不是空的，那么它就要等前面的代码执行完了以后再执行。
+
+调用setTimeout()之后，该方法会返回一个数值ID，表示超时调用。这个超时调用ID是计划执行代码的唯一标识符，可以通过它来取消超时调用。要取消尚未执行的超时调用计划，可以调用**clearTimeout()**方法并将相应的超时调用ID作为参数传递给它。
+
+```
+//设置超时调用
+var timeoutId = setTimeout(function(){
+	console.log('Hello World!');
+}, 1000);
+
+//把超时调用取消
+clearTimeout(timeoutId);
+```
+
+只要是在指定的时间尚未过去之前调用clearTimeout()，就可以完全取消超时调用。
+
+超时调用的代码都是在全局作用域中执行的，因此函数中的this的值在非严格模式下指向window，在严格模式下是undefined。
+
+### 6.2 间歇调用
+
+间歇调用与超时调用类似，只是按照指定的时间间隔重复执行代码，直至间歇调用被取消或者页面被关闭。设置间歇调用的方法是setInterval()，接受的参数和setTimeout()相同：要执行的代码（字符串或函数）和每次执行之前需要等待的毫秒数。
+
+```
+//不建议传递字符串！
+setInterval('console.info("Hello World!");', 3000);
+
+//推荐的方式
+setInterval(function(){
+	console.info('Hello World');
+}, 5000);
+```
+
+调用setInterval()方法同样也会返回一个间歇调用ID，该ID可用于取消间歇调用，使用**clearInterval()**方法。
+
+```
+var num = 0;
+var max = 10;
+var intervalId = null;
+
+function incrementNumber(){
+	num++;
+
+	//如果执行次数达到了max设定值，则取消后续尚未执行的调用
+	if(num == max){
+		clearInterval(intervalId);
+		console.info('done');
+	}
+}
+
+intervalId = setInterval(incrementNumber, 500);
+```
+
+上面的代码也可以用setTimeout()来实现：
+
+```
+var num = 0;
+var max = 10;
+
+function incrementNumber(){
+	num++;
+
+	//如果执行次数未达到max设定值，则设置另一次超时调用
+	if(num < max){
+		setTimeout(incrementNumber, 500);
+	} else {
+		console.info('done');
+	}
+}
+```
+
+在使用超时调用时，没有必要跟踪ID，因此每次执行完代码之后，如果不再设置另一次超时调用，调用就会自行停止。一般认为使用超时调用来模拟间歇调用是一种最佳模式。在开发环境下，很少使用真正的间歇调用，原因是最后一个间歇调用可能会在前一个间歇调用结束之前启动。而像前面示例中那样使用超时调用，则完全可以避免这一点。
+
+## 7. 系统对话框
+
+浏览器通过**alert()**、**confirm()**和**prompt()**方法可以调用系统对话框向用户显示消息。系统对话框与在浏览器中显示的网页没有关系，也不包含HTML。它们的外观由操作系统（或）浏览器设置决定，而不是由CSS决定。此外，通过这几个方法打开的对话框都是**同步**和**模态**的。显示这些对话框的时候代码会**停止执行**，而关掉这些对话框后代码又会恢复执行。
+
+**alert()**方法接受一个字符串并将其显示给用户。对话框中包含指定的文本和一个OK（确定）按钮。通常使用alert()生成对话框向用户显示一些她们无法控制的消息，例如错误消息。而用户只能看完后关闭对话框。
+
+![alert()警告框](https://ws2.sinaimg.cn/large/006tKfTcgy1filxpkbrjkj30dq08sweh.jpg)
+
+**confirm()**方法会向用户显示一个“确认”对话框，除了消息和OK（确定）按钮之外，还有一个Cancel（取消）按钮。
+
+![confirm()确认框](https://ws2.sinaimg.cn/large/006tKfTcgy1filxq4nufuj30e20983yk.jpg)
+
+为了确定用户是单击了OK还是Cancel，可以检查confirm()的返回值：
+
+- true表示单击OK
+- false表示单击了Cancel或者X（关闭）按钮
+
+**prompt()**对话框是一个“提示”框，用于提示用户输入一些文本。提示框中除了显示文本，OK和Cancel之外，还有显示一个文本输入域，以供用户在其中输入内容。prompt()接受两个参数：要显示给用户的文本提示和文本输入域的默认值（可以是一个空字符串）。
+
+调用prompt('What's your name?', 'Michael')会得到下图所示的对话框：
+
+![prompt()提示框](https://ws3.sinaimg.cn/large/006tKfTcgy1filycfzn7hj30mg06874i.jpg)
+
+如果用户单击了OK按钮，则prompt()返回文本输入域的值；如果用户单击Cancel或者关闭提示框，则该方法返回null。
+
+综上所述，这些系统对话框很适合向用户显示消息并请用户作出决定。由于不涉及HTML、CSS或者JavaScript，因此它们是增强Web应用程序的一种便捷方式。
+
+Google Chrome还引入了一种新特性。如果当前脚本在执行过程中会打开两个或者多个对话框，那么从第二个对话框开始，每个对话框都会显示一个复选框，以便用户阻止后续的对话框显示，除非用户刷新页面。
+
+![Chrome对话框里的复选框](https://ws1.sinaimg.cn/large/006tKfTcgy1filyj3bmzlj30q20aqjru.jpg)
+
+如果用户勾选了其中的复选框，并且关闭了对话框，那么除非用户刷新页面，所有后续的系统对话（包括警告框、确认框和提示框）都会被屏蔽。Chrome没有就对话框是否显示向开发人员提供任何信息。由于浏览器会在空闲时重置对话框计数器，因此如果两次独立的用户操作分别打开两个警告框，那么这两个警告框中都不会显示复选框。而如果是用户一次操作生成了两个警告框，那么第二个警告框中就会有复选框（IE9和Firefox4中也实现了）。
+
+还有两个考验通过JavaScript打开的对话框；“**查找**”和“**打印**”。这两个对话框都是异步显示的，能够将控制权立即交给脚本。这两个对话框域用户通过浏览器菜单的“查找”和“打印”命令打开的对话框相同。而在JavaScript可以使用window.find()和window.print()方法打开它们。
+
+这两个方法同样不会就用户在操作时给出任何信息，因此它们的作用有限。另外，既然这两个对话框是异步显示的，那么Chrome的对话框计数器就不会将它们计算在内，所以它们不会受用户禁用后续对话框显示的影响。
+
+>【本文内容摘自：《JavaScript高级程序设计》（第3版）Nicholas C.Zakas 著   李松峰 曹力 译】
