@@ -26,7 +26,11 @@ $(document).ready(function() {
 	$('pre > code').each(function(index, el) {
 		elementPreIndex = index;
 		try {
-			window.eval($(el).text());
+			var skipEvalTagIndex = $(el).text().indexOf('//##skipEval');
+			if(skipEvalTagIndex == -1)
+				window.eval($(el).text());
+			else
+				window.eval($(el).text().slice(0, skipEvalTagIndex));
 		} catch (e) {
 			//Exclude Invalid character exception(not js code)
 			if(e.toString().indexOf('Invalid character') == -1){
