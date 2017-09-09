@@ -2,8 +2,8 @@
 layout: post
 title: "6.3 继承"
 date: 2017-04-22 18:00:00 +0800
-category: [Learning, JavaScript, Inheritance]
-tag: [JS, Inheritance]
+categories: [Learning, JavaScript, Inheritance]
+tags: [JS, Inheritance]
 ---
 
 实现继承一般有两种方法：接口继承和实现继承。接口继承只继承方法签名，而实现继承则继承实际的方法。ES里面没有重载，函数没有签名，所以只支持实现继承。

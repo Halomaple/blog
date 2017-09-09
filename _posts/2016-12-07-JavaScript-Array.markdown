@@ -2,8 +2,8 @@
 layout: post
 title: "JavaScript Array"
 date: 2016-12-08 22:40:00 +0800
-category: [Learning, JavaScript, Array]
-tag: [JS, Array]
+categories: [Learning, JavaScript, Array]
+tags: [JS, Array]
 ---
 
 ## Array基本

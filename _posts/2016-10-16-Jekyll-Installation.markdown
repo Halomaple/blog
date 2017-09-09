@@ -2,8 +2,8 @@
 layout: post
 title: "Jekyll安装与使用"
 date: 2016-10-16 14:40:00 +0800
-category: [Jekyll]
-tag: [Jekyll, 安装]
+categories: [Jekyll]
+tags: [Jekyll, 安装]
 ---
 
 ### Jekyll安装

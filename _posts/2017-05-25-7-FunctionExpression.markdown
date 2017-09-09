@@ -2,8 +2,8 @@
 layout: post
 title: "7 函数表达式"
 date: 2017-05-25 21:00:00 +0800
-category: [Learning, JavaScript, Function Expression]
-tag: [JS, Function Expression]
+categories: [Learning, JavaScript, Function Expression]
+tags: [JS, Function Expression]
 ---
 
 本章内容

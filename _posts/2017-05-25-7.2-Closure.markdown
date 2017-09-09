@@ -2,8 +2,8 @@
 layout: post
 title: "7.2 闭包"
 date: 2017-05-25 22:50:00 +0800
-category: [Learning, JavaScript, Closure]
-tag: [JS, Closure]
+categories: [Learning, JavaScript, Closure]
+tags: [JS, Closure]
 ---
 
 ## 0. 闭包

@@ -2,8 +2,8 @@
 layout: post
 title: "CSS 文本"
 date: 2016-11-28 19:40:00 +0800
-category: [Learning, CSS]
-tag: [CSS, text]
+categories: [Learning, CSS]
+tags: [CSS, text]
 ---
 
 ## text-indent

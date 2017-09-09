@@ -2,8 +2,8 @@
 layout: post
 title: "6.4 小结"
 date: 2017-05-15 21:00:00 +0800
-category: [Learning, JavaScript, OO]
-tag: [JS, OO]
+categories: [Learning, JavaScript, OO]
+tags: [JS, OO]
 ---
 
 ES支持面向对象编程，但不使用类或者接口。对象可以在代码执行过程中创建和增强，因此具有动态性而非严格定义的实体。

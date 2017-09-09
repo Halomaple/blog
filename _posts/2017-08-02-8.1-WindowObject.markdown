@@ -2,8 +2,8 @@
 layout: post
 title: "8.1 window对象"
 date: 2017-08-02 23:00:00  +0800
-category: [Learning, JavaScript]
-tag: [JS, BOM, window]
+categories: [Learning, JavaScript]
+tags: [JS, BOM, window]
 ---
 
 ECMAScript是JavaScript的核心，但如果在要在web中使用JavaScript，那么**BOM（Browser Object Model浏览器对象模型）**则是真正的核心。

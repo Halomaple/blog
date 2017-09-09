@@ -2,8 +2,8 @@
 layout: post
 title: "Git 命令大全"
 date: 2016-09-07 14:49:39 +0800
-category: [Learning, Git]
-tag: [Git]
+categories: [Learning, Git]
+tags: [Git]
 ---
 
 最近常用到的一些命令，记录下来

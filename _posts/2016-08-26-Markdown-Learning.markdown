@@ -2,8 +2,8 @@
 layout: post
 title: "Markdown Learning"
 date: 2016-08-26 14:49:39 +0800
-category: Learning
-tag: markdown
+categories: Learning
+tags: markdown
 ---
 
 # First - Headings
