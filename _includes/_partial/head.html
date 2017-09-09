@@ -46,17 +46,6 @@
         <link rel="apple-touch-icon" href="{{ site.assets }}/{{ site.apple_icon }}">
         <link rel="apple-touch-icon-precomposed" href="{{ site.assets }}/{{ site.apple_icon }}"/>
     {% endif %}
-    <!--script src="//cdn.bootcss.com/jquery/2.0.3/jquery.min.js"></script>
-    <script type="text/javascript">
-    if(typeof jQuery != 'undefined'){
-	    document.write(unescape("%3Clink rel='stylesheet' href='//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css' type='text/css'/%3E"));
-	    document.write(unescape("%3Clink rel='stylesheet' href='//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css' type='text/css'/%3E"));
-    }else{
-    //Second choice: css from https://cdnjs.com
-	    document.write(unescape("%3Clink rel='stylesheet' href='http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css' type='text/css'/%3E"));
-	    document.write(unescape("%3Clink rel='stylesheet' href='http://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css' type='text/css'/%3E"));
-    }
-    </script-->
 
     <link rel="stylesheet" href="{{ site.assets }}/fancybox/jquery.fancybox.css" type="text/css">
     <link rel="stylesheet" href="{{ site.assets }}/css/font-awesome-4.7.0.min.css" type="text/css">
@@ -65,10 +54,12 @@
 	<script>
 		var _hmt = _hmt || [];
 		(function() {
-			var hm = document.createElement("script");
-			hm.src ="https://hm.baidu.com/hm.js?93c6846317c82b785660232ac7d06f3c";
-			var s = document.getElementsByTagName("script")[0];
-			s.parentNode.insertBefore(hm, s);
+			if(window.location.href.indexOf('localhost') == -1){
+				var hm = document.createElement("script");
+				hm.src ="https://hm.baidu.com/hm.js?93c6846317c82b785660232ac7d06f3c";
+				var s = document.getElementsByTagName("script")[0];
+				s.parentNode.insertBefore(hm, s);
+			}
 		})();
 	</script>
 </head>
