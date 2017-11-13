@@ -2635,7 +2635,7 @@ footer {
 
 .article-content .highlight pre {
 	margin: 0;
-	padding: 0;
+	padding: 5px;
 	border: none;
 }
 
