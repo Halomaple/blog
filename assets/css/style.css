@@ -22,6 +22,7 @@ big,
 cite,
 code,
 del,
+©
 dfn,
 em,
 img,
@@ -2891,9 +2892,9 @@ article .article-content img.emoji {
 	background-color: #49483e
 }
 
-.highlight pre code {
-	color: white
-}
+/*.highlight pre code {
+color: white
+}*/
 
 /* Default */
 .highlight .c {
