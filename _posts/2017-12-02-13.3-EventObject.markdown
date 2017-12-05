@@ -1,0 +1,104 @@
+---
+layout: post
+title: "13.3 Event对象"
+date: 2017-12-02 12:30:00 +0800
+categories: [Learning, JavaScript]
+tag: [JS, Event]
+---
+
+EventUtil:
+
+```
+var EventUtil = {
+	addHandler: function(element, type, handler){
+		if(element.addEventListener) {
+			element.addEventListener(type, handler, false);
+		} else if(element.attachEvent) {
+			element.attachEvent('on' + type, handler);
+		} else {
+			element['on' + type] = handler;
+		}
+	},
+	removeHanlder: function(){
+		if(element.removeEventListener) {
+			element.removeEventListener(type, handler, false);
+		} else if(element.detachEvent) {
+			element.detachEvent('on' + type, handler);
+		} else {
+			element['on' + type] = null;
+		}
+	},
+	getEvent: function(event){
+		return event ? event : window.event;
+	},
+	getTarget: function(event){
+		return event.target || event.srcElement;
+	},
+	getRelatedTarget: function(){
+		if(event.relatedTarget) {
+			return event.relatedTarget;
+		} else if(event.toElement) {
+			return event.toElement;
+		} else if(event.fromElement) {
+			return event.fromElement;
+		} else {
+			return null;
+		}
+	},
+	getButton: function(event){
+		if(document.implementation.hasFeature('MouseEvents', '2.0')) {
+			return event.button;
+		} else {
+			switch(event.button) {
+				case 0:
+				case 1:
+				case 3:
+				case 5:
+				case 7:
+					return 0;
+				case 2:
+				case 6:
+					return 2;
+				case 4:
+					return 1;
+			}
+		}
+	},
+	getWheelDelta: function(event){
+		if(event.wheelDelta) {
+			var engine = {};
+			if(window.opera) {
+				engine.ver = window.opera.version();
+				engine.opera = parseFloat(engine.ver);
+			} 
+			return (engine.opera && engine.opera < 9.5 ? -event.wheelDelta : event.wheelDelta);
+		} else {
+			return -event.detail * 40;
+		}
+	},
+	getCharCode: function(event){
+		if(typeof event.charCode == 'number') {
+			return event.charCode;
+		} else {
+			return event.keyCode;
+		}
+	},
+	preventDefault: function(event){
+		if(event.preventDefault) {
+			event.preventDefault();
+		} else {
+			event.returnValue = false;
+		}
+	},
+	stopPropagation: function(event){
+		if(event.stopPropagation) {
+			event.stopPropagation();
+		} else {
+			event.cancelBubble = true;
+		}
+	},
+};
+```
+
+
+>【本文内容摘自：《JavaScript高级程序设计》（第3版）Nicholas C.Zakas 著   李松峰 曹力 译】
