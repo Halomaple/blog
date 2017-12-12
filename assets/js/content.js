@@ -34,7 +34,7 @@ $(document).ready(function() {
 		} catch (e) {
 			//Exclude Invalid character exception(not js code)
 			if(e.toString().indexOf('Invalid character') == -1){
-				console.warn(e, 'Exception!');
+				console.warn(e, 'Exception!', '===================================================\n' +  $(el).text());
 			}
 		}
 		if ($(el).text().indexOf('/*------------Output--------------') > -1)
