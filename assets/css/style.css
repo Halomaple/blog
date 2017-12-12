@@ -784,6 +784,10 @@ header nav ul li a:hover {
 	max-height: 1800px;
 }
 
+#main article.post-expand .article-more-link {
+	text-indent: initial;
+}
+
 #main article.post-expand .article-more-link a {
 	display: inline-block;
 	padding: 6px 15px;
