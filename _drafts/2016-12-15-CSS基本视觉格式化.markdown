@@ -10,7 +10,7 @@ tag: [CSS, 盒模型, 块级元素, 行内元素, 对齐]
 
 CSS假定每个元素都会生成一个或多个矩形框（未来可能包括非矩形框），这称为元素框。各元素框中心有一个内容区（content area）。这个内容区周围有可选的内边距（padding）、边框（border）和外边距（margin），这些元素的宽度都可以设置为0。
 
-![内容区及其外围项](../images/jibenkuang.png)
+![内容区及其外围项](https://ws4.sinaimg.cn/large/006tKfTcgy1fmngbvfhjtj30mu09ot97.jpg)
 
 外边距通常是透明的，可以看到父元素的背景。内边距不能是负值，但外边距可以。
 
@@ -34,7 +34,7 @@ CSS假定每个元素都会生成一个或多个矩形框（未来可能包括�
 
 * 非替换元素：如果元素的内容包含在文档中，则称之为非替换元素。例如，一个段落的文本内容都放在该元素本身之内，这个段落就是一个非替换元素。
 
-* 替换元素：指用作为其他内容占位符的一个元素。经典例子是`img`元素，指向一个图像文件，这个文件将插入到文档流中`img`元素本身所在的位置。大多数表单元素可以体会（`<input type="radio" />）。
+* 替换元素：指用作为其他内容占位符的一个元素。经典例子是`img`元素，指向一个图像文件，这个文件将插入到文档流中`img`元素本身所在的位置。大多数表单元素可以体会（`<input type="radio" />`）。
 
 * 块级元素：指段落、标题或`div`之类的元素，这些元素会在其框之前和之后生成“换行”，所以处于正常流中的块级元素会垂直摆放。通过声明`display: block`来让元素生成块级框。
 
@@ -44,7 +44,7 @@ CSS假定每个元素都会生成一个或多个矩形框（未来可能包括�
 
 ## 2 块级元素
 
-![完整的框模型](../images/boxmodel.png)
+![完整的框模型](https://ws1.sinaimg.cn/large/006tKfTcgy1fmngdpoem3j30yg0o0tan.jpg)
 
 一个元素的`width`被定义为从左内边界到右内边界的距离，`height`则是从上内边界到下内边界的距离。
 
@@ -108,7 +108,7 @@ p {
 }
 ```
 
-![显示设置width](../images/widthmarginauto.png)
+![显示设置width](https://ws4.sinaimg.cn/large/006tKfTcgy1fmngf3fie3j31j409i75d.jpg)
 
 这不同于text-align只应用于块级元素的内联内容。
 
@@ -129,7 +129,7 @@ p.wide{
 ```
 
 效果如下：
-![通过指定负外边距得到更宽的子元素](../images/minusmargin1.png)
+![通过指定负外边距得到更宽的子元素](https://ws2.sinaimg.cn/large/006tKfTcgy1fmngg766xyj31k00du40f.jpg)
 
 子元素的宽度大于父元素，但数学计算并没有错：
 10px + 0 + 0 + 440px + 0 + 0 - 50px = 400px
@@ -218,7 +218,7 @@ h1 { margin-top: 28px;}
 
 列表中最后一项的下外边距为20px，ul的下外边距为15px，后面的h1的上外边距为28px。所以一旦合并这些外边距，li的结尾到h1的开始之间有28px的距离，如下图所示。
 
-![合并外边距](../images/combinemarginvertical.png)
+![合并外边距](https://ws2.sinaimg.cn/large/006tKfTcgy1fmngjee871j30uc0cejs8.jpg)
 
 回到上一节2.2.3的例子，在包含块上设置边框或内边距时，会使其子元素的外边距包含在包含块内。为了解这种行为，可以在前面的例子中为ul增加一个边框：
 
@@ -230,7 +230,7 @@ h1 { margin-top: 28px;}
 
 做了这个改变之后，li元素的下外边距现在放在其父元素内部（ul）。因此，这里只会在ul和h1之间发生外边距合并，如下图所示：
 
-![增加边框后的合并](../images/margincombineoutsidecontainer.png)
+![增加边框后的合并](https://ws1.sinaimg.cn/large/006tKfTcgy1fmngvh9488j311i0bm755.jpg)
 
 #### 2.2.5 负外边距
 
@@ -245,13 +245,13 @@ li { margin-bottom: -18px;}
 h1 { margin-top: 20px;}
 ```
 
-![正负外边距合并详解](../images/minusmargincombinevertically.png)
+![正负外边距合并详解](https://ws1.sinaimg.cn/large/006tKfTcgy1fmngwlor1gj311807cdge.jpg)
 
 ### 2.3 列表项
 
 与一个列表项元素关联的标志可能在列表项之外，也可能处理为内容开始处的一个内联标志，这取决于属性`list-style-position`的值。
 
-![标志放在列表内部和外部](../images/list-style-position.png)
+![标志放在列表内部和外部](https://ws1.sinaimg.cn/large/006tKfTcgy1fmngxnvc4qj310g0dmgml.jpg)
 
 ## 3 行内元素
 
@@ -297,11 +297,11 @@ h1 { margin-top: 20px;}
 
 对于行内替换元素或匿名文本的一部分，font-size值确定了内容区的高度。如果一个行内元素font-size为15px，则内容区的高度为15像素，因为元素中所有em框的高度都是15像素，如下图示：
 
-![em框确定内容区高度](../images/emdeterminsline-height.JPG)
+![em框确定内容区高度](https://ws3.sinaimg.cn/large/006tKfTcgy1fmngzffgc8j30km05074g.jpg)
 
 行内框的生成： line-height（21px）减去font-size（15px）之后均分两半（3px）分别应用到内容区的顶部和底部，这就得到了行内框。
 
-![内容区加上行间距就等于行内框](../images/inlineelement.JPG)
+![内容区加上行间距就等于行内框](https://ws3.sinaimg.cn/large/006tKfTcgy1fmnh09bqogj30mq05iglu.jpg)
 
 考虑一下代码：
 
@@ -314,11 +314,11 @@ h1 { margin-top: 20px;}
 </p>
 ```
 
-![行中的行内框](../images/inline-box-in-a-row.JPG)
+![行中的行内框](https://ws3.sinaimg.cn/large/006tKfTcgy1fmnh0y8rraj30o0044t8v.jpg)
 
 对于font-size和line-height都为12px的个部分文本，行内框高度为12px。对于**strong**文本，line-height和font-size相差-12px（两半-6px分别应用到顶部底部），最后行内框高度为12px。12px高的行内框在元素内容区（24px）中垂直居中，所以行内框实际上小于内容区。如果有上下行，可能会发生重叠。
 
-![段落中的行框](../images/inline-box-in-a-paragraph.JPG)
+![段落中的行框](https://ws2.sinaimg.cn/large/006tKfTcgy1fmnhd5edx2j30qw04cdga.jpg)
 
 #### 3.4.2 垂直对齐
 
@@ -335,6 +335,6 @@ h1 { margin-top: 20px;}
 
 这个改动会把元素上升4px，这会同时提升其内容区和行内框。由于strong元素的行内框顶端已经是行中最高点，对垂直对齐的这个修改会把整个行框的顶端也向上移4px，如下图所示：
 
-![垂直对齐影响行框高度](../images/vertical-align-affects-inline-box-height.JPG)
+![垂直对齐影响行框高度](https://ws3.sinaimg.cn/large/006tKfTcgy1fmnhdryq9wj30qg04274o.jpg)
 
 >【本文内容摘自：《CSS权威指南》（第三版） Eric A. Meyer 著   尹志忠 侯妍 译】

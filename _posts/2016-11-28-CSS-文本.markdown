@@ -39,7 +39,7 @@ This paragraph is 200px wide. ond the first line of the paragraph is indented SO
 </div>
 ```
 
-![文本缩进继承](../images/InheritanceOfTextIndent.png)
+![文本缩进继承](https://ws1.sinaimg.cn/large/006tKfTcgy1fmnjiff8ohj30ym0c8dgn.jpg)
 
 ## text-align
 
@@ -82,7 +82,7 @@ line-height属性指文本行基线之间的距离，而不是字体大小。
 文本行中的每个元素都会生成一个内容区，由字体的大小确定。这个内容区会生成一个**行内框**(inline box)
 要确定行间距，只需将line-height的计算值减去font-size的计算值（可能为负）。然后行间距除以2，得到的值平均分别应用到内容的顶部和底部，结果就是该元素的行内框。
 
-![inline box](../images/inline-box.png)
+![inline box](https://ws3.sinaimg.cn/large/006tKfTcgy1fmnjympsasj30si07c74r.jpg)
 
 line-height默认值为normal，通常是字体大小的1.2倍。当其是从父元素继承来的一个值时，要从父元素计算，而不是在子元素上。
 
@@ -129,7 +129,7 @@ img {vertical-align: baseline}
 <p>The image found in this paragraph <img src="dot.gif"alt="A dot"/>has its bottom edge aligned with the baseline of the text in the paragraph</p>
 ```
 
-![图像的基线对齐](../images/bottomAlignedWithFatherbaseline.png)
+![图像的基线对齐](https://ws2.sinaimg.cn/large/006tKfTcgy1fmnj7tx7o3j31fs03oq3d.jpg)
 
 * `vertical-align: sub`  //使一个元素变成下标，元素基线（或者低端）相对于其父元素的基线降低，规范未定义降低的距离。
 
@@ -142,7 +142,7 @@ span.lower {vertical-align: sub;}
 <p>This paragraph contains <span class="raise">superscripted</span> and <span class="lower">subscripted</span> text.</p>
 ```
 
-![上标和下标对齐](../images/subandsuper.png)
+![上标和下标对齐](https://ws3.sinaimg.cn/large/006tKfTcgy1fmnj8v5mgij31j003g74k.jpg)
 
 * `vertical-align: bottom`  //将元素行内框的底端与行框的底端对齐。
 
@@ -152,7 +152,7 @@ span.lower {vertical-align: sub;}
 
 * `vertical-align: middle`  //把行内元素的中点与父元素基线上方0.5ex处的一个点对齐，这里1ex相对于父元素的font-size定义。大多数用户代理把1ex处理为0.5em，middle往往将元素的垂直中点与父元素基线上方0.25em处的一个点对齐。
 
-![居中对齐的详细说明](../images/vertical-align-middle.png)
+![居中对齐的详细说明](https://ws1.sinaimg.cn/large/006tKfTcgy1fmnjb5y63nj31j80bmwf0.jpg)
 
 * `vertical-align: <percentage>`  //百分数（正负值）会把元素的基线（或替换元素的底边）相对于父元素的基线升高或降低指定的量，这个量由百分数和元素本身（定义或继承来）的line-height计算得到
 
@@ -160,7 +160,7 @@ span.lower {vertical-align: sub;}
 
 垂直对齐的文本不会成为另一行的一部分，页不会覆盖其他行的文本。
 
-![垂直对齐会使文本行变高](../images/vertical-align-effect.png)
+![垂直对齐会使文本行变高](https://ws3.sinaimg.cn/large/006tKfTcgy1fmnjd10pmgj31kw09aabh.jpg)
 
 可以看到，所有垂直对齐的元素都会影响行高。因为行内框的高度要足以包含最高行内框的顶端和最低行内框的底端，这包括因垂直对齐上升或下降的行内框。
 
@@ -178,7 +178,7 @@ span.lower {vertical-align: sub;}
 
 如果提供一个正长度值，字之间的间隔就会增加，负值则会将字拉近。这里“字”的定义是任何非空白符字符组成的串，并由某种空白符包围。
 
-![改变字间间隔](../images/word-spacing1.png)
+![改变字间间隔](https://ws3.sinaimg.cn/large/006tKfTcgy1fmnje3xhqpj31k40b80tp.jpg)
 
 ## letter-spacing
 
@@ -194,7 +194,7 @@ span.lower {vertical-align: sub;}
 
 word-spacing遇到的许多问题同样出现在letter-spacing中，唯一不同的是letter-spacing改变的是字符或字母之间的间隔。
 
-![各种字母间隔](../images/letter-spacing1.png)
+![各种字母间隔](https://ws2.sinaimg.cn/large/006tKfTcgy1fmnjf10p3dj31kw08iq3j.jpg)
 
 word-spacing的值可能受text-align属性值影响（调整字之间的距离来大道两端对齐）。letter-spacing为长度值时不受text-align的影响，为normal时则会受影响。无法为word-spacing和letter-spacing定义一个可继承的缩放因子来取代计算值。如果想要字母间隔与文本大小成比例，唯一的办法就是显式地设置：
 
@@ -278,7 +278,7 @@ p {text-shadow: green 5px 0.5em;}
 
 * `p {white-space: pre-line;}` 和pre-wrap相反，合并空白符但保留换行符。
 
-![white-space属性](../images/white-space-table.png) 
+![white-space属性](https://ws1.sinaimg.cn/large/006tKfTcgy1fmnjfqbm2uj30rq07adg4.jpg)
 
 ## direction
 
