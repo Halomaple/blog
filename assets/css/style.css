@@ -1267,6 +1267,10 @@ article .article-content p {
 	text-indent: 2em;
 }
 
+article .article-content a.fancybox {
+	margin-left: -2em;
+}
+
 @media only screen and (min-width:1024px) {
 	article .article-content p {
 		margin-top: 1em;
@@ -1277,7 +1281,8 @@ article .article-content p {
 article .article-content img,
 article .article-content video,
 article .article-content figure img {
-	padding-top: .5em;
+
+	/*padding-top: .5em;*/
 	height: auto;
 	max-width: 100%;
 	vertical-align: middle;
@@ -1287,7 +1292,8 @@ article .article-content figure img {
 	article .article-content img,
 	article .article-content video,
 	article .article-content figure img {
-		padding-top: .7em;
+
+		/*padding-top: .7em;*/
 	}
 
 }
