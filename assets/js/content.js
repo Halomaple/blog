@@ -11,7 +11,13 @@ $(document).ready(function() {
 		if ($($('div.highlighter-rouge')[elementPreIndex]).find('.jsoutputtag').length === 0) {
 			$('div.highlighter-rouge')[elementPreIndex].append($('<div class="jsoutputtag">Output</div>')[0]);
 		}
-		$('div.highlighter-rouge')[elementPreIndex].append($('<div class="jsoutput">' + logCount + ': ' + output + '</div>')[0]);
+
+		var result = '';
+		for (var i = 0; i < arguments.length; i++) {
+			result += arguments[i] + ', ';
+		}
+
+		$('div.highlighter-rouge')[elementPreIndex].append($('<div class="jsoutput"> <pre>' + logCount + ': ' + result.slice(0, result.length - 2) + '</pre></div>')[0]);
 		logCount++;
 	}
 

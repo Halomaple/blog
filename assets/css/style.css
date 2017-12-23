@@ -2948,3 +2948,8 @@ article .article-content img.emoji {
 	margin: 1px 0;
 	font-family: Monaco, Menlo, Consolas, Courier New, monospace;
 }
+
+.jsoutput pre {
+	background: transparent;
+	border: none;
+}
