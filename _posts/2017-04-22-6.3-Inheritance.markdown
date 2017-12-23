@@ -39,13 +39,11 @@ console.log(instance.constructor);		//SuperType
 console.log(SubType.prototype.constructor);		//SubType的原型指向SuperType的原型，而这个原型对象的constructor属性指向SuperType
 console.log(instance.toString());	//toString()方法来自由实例SuperType继承的Object.prototype.toString()。所有函数的默认原型都是Object的实例。
 
-console.line();
 //用instanceof操作符来确定实例之间的关系。只要是原型链中出现过的构造函数，结果就会返回true。
 console.log(instance instanceof Object);	//true
 console.log(instance instanceof SuperType);	//true
 console.log(instance instanceof SubType);	//true
 
-console.line();
 //用isPrototypeOf()方法来检测原型链中出现过的原型。
 console.log(Object.prototype.isPrototypeOf(instance));	//true
 console.log(SuperType.prototype.isPrototypeOf(instance)); //true
@@ -185,7 +183,6 @@ console.log(instance1.colors);	//'red,blue,green,black'
 instance1.sayName();	//'Nicholas'
 instance1.sayAge();		//29
 
-console.line();
 
 var instance2 = new SubType('Greg', 27);
 console.log(instance2.colors);	//'red,blue,green'

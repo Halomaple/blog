@@ -15,7 +15,6 @@ function outputNumbers(count){
 	for(var i = 0; i < count; i++){
 		console.log(i);
 	}
-	console.line();
 	console.log(i);
 }
 outputNumbers(5);
@@ -28,7 +27,6 @@ function outputNumbers(count){
 	for(var i = 0; i < count; i++){
 		console.log(i);
 	}
-	console.line();
 	var i;	//重新声明变量
 	console.log(i);	//计数
 }

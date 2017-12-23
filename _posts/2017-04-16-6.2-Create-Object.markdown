@@ -44,7 +44,6 @@ var person2 = new Person('Greg', 27, 'Doctor');
 
 console.log(person1.constructor == Person);
 console.log(person2.constructor == Person);
-console.line();
 console.log(person1 instanceof Object);
 console.log(person1 instanceof Person);
 ```
@@ -132,7 +131,6 @@ var person2 = new Person();
 person2.sayName();	//'Nicholas'
 
 console.log(person1.sayName == person2.sayName);		//true
-console.line();
 
 //创建function Person(){}时es会为Person函数创建一个prototype属性指向函数的原型对象。
 //默认情况下，原型对象会自动获得一个constructor属性指向prototype所在函数Person。
@@ -142,7 +140,6 @@ console.log(Person.prototype.constructor);		//function Person(){}
 //用isPrototypeOf() 来判断&lt;--实例和原型对象之间--&gt;否存在[[Prototype]]的这种关系：
 console.log(Person.prototype.isPrototypeOf(person1));	//true
 console.log(Person.prototype.isPrototypeOf(person2));	//true
-console.line();
 
 //(ES5)用getPrototypeOf()取得[[Prototype]]的值：
 console.log(Object.getPrototypeOf(person1) == Person.prototype);	//true
@@ -172,21 +169,18 @@ console.log(person2.name);		//'Nicholas'--来自原型
 
 //如果对象实例新建一个prototype里不存在的属性，也只会在对象实例里
 person1.sex = 'male';
-console.line();
 console.log(person1.sex);	//'male'--来自实例
 console.log(Object.getPrototypeOf(person1).sex);		//'undefined'
 console.log(Person.prototype.sex);		//'undefined'
 
 //实例中的与原型上同名的属性会屏蔽原型对象中的属性。意味着该属性会阻止代码访问原型对象中的同名属性，即使该属性的值被设为null
 //可以使用delete操作符来删除实例属性并得以访问原型中的属性。
-console.line();
 person1.name = null;
 console.log(person1.name);		//null--来自实例
 delete person1.name;
 console.log(person1.name);		//'Nicholas'--来自原型
 
 //hasOwnProperty()可以检测一个属性是否存在于实例中。
-console.line();
 person2.name = 'Ape';
 console.log(person2.name);		//'Ape'--来自实例
 console.log(person2.hasOwnProperty('name'));	//true--name属性来自实例person2
@@ -222,7 +216,6 @@ person.sex = 'male';
 console.log('male' in person);		//true --来自实例
 
 //可以搭配hasOwnProperty()使用
-console.line();
 function hasPrototypeProperty(object, name){
 	return !object.hasOwnProperty('name') && (name in object);
 }
@@ -232,7 +225,6 @@ console.log(hasPrototypeProperty(person, 'name'));		//false
 
 //b. for-in方式
 //for-in能够访问存在于实例中和原型中的属性，也包括屏蔽了原型对象中不可枚举属性的实例中的属性。
-console.line();
 var o = {
 	toString: function(){
 		return 'My Object';
@@ -240,7 +232,6 @@ var o = {
 };
 //toString 在Object.prototype中不可枚举
 console.log(JSON.stringify(Object.getOwnPropertyDescriptor(Object.prototype, 'toString')));
-console.line();
 
 //默认的不可枚举属性有：
 //hasOwnProperty(), propertyIsEnumerable(), toLocaleString(), toString(), valueOf(), constructor(es5) 以及 prototype(es5)
@@ -281,7 +272,6 @@ console.log(friend instanceof Object);		//true
 console.log(friend instanceof Person);		//true
 console.log(friend.constructor == Person);	//false
 console.log(friend.constructor == Object);	//true
-console.line();
 //可以如此设置constructor的指向：
 Person.prototype = {
 	constructor:  Person,
@@ -492,7 +482,6 @@ function Person(name, age, job){
 }
 var friend = Person('Nicholas', 29, 'Software Engineer');
 friend.logInfo();	//'Nicholas', 29, 'Software Engineer'
-console.line()
 console.log(friend.job);	//undefind
 ```
 

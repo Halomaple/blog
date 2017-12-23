@@ -134,12 +134,10 @@ var removed = colors.splice(0,1);		//删除第一项
 console.log(colors);		//green, blue
 console.log(removed);		//red, 返回数组中只包含一项（所删除的项）
 
-console.line();
 removed = colors.splice(1, 0, "yellow", "orange");		//从位置1开始插入两项
 console.log(colors);		//green, yellow, orange, blue
 console.log(removed);		//返回的是一个空数组（没有删除）
 
-console.line();
 removed = colors.splice(1, 1, "red", "purple");		//插入两项，删除一项
 console.log(colors);		//green, red, purple, orange, blue
 console.log(removed);		//yellow, 返回数组只包含一项（所删除的项）
