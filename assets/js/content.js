@@ -1,50 +1,40 @@
 $(document).ready(function() {
-	var elementPreIndex = 0;
-	var logCount = 1;
+	var elementPreIndex = 0,
+		logCount = 1,
+		jsoutputContainer;
 
 	//Temporally modify window.console a little bit
 	var originLog = deep_copy(console.log);
 	console.log = log;
-	console.line = newLine;
 
 	function log(output) {
-		if (logCount == 1)
-			$('pre > code')[elementPreIndex].append('\n/*------------Output--------------\n');
-
-		var result = '';
-		for (var i = 0; i < arguments.length; i++) {
-			result += arguments[i] + ', ';
+		if ($($('div.highlighter-rouge')[elementPreIndex]).find('.jsoutputtag').length === 0) {
+			$('div.highlighter-rouge')[elementPreIndex].append($('<div class="jsoutputtag">Output</div>')[0]);
 		}
-		$('pre > code')[elementPreIndex].append(logCount + ': ' + result.slice(0, result.length - 2) + '\n');
+		$('div.highlighter-rouge')[elementPreIndex].append($('<div class="jsoutput">' + logCount + ': ' + output + '</div>')[0]);
 		logCount++;
 	}
 
-	function newLine(text) {
-		$('pre > code')[elementPreIndex].append('-----------------\n');
-	}
-
-	$('pre > code').each(function(index, el) {
+	$('div.highlighter-rouge .code > pre').each(function(index, el) {
 		elementPreIndex = index;
 		try {
 			var skipEvalTagIndex = $(el).text().indexOf('//##skipEval');
-			if(skipEvalTagIndex == -1)
+			if (skipEvalTagIndex == -1)
 				window.eval($(el).text());
 			else
 				window.eval($(el).text().slice(0, skipEvalTagIndex));
 		} catch (e) {
 			//Exclude Invalid character exception(not js code)
-			if(e.toString().indexOf('Invalid character') == -1){
-				console.warn(e, 'Exception!', '===================================================\n' +  $(el).text());
+			if (e.toString().indexOf('Invalid character') == -1) {
+				console.warn(e, 'Exception!', '===================================================\n' + $(el).text());
 			}
 		}
-		if ($(el).text().indexOf('/*------------Output--------------') > -1)
-			$('pre > code')[elementPreIndex].append('--------------------------------*/\n');
+
 		logCount = 1;
 	});
 
 	//Restore window.console
 	console.log = deep_copy(originLog);
-	console.line = undefined;
 
 	function deep_copy(obj) {
 		var newOBJ = {};

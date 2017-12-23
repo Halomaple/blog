@@ -15,9 +15,9 @@
     $(window).scroll(function () {             
         var scrollTop = $(document).scrollTop();        
         if ( scrollTop > upperLimit ) {
-            $(scrollElem).show(300);
+            $(scrollElem).stop().fadeTo(300, 1); // fade back in            
         }else{        
-            $(scrollElem).hide(300);
+            $(scrollElem).stop().fadeTo(300, 0); // fade out
         }
     });
 

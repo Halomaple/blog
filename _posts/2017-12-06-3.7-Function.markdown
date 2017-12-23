@@ -70,6 +70,7 @@ function diff(num1, num2){
 }
 
 console.log(diff(10, 20));
+console.line();
 console.log(diff(15, 10));
 ```
 
