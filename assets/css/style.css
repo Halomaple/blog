@@ -1857,6 +1857,7 @@ section.comment {
 	#toc {
 		float: none;
 		margin: 0;
+		font-size: 1em;
 	}
 
 }
