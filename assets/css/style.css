@@ -2553,7 +2553,7 @@ footer {
 .article-content pre,
 .article-content .highlight,
 .article-content .highlight pre {
-	padding: .5em;
+	padding: 0;
 	background: #145;
 	color: #ccc;
 	line-height: 1.3em;
@@ -2580,7 +2580,11 @@ footer {
 	user-select: none;
 	color: #666;
 	text-align: right;
-	padding-right: .5em;
+}
+
+.article-content .highlight .rouge-gutter .lineno,
+.article-content .highlight .gutter .lineno {
+	color: #666;
 }
 
 #totop {
@@ -2643,6 +2647,7 @@ article .article-content img.emoji {
 }
 
 .jsoutput pre {
+	padding: 5px;
 	background: transparent;
 	border: none;
 }
