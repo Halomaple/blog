@@ -15,7 +15,7 @@ $(document).ready(function() {
 		logCount++;
 	}
 
-	$('div.highlighter-rouge table pre').each(function(index, el) {
+	$('div.highlighter-rouge table td:last-child > pre').each(function(index, el) {
 		elementPreIndex = index;
 		try {
 			var skipEvalTagIndex = $(el).text().indexOf('//##skipEval');
