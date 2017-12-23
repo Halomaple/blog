@@ -2583,7 +2583,7 @@ footer {
 	margin: .5em 0;
 	padding: .5em 2%;
 	color: #ccc;
-	font-size: 100%;
+	font-size: 14px;
 	-webkit-border-radius: .35em;
 	-webkit-border-radius: .35em;
 	border-radius: .35em;
@@ -2594,7 +2594,8 @@ footer {
 	.article-content pre,
 	.article-content .highlight,
 	.article-content .highlight pre {
-		font-size: .9em;
+
+		/*font-size: .9em;*/
 	}
 
 }
@@ -2611,15 +2612,17 @@ footer {
 .article-content .highlight .gutter pre,
 .article-content .gist .gist-file .gist-data .line-numbers {
 	color: #666;
-	font-size: 100%;
+	font-size: 14px;
 }
 
 @media only screen and (min-width:568px) {
 	.article-content .highlight .rouge-gutter pre,
 	.article-content .highlight .gutter pre,
 	.article-content .gist .gist-file .gist-data .line-numbers {
-		font-size: .9em;
-		line-height: 1.5;
+
+		/*font-size: ;*/
+
+		/*line-height: 1.5;*/
 	}
 
 }
@@ -2642,7 +2645,8 @@ footer {
 
 @media only screen and (min-width:568px) {
 	.article-content .highlight {
-		font-size: .9em;
+
+		/*font-size: .9em;*/
 	}
 
 }
