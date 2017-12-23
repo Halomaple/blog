@@ -3,7 +3,6 @@
 permalink: /:title 
 
 exclude: [".rvmrc", ".rbenv-version", "README.md", "Rakefile", "changelog.md"]
-#highlighter: pygments
 
 assets: /assets
 baseurl: 
@@ -18,8 +17,8 @@ encoding: UTF-8
 paginate: 20
 
 # Markdown Processors
-markdown: kramdown    
-
+markdown: kramdown
+highlighter: rouge
 
 
 title : Halomaple
