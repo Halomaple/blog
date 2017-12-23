@@ -2583,8 +2583,7 @@ footer {
 	margin: .5em 0;
 	padding: .5em 2%;
 	color: #ccc;
-	line-height: 1.5;
-	font-size: .9em;
+	font-size: 100%;
 	-webkit-border-radius: .35em;
 	-webkit-border-radius: .35em;
 	border-radius: .35em;
@@ -2612,7 +2611,7 @@ footer {
 .article-content .highlight .gutter pre,
 .article-content .gist .gist-file .gist-data .line-numbers {
 	color: #666;
-	font-size: .9em;
+	font-size: 100%;
 }
 
 @media only screen and (min-width:568px) {
