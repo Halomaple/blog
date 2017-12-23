@@ -18,7 +18,7 @@ CSS假定每个元素都会生成一个或多个矩形框（未来可能包括�
 
 每个元素相对于其包含块摆放，包含块就是一个元素的“布局上下文”。
 
-```
+```html
 <body>
 	<div>
 		<p>This is a paragraph.</p>
@@ -52,7 +52,7 @@ CSS假定每个元素都会生成一个或多个矩形框（未来可能包括�
 
 width影响的是**内容区的宽度**
 
-```
+```html
 <p style="width: 200px;">wideness</p>
 ```
 
@@ -60,7 +60,7 @@ width影响的是**内容区的宽度**
 
 如果指定了内边距、边框或外边距，这些都会增加到宽度值：
 
-```
+```html
 <p style="width: 200px; padding: 10px; margin: 20px;">wideness?</p>
 ```
 
@@ -80,7 +80,7 @@ width影响的是**内容区的宽度**
 
 假设父元素的宽度为400px：
 
-```
+```css
 p {
 	margin-left: auto; /*auto 将会是200px*/
 	margin-right: 100px;
@@ -90,8 +90,7 @@ p {
 
 如果三个都是设置了某个固定值但加起来不到400px，这些属性就会**过分受限**（**overconstrained**），此时总会把margin-right强制为auto（从左向右读的语言，如果是从右向左读的语言则是margin-left变成auto）。
 
-```
-#...css
+```css
 p {
 	margin-left: 100px; 
 	margin-right: 100px; /*margin-rigth 将会是auto，计算值是200px*/
@@ -102,7 +101,7 @@ p {
 
 如果左右边距都设置为100px，width是auto，with值将设置为所需的某个值，从而达到需要的公宽度（即父元素的内容宽度）：
 
-```
+```css
 p {
 	margin-left: 100px;
 	margin-right: 100px;
@@ -114,7 +113,7 @@ p {
 
 如果左右边距都设置为auto，width是固定值100px，元素将会在父元素中**水平居中**：
 
-```
+```css
 p {
 	width: 100px;
 	margin-left: auto;
@@ -127,7 +126,7 @@ p {
 
 设置元素大小的另一种方法是将某个外边距以及width设置为auto。设置为auto的外边距会减为0：
 
-```
+```css
 p {
 	margin-left: auto;
 	margin-right: 100px;
@@ -139,7 +138,7 @@ p {
 
 如果三个都设置为auto的话，结果是两个外边距都会设置为0，而width会尽可能宽。注意父元素的内边距、边距和外边距可能影响其子元素。
 
-```
+```css
 div {
 	padding: 30px;
 	background: silver;
@@ -155,7 +154,7 @@ p {
 
 #### 2.1.3 负外边距
 
-```
+```css
 div {
 	width: 400px;
 	border: 3px solid black;
@@ -175,7 +174,7 @@ p.wide{
 
 下面再加上一些边框：
 
-```
+```css
 div {
 	width: 400px;
 	border: 3px solid black;
@@ -201,7 +200,7 @@ p.wide{
 
 前面讨论的非替换元素的所有规则同样适用于替换元素，只有一个例外：如果width为auto，元素的宽度则是内容的固有宽度。下例中的图像宽度是20像素（原图像的宽度）：
 
-```
+```html
 <img src="smile.png" style="display: block; width: auto; margin: 0;"/>
 ```
 
@@ -231,7 +230,7 @@ p.wide{
 
 如果一个块级正常流元素的height设置为一个百分数，这个值则是包含块height的一个百分数。以下标记中相应段落的高度将是3em：
 
-```
+```html
 <html>
 	<div style="height: 6em;">
 		<p style="height: 50%;">Half as tall</p>
@@ -241,7 +240,7 @@ p.wide{
 
 由于将上、下外边距设置为auto时，实际上它们的高度将是0，因此，将元素垂直居中的唯一办法就是把上、下外边距都设置为25%。不过如果没有显示声明包含块的height，百分数高度会重置为auto。如果修改上例，使div的height为auto，段落将与div本身的高度完全相同：
 
-```
+```html
 <div style="height: auto;">
 	<p style="height: 50%;">NOT Half as tall;height reset to auto</p>
 </div>
@@ -257,10 +256,10 @@ p.wide{
 
 合并行为只应用于外边距。如果元素有内边距，它们不会合并。
 
-```
+```css
 li {
 	margin-top: 10px;
-	margin-bottom: 10px;	
+	margin-bottom: 10px;
 }
 ```
 
@@ -268,7 +267,7 @@ li {
 
 如果相邻有多个外边距，也会出现合并。考虑一下规则：
 
-```
+```css
 ul { margin-bottom: 15px;}
 li { margin-top: 10px; margin-bottom: 20px;}
 h1 { margin-top: 28px;}
@@ -280,7 +279,7 @@ h1 { margin-top: 28px;}
 
 回到上一节2.2.3的例子，在包含块上设置边框或内边距时，会使其子元素的外边距包含在包含块内。为了解这种行为，可以在前面的例子中为ul增加一个边框：
 
-```
+```css
 ul { margin-bottom: 15px; border: 1px solid;}
 li { margin-top: 10px; margin-bottom: 20px;}
 h1 { margin-top: 28px;}
@@ -297,7 +296,7 @@ h1 { margin-top: 28px;}
 * 如果垂直外边距都设置为负值，浏览器会取两个外边距绝对值的最大值；
 * 如果一个正外边距和一个负外边距合并，会从正外边距减去这个负外边距的绝对值。
 
-```
+```css
 ul { margin-bottom: -15px;}
 li { margin-bottom: -18px;}
 h1 { margin-top: 20px;}
@@ -363,7 +362,7 @@ h1 { margin-top: 20px;}
 
 考虑一下代码：
 
-```
+```css
 <p style="font-size: 12px; line-height: 12px;">
 	This is text, <em>some of which is emphasized</em>, plus other text <br>
 	which is <strong style="font-size: 24px;">strongly emphasized</strong>
@@ -382,7 +381,7 @@ h1 { margin-top: 20px;}
 
 如果改变行内框的垂直对齐，会应用同样的高度确定原则。假设为**strong**元素指定垂直对齐为4px：
 
-```
+```html
 <p style="font-size: 12px; line-height: 12px;">
 	This is text, <em>some of which is emphasized</em>, plus other text <br>
 	which is <strong style="font-size: 24px; vertical-align: 4px;">strongly emphasized</strong>

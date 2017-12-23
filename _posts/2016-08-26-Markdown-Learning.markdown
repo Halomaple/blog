@@ -42,7 +42,7 @@ and a ordered list
 
 I can create a table using:
 
-```
+```html
 <table>
     <thead>
         <tr>
@@ -117,7 +117,7 @@ which shows like
 
 \`\`\` &nbsp;&nbsp; \`\`\` is use for presenting codes
 
-```
+```js
 console.log("Hello there!");
 console.info("How good the weather it is!");
 ```

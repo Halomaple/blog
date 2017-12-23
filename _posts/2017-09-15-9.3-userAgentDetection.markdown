@@ -8,7 +8,7 @@ tag: [JS, BOM, userAgent]
 
 检测呈现引擎、平台、Windows操作系统、移动设备和游戏系统。
 
-```
+```js
 // @ts-check
 var client = function(){
 	//呈现引擎

@@ -17,7 +17,7 @@ tags: [JS, Function Expression]
 
 ## 1. 函数声明
 
-```
+```js
 function functionName(arg0, arg1, arg2){
 	//函数体
 }
@@ -28,8 +28,7 @@ console.log(functionName.name);	//'functionName'
 ```
 
 关于函数声明，有一个重要的特征就是“函数声明提升“（function declaration hoisting）,意思是在执行代码之前会先读取函数声明。意味着可以可函数声明放在调用它的语句后面。
-```
-
+```js
 sayHi();
 
 function sayHi(){
@@ -39,7 +38,7 @@ function sayHi(){
 
 ## 2. 使用函数表达式
 
-```
+```js
 var functionName = function(arg0, arg1, arg2){
 	//函数体
 };
@@ -60,7 +59,7 @@ var sayHi = function(){
 
 下面写法有风险
 
-```
+```js
 var condition = true;
 
 if(condition){
@@ -89,7 +88,7 @@ if(condition){
 
 能够创建函数在赋值给变量，也能把函数作为其他函数的值返回。
 
-```
+```js
 function createComparisonFunction(propertyName){
 	return function(obj1, obj2){
 		var value1 = obj1[propertyName];

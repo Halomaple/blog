@@ -10,7 +10,7 @@ tags: [JS, reverse(), sort()]
 
 reverse( )仅仅会反转数组项的顺序，不进行对比。
 
-```
+```js
 var values = [0, 1, 5, 10, 15, 3];
 values.reverse();
 console.log(values);  //[3, 15, 10, 5, 1, 0]
@@ -24,7 +24,7 @@ sort( )方法会调用每个数组项的toString( )转型方法，然后比较�
 
 即使数组中的每一项都是数值，sort( )方法比较的也是字符串，考虑以下代码：
 
-```
+```js
 var values = [0, 1, 5, 10, 15];
 values.sort();
 console.log(values);  //[0,1,10,15,5] 因为'10'，'15'在'5'的前面。
@@ -36,7 +36,7 @@ sort( )方法可以接收一个比较函数以便开发者指定哪个值位于�
 
 * 升序排序：
 
-```
+```js
 function compareAsc(value1, value2){
 	if(value1 < value2){
 		return -1;
@@ -54,7 +54,7 @@ console.log(values);  //[0, 1, 3, 5, 10, 15]
 
 * 降序排序（相对于升序，只需修改函数返回值）：
 
-```
+```js
 function compareDsc(value1, value2){
 	if(value1 < value2){
 		return 1;
@@ -72,7 +72,7 @@ console.log(values);  //[15, 10, 5, 3, 1, 0]
 
 * 对于数值类型或者其valueOf( )方法会返回数值类型的对象类型，可以使用一个更简单的比较函数：
 
-```
+```js
 function compareAsc(value1, value2){
 	return value1 - value2;
 }

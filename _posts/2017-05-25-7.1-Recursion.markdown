@@ -10,7 +10,7 @@ tags: [JS, Recursion]
 
 下面是一个经典的递归阶乘函数
 
-```
+```js
 function factorial(num){
 	if(num < 1)
 		return 1;
@@ -21,7 +21,7 @@ function factorial(num){
 
 上面的写法受制于函数名。将factorial置空之后将会出错
 
-```
+```js
 function factorial(num){
 	if(num < 1)
 		return 1;
@@ -38,7 +38,7 @@ factorial = null;
 使用arguments.callee可以解决这个问题。arguments.callee是指向正在执行的函数的指针，因此可用来实现对函数的递归调用。
 例如：
 
-```
+```js
 function factorial(num){
 	if(num < 1)
 		return 1;
@@ -55,7 +55,7 @@ console.log(anotherFactorial(4));	//24
 
 但在严格模式下，不能访问arguments.callee，访问这个属性会导致错误。因此可以使用命名函数表达式来达成相同的效果。例如：
 
-```
+```js
 var factorial = (function f(num){
 	if(num <= 1)
 		return 1;

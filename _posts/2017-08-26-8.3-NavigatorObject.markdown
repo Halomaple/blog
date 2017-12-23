@@ -24,7 +24,7 @@ tags: [JS, BOM, window, navigator]
 
 一般来说，name属性中包含检测插件必须的所有信息，但有时候也不完全如此。在检测插件时，需要像下面这样循环迭代每个插件的name与给定的名字进行比较。
 
-```
+```js
 //检测插件（在IE中无效）
 function hasPlugin(name){
 	name = name.toLowerCase();
@@ -54,7 +54,7 @@ console.log(hasPlugin('QuickTime'));
 
 例如，Flash标识符石ShockwaveFlash.ShockwaveFlash。知道唯一标识符之后，就可以编写类似下面的函数来检测IE中是否安装相应插件了。
 
-```
+```js
 //检测IE中的插件
 function hasIEPlugin(name){
 	try {
@@ -76,7 +76,7 @@ console.log(hasIEPlugin('QuickTime'));
 
 鉴于两种检测方法差别太大，可以针对每个插件分别创建检测函数：
 
-```
+```js
 function hasPlugin(name){
 	name = name.toLowerCase();
 	for(var i = 0; i < navigator.plugins.length; i++){
@@ -118,7 +118,7 @@ Firefox2 为navigator对象新增了**registerContentHandler()**和**registerPro
 
 其中registerContentHanlder()接收三个参数：要处理的MIME类型、可以处理该MIME类型的页面的URL以及应用程序的名称。例如，要将一个站点注册为处理RSS源的处理程序，可以使用如下代码：
 
-```
+```js
 //##skipEval
 navigator.registerContentHandler('application/rss+xml', 'http://www.somereader.com?feed=%s', 'Some Reader');
 ```
@@ -129,7 +129,7 @@ Firefox4及之前的版本只允许在registerContentHandler()方法中使用三
 
 类似的调用方式也适用于registerProtocolHandler()方法，它也接收三个参数：要处理的协议（例如mailto或ftp）、处理该协议的页面的URL和应用程序的名称。例如，要想将一个应用程序注册为默认的邮件客户端，可以使用如下代码：
 
-```
+```js
 //##skipEval
 navigator.registerProtocolHandler('mailto', 'http://www.somemailclient.com?cmd=%s', 'Some Mail cleint');
 ```

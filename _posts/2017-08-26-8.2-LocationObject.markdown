@@ -16,7 +16,7 @@ location是一个特别的对象，它既是window对象的一个属性，又是
 
 虽然上面的属性可以访问到location对象的大多数信息，但其中访问URL包含的查询字符串的属性并不方便。尽管**location.search**返回从问号到URL末尾的所有内容，但却没办法逐个访问其中的每个查询字符串参数。为此，可以创建下面这样一个函数，用以解析查询字符串，然后返回包含所有参数的一个对象：
 
-```
+```js
 function getQueryStringArgs(){
 	//取得查询字符串并去掉开头的问号
 	var qs = (location.search.length > 0 ? location.search.substring(1) : ''),
@@ -60,14 +60,14 @@ console.info(args['num']); //'10'
 
 使用location对象可以通过很多方式来改变浏览器的位置。首先，也是最常用的方法，就是使用**assign()**方法并为其传递一个URL，如下所示：
 
-```
+```js
 //##skipEval
 location.assign('http://halomaple.com/8.2-LocationObject')
 ```
 
 这样，就可以立即打开URL并在浏览器的历史记录中生成一条记录。如果是将location.href或者window.location设置为一个URL，也会以该值调用assign()方法。下列代码效果一样：
 
-```
+```js
 //##skipEval
 window.location = 'http://halomaple.com/8.2-LocationObject';
 location.href = 'http://halomaple.com/8.2-LocationObject';
@@ -77,7 +77,7 @@ location.href = 'http://halomaple.com/8.2-LocationObject';
 
 另外，修改location对象的其他属性也可以改变当前加载的页面。下面的例子展示通过将hash、search、hostname、pathname和port属性设置为新值来改变URL。
 
-```
+```js
 //##skipEval
 //假设初始URL为http://www.wrox.com/WileyCDA
 
@@ -103,8 +103,7 @@ location.port = 8080;
 
 当通过上述任何一种方式修改URL后，浏览器的历史记录中就会生成一条新记录，因此用户通过单击“后退”按钮都会导航到前一个页面。要禁用这种行为，可以使用**replace()**方法。这个方法只接受一个参数：要导航到的URL；结果虽然会导致浏览器位置改变，但不会在历史记录中生成新记录。在调用replace()方法之后，用户不能回到前一个页面：
 
-```
-//##skipEval
+```html
 <!DOCTYPE html>
 <html>
 <head>
@@ -123,7 +122,7 @@ location.port = 8080;
 
 与位置有关的最后一个方法是**reload()**，作用是重新加载当前显示的页面。如果调用reload()时不传递任何参数，页面就会以最有效的方式重新加载。也就是说，如果页面自上次请求以来没有改变过，页面就会从浏览器缓存中重新加载。如果要强制从服务器重新加载，需要加参数：true
 
-```
+```js
 //##skipEval
 
 location.reload();	//重新加载（有可能从缓存中加载）

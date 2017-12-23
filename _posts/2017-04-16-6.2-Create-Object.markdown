@@ -8,7 +8,7 @@ tags: [JS, Object]
 
 ## 1. 工厂模式
 
-```
+```js
 function createPerson(name, age, job){
 	var o = new Object();
 	o.name = name;
@@ -28,7 +28,7 @@ person1.sayName();
 
 ## 2. 构造函数模式
 
-```
+```js
 function Person(name, age, job){
 	this.name = name;
 	this.age = age;
@@ -50,7 +50,7 @@ console.log(person1 instanceof Person);
 
 ### 2.1 将构造函数当作函数
 
-```
+```js
 function Person(name, age, job){
 	this.name = name;
 	this.age = age;
@@ -77,7 +77,7 @@ anotherObject.sayName();	//'Kristen'
 
 a. sayName()为两个不同的Function实例
 
-```
+```js
 function Person(name, age, job){
 	this.name = name;
 	this.age = age;
@@ -93,7 +93,7 @@ console.log(person1.sayName == person2.sayName);		//false
 
 b. 共用一个sayName函数
 
-```
+```js
 function Person(name, age, job){
 	this.name = name;
 	this.age = age;
@@ -113,7 +113,7 @@ console.log(person1.sayName == person2.sayName);		//true
 
 ## 3. 原型模式
 
-```
+```js
 function Person(){
 }
 
@@ -148,7 +148,7 @@ console.log(Object.getPrototypeOf(person2).name);	//'Nicholas'
 
 ### 3.1 理解原型对象
 
-```
+```js
 //读取对象的某个属性时，会执行一次搜索。首先搜索对象实例本身，如找到则返回该属性值；如果没有找到则继续搜索指针指向的原型对象，在原型对象中找到则改回该属性值。
 //对象实例能访问但不能重写原型中的值。如果在实例中添加了一个属性，该属性与实例原型中的一个属性同名，则在实例中创建该属性。
 function Person(){
@@ -198,7 +198,7 @@ console.log(JSON.stringify(Object.getOwnPropertyDescriptor(Person.prototype, 'to
 
 ### 3.2 in 操作符
 
-```
+```js
 //a. 单独使用-通过对象能访问属性时返回true，无论该属性存在于实例还是原型中。
 function Person(){
 }
@@ -253,7 +253,7 @@ console.log(Object.getOwnPropertyNames(Person.prototype));
 
 可以用一个包含所有属性和方法的对象字面量来封装原型的功能
 
-```
+```js
 function Person(){
 }
 
@@ -297,7 +297,7 @@ console.log(JSON.stringify(Object.getOwnPropertyDescriptor(Person.prototype, 'co
 
 由于在原型中查找值的过程是一场搜索，所以对原型对象所做的任何修改都能立即从实例上反映出来。
 
-```
+```js
 function Person(){
 }
 
@@ -312,7 +312,7 @@ friend.sayHi();		//没有问题
 ```
 
 
-```
+```js
 //调用构造函数时会为实例添加一个指向最初原型的[[Prototype]]指针。如果重写prototype对象，就会切断构造函数与最初原型之间的联系。
 //而实例中的指针仅指向原型，而不指向构造函数。
 function Person(){
@@ -337,7 +337,7 @@ Person.prototype = {
 
 原生对象例如Object, Array, String等等也是在其构造函数的原型上定义了方法。
 
-```
+```js
 console.log(typeof Array.prototype.sort);		//'function'
 console.log(typeof String.prototype.substring);	//'function'
 
@@ -354,7 +354,7 @@ console.log(msg.startWith('Hello'));	//true
 
 省略了为构造函数传递初始化参数的环节，导致默认情况下都将取得相同的属性值，而且该属性值是共享的！
 
-```
+```js
 function Person(){
 }
 
@@ -382,7 +382,7 @@ console.log(person2.friends);	//'Bill','Jeff','Van'
 
 构造函数模式用语定义实例属性，而原型模式用于定义方法和共享的属性。
 
-```
+```js
 function Person(name, age, job){
 	this.name = name;
 	this.age = age;
@@ -411,7 +411,7 @@ console.log(person1.sayName == person2.sayName);	//同样的prototype对象上�
 
 将所有信息都封装在构造函数中，通过在构造函数中初始化原型（仅在有必要的情况下），又保持了同时使用构造函数和原型的优点
 
-```
+```js
 function Person(name, age, job){
 	//属性
 	this.name = name;
@@ -435,7 +435,7 @@ friend.sayName();	//'Nicholas'
 创建一个函数，该函数的作用仅仅是封装创建对象的代码，然后将该对象返回。
 除了使用new操作符并把包装函数叫做构造函数之外，这个模式跟工厂模式是一样的。
 
-```
+```js
 function Person(name, age, job){
 	var o = new Object();
 	o.name = name;
@@ -472,7 +472,7 @@ console.log(colors instanceof SpecialArray);	//false
 稳妥对象（durable objects）指的是没有公共属性，而且其方法也不引用this的对象。
 与寄生模式类似但有两点不同：一是新创建的对象实例方法不引用this；二是不使用new操作符调用构造函数。
 
-```
+```js
 function Person(name, age, job){
 	var o = new Object();
 	o.logInfo = function(){

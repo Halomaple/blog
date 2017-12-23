@@ -8,7 +8,7 @@ tag: [JS, Event]
 
 EventUtil:
 
-```
+```js
 var EventUtil = {
 	addHandler: function(element, type, handler){
 		if(element.addEventListener) {

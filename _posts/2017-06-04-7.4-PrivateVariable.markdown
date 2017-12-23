@@ -10,7 +10,7 @@ tags: [JS, Private Variable]
 
 私有变量包括包含的参数、局部变量和在函数内部定义的其他函数。
 
-```
+```js
 function add(num1, num2){
 	var sum = num1 + num2;
 	return sum;
@@ -22,7 +22,7 @@ function add(num1, num2){
 
 有两种在对象上创建特权的方法：第一种是在构造函数中定义特权方法
 
-```
+```js
 function MyObject(){
 	//私有变量和私有函数
 	var privateVariable = 10;
@@ -45,7 +45,7 @@ function MyObject(){
 
 利用私有和特权成员，可以隐藏那些不应该被直接修改的数据。
 
-```
+```js
 function Person(name){
 	this.getName = function(){
 		return name;
@@ -70,7 +70,7 @@ console.log(person.getName());	//'Greg'
 
 通过在私有作用域中定义私有变量或函数，同样也可以创建特权方法。
 
-```
+```js
 (function(){
 	//私有变量和私有函数
 	var privateVariable = 10;
@@ -96,7 +96,7 @@ console.log(person.getName());	//'Greg'
 
 这个模式与构造函数中定义特权方法的注意区别，就在于**私有变量和函数是由实例共享**的。由于特权方法是在原型上定义的，因此所有实例都使用同一个函数。而这个特权方法，作为一个闭包，总是保存着对包含作用域的引用。
 
-```
+```js
 (function(){
 	var name = '';
 
@@ -134,7 +134,7 @@ console.log(person2.getName());	//'Michael'
 
 前面的模式是用于为自定义类型创建私有变量和特权方法的。而道格拉斯所说的**模块模式（module pattern）**则是为单例创建私有变量和特权方法。所谓**单例（singleton）**，指的就是只有一个实例的对象。按照惯例，JavaScript是以对象字面量的方式来创建单例对象的。
 
-```
+```js
 var singleton = {
 	name: 'value',
 	method: function(){
@@ -145,7 +145,7 @@ var singleton = {
 
 模块模式通过为单例添加私有变量和特权方法能够使其得到增强，其语法形式如下：
 
-```
+```js
 var singleton = function() {
 	var privateVariable = 10;
 
@@ -167,7 +167,7 @@ var singleton = function() {
 
 这种模式对于需要对单例进行某些初始化，同时又需要维护其私有变量时非常有用的。
 
-```
+```js
 var application = function(){
 	//私有变量和函数
 	var components = new Array();
@@ -194,7 +194,7 @@ var application = function(){
 
 即在返回对象之前加入对其增强的代码。这种增强的模块模式适合那些单例必须是某种类型的实例，同时还必须添加某些属性和（或）方法对其加以增强的情况。
 
-```
+```js
 var singleton = function(){
 	//私有变量和函数
 	var privateVariable = 10;
@@ -216,7 +216,7 @@ var singleton = function(){
 
 如果前面掩饰模块模式的例子中的application对象必须是BaseComponent的实例，那么就可以使用以下代码：
 
-```
+```js
 var application = function(){
 	//私有变量和函数
 	var components = new Array();

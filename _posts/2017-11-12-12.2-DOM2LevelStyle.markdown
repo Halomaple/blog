@@ -8,7 +8,7 @@ tag: [JS, DOM2, DOM2LevelStyle]
 
 `getBoundingClientRect()` 返回元素在页面中相对于视口的位置。
 
-```
+```js
 function getElementLeft(element) {
 	var actualLeft = element.offsetLeft;
 	var current = element.offsetParent;

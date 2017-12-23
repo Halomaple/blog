@@ -20,7 +20,7 @@ BOM的核心对象是**window**，它表示浏览器的一个实例。在浏览�
 
 由于window对象同时扮演着ECMAScript中Global对象的角色，因此所有在全局作用域中声明的变量、函数都会变成window对象的属性和方法。
 
-```
+```js
 var age = 25;
 function sayAge(){
 	console.log(this.age);
@@ -33,7 +33,7 @@ window.sayAge();	//25 因为sayAge存在于全局作用域中，所以this.age�
 
 全局变量与在window对象上直接定义属性的区别：全局变量不能通过**delete**操作符删除，而直接在window对象上的定义属性可以。
 
-```
+```js
 var age = 29;
 window.color = 'red';
 
@@ -52,7 +52,7 @@ delete window.color; 	//returns true
 
 另外：尝试访问未声明的变量会抛出错误，但是通过查询window对象，可以知道某个看你未声明的变量是否存在。
 
-```
+```js
 //这里会抛出错误，因为oldVal未定义
 var newVal = oldVal;
 
@@ -65,7 +65,7 @@ var newVal = window.oldVal;
 如果页面中包含**框架**，则每个框架都拥有自己的window对象，并且保存在**frames集合**中。在frames集合中，可以通过数值索引（从0开始，从左至右，从上到下）或者**框架名称**来访问相应的window对象。每个window对象都有一个**name**属性，其中包含框架的名称。
 
 
-```
+```html
 <html>
 	<head>
 		<title>FrameSet Example</title>
@@ -102,7 +102,7 @@ var newVal = window.oldVal;
 
 用来确定和修改window对象的位置的属性和方法有很多。IE、Safari、Opera和Chrome都提供了**screenLeft**和**screenTop**属性，分别用于表示窗口相对于屏幕左边和上边的位置。Firefox则在**screenX**和**screenY**属性中提供相同的窗口位置星系，Safari和Chrome也同时支持这两个属性。Opera虽也支持但与screenLeft和screenTop属性并不对应，因此建议不要在Opera中使用。
 
-```
+```js
 var leftPos = (typeof window.screenLeft == "number") ? window.screenLeft : window.screenX;
 var topPos = (typeof window.screenTop == "number") ? window.screenTop : window.screenY;
 
@@ -117,7 +117,7 @@ console.log(topPos, 'top pos');
 
 最终结果就是无法在跨浏览器的情况下取得窗口左边合上编的精确坐标值。然而，使用**moveTo()**和**moveBy()**倒是有可能将窗口精确地移动到一个新位置。这两个方法都接受两个参数。moveTo()接受的是新位置x和y坐标值，而moveBy()接受的是在水平和垂直方向上移动的像素数。
 
-```
+```js
 //将窗口移动到屏幕左上角
 window.moveTo(0, 0);
 
@@ -143,7 +143,7 @@ IE8及更早的版本没有提供取得当前浏览器窗口尺寸的属性；�
 
 虽然最终无法确定浏览器窗口本身的大小，但却可以取得页面视口的大小：
 
-```
+```js
 var pageWidth = window.innerWidth,
 	pageHeight = window.innerHeight;
 
@@ -167,7 +167,7 @@ document.compatMode用于判断页面是否处于标准模式（在第10章全�
 
 另外使用**resizeTo()**和**resizeBy()**方法可以调整浏览器窗口的大小。这两个方法都接受两个参数，其中resizeTo()接受浏览器窗口的新宽度和新高度，而resizeBy()接受新窗口与原窗口的宽度和高度之差。
 
-```
+```js
 //调整到100x100
 window.resizeTo(100, 100);
 
@@ -186,7 +186,7 @@ window.resizeTo(300, 300);
 
 如果为window.open()传递了第二个参数，而且该参数是已有窗口或框架的名称，那么就会在具有该名称的窗口或框架中加载第一个参数指定的URL。
 
-```
+```js
 //等同于<a href="http://www.wrox.com" target="topFrame"></a>
 window.open("http://www.wrox.com", "topFrame");
 ```
@@ -199,7 +199,7 @@ window.open("http://www.wrox.com", "topFrame");
 
 表中所列的全部设置选项，都可以通过逗号分隔的名值对列表来指定。名值对以等号表示（注意，整个特性字符串不允许出现空格）：
 
-```
+```js
 window.open("http://www.wrox.com", "wroxWindow", "height=400,width=400,top=10,left=10,resizable=yes");
 ```
 
@@ -207,7 +207,7 @@ window.open("http://www.wrox.com", "wroxWindow", "height=400,width=400,top=10,le
 
 window.open()返回一个window对象，有些浏览器不允许对主浏览器窗口调整大小或移动位置，但却允许我们针对通过window.open()创建的窗口调整大小或移动位置。
 
-```
+```js
 var wroxWindow = window.open("http://www.wrox.com", "wroxWindow", "height=400,width=400,top=10,left=10,resizable=yes");
 
 wroxWindow.resizeTo(500, 500);
@@ -222,7 +222,7 @@ wroxWindow.close();
 
 新建的window对象有一个**opener**属性，其中保存着打开它的原始窗口对象。这个属性只在弹出窗口中的最外层window对象中有定义，而且指向window.open()的窗口或框架。
 
-```
+```js
 var wroxWindow = window.open("http://www.wrox.com", "wroxWindow", "height=400,width=400,top=10,left=10,resizable=yes");
 
 console.log(wroxWindow.opener == window);	//true
@@ -232,7 +232,7 @@ console.log(wroxWindow.opener == window);	//true
 
 有些浏览器（IE8和Chrome）会在独立的进程中运行每个标签页。当一个标签页打开另一个标签页时，如果两个window对象之间需要彼此通信，那么新标签页就不能运行在独立的进程中。在Chrome中，将新创建的标签页的opener属性设置为null，即表示在单独的进程中运行新标签页，如下所示：
 
-```
+```js
 var wroxWindow = window.open("http://www.wrox.com", "wroxWindow", "height=400,width=400,top=10,left=10,resizable=yes");
 
 wroxWindow.opener = null;
@@ -256,7 +256,7 @@ WindowsXPSP2中的IE6对弹窗施加了多方面的安全限制，包括不允�
 
 - 如果浏览器内置的屏蔽程序阻止了弹窗，那么window.open()很可能会返回null（其实应该是undefined）。此时，只要检测这个返回的值就可以确定弹窗是否被屏蔽了。
 
-```
+```js
 var wroxWindow = window.open("http://www.wrox.com", "wroxWindow", "height=400,width=400,top=10,left=10,resizable=yes");
 
 if(wroxWindow.opener == null){
@@ -268,7 +268,7 @@ if(wroxWindow.opener == null){
 
 因此，想要准确地检测出弹窗是否被屏蔽，必须在检测返回值的同时，将对window.open()的调用封装在一个**try-catch**语句里面：
 
-```
+```js
 var blocked = false;
 
 try {
@@ -296,7 +296,7 @@ JavaScript是**单线程语言**，但它允许通过设置**超时值**和**间
 
 超时需要使用window对象的**setTimeout()**方法，它接受两个参数：**要执行的代码**和**以毫秒表示的时间**（即在执行之前需要等待多少毫秒）。其中，第一个参数可以是一个包含JavaScript代码的字符串（和在eval()函数里面使用的字符串一个），也可以是一个函数。
 
-```
+```js
 //不建议传递字符串！
 setTimeout('console.log("Hello World!");', 1000);
 
@@ -312,7 +312,7 @@ setTimeout(function(){
 
 调用setTimeout()之后，该方法会返回一个数值ID，表示超时调用。这个超时调用ID是计划执行代码的唯一标识符，可以通过它来取消超时调用。要取消尚未执行的超时调用计划，可以调用**clearTimeout()**方法并将相应的超时调用ID作为参数传递给它。
 
-```
+```js
 //设置超时调用
 var timeoutId = setTimeout(function(){
 	console.log('Hello World!');
@@ -330,7 +330,7 @@ clearTimeout(timeoutId);
 
 间歇调用与超时调用类似，只是按照指定的时间间隔重复执行代码，直至间歇调用被取消或者页面被关闭。设置间歇调用的方法是setInterval()，接受的参数和setTimeout()相同：要执行的代码（字符串或函数）和每次执行之前需要等待的毫秒数。
 
-```
+```js
 //不建议传递字符串！
 setInterval('console.info("Hello World!");', 3000);
 
@@ -342,7 +342,7 @@ setInterval(function(){
 
 调用setInterval()方法同样也会返回一个间歇调用ID，该ID可用于取消间歇调用，使用**clearInterval()**方法。
 
-```
+```js
 var num = 0;
 var max = 10;
 var intervalId = null;
@@ -362,7 +362,7 @@ intervalId = setInterval(incrementNumber, 500);
 
 上面的代码也可以用setTimeout()来实现：
 
-```
+```js
 var num = 0;
 var max = 10;
 

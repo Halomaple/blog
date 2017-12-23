@@ -9,7 +9,7 @@ tags: [JS, Closure]
 ## 0. 闭包
 不少开发者搞不清楚闭包和匿名函数的区别。**闭包**是指有权访问另一个函数作用域中变量的函数。创建闭包的常见方式，就是**在一个函数内部创建另一个函数**
 
-```
+```js
 function createComparisonFunction(propertyName){
 	return function(obj1, obj2){
 		var value1 = obj1[propertyName];	//访问了外部函数中的变量propertyName
@@ -31,7 +31,7 @@ function createComparisonFunction(propertyName){
 
 在函数执行过程中，为**读取**和**写入**变量的值，就需要在作用域链中查找变量。例如：
 
-```
+```js
 function compare(value1, value2){
 	if(value1 < value2)
 		return -1;
@@ -52,7 +52,7 @@ var result = compare(5, 10);
 
 在另一个函数内部定义的函数会将包含函数（及外部函数）的活动对象添加到他的的作用域链中。因此在createComparisonFunction( )函数内部定义的匿名函数的作用域中，实际上将会包含外部函数createComparisonFunction( )的活动对象。
 
-```
+```js
 function createComparisonFunction(propertyName){
 	return function(obj1, obj2){
 		var value1 = obj1[propertyName];
@@ -82,7 +82,7 @@ console.log(result2);
 
 ## 1. 闭包与变量
 
-```
+```js
 function createFunction(){
 	var result = new Array();
 
@@ -123,7 +123,7 @@ console.log(createFunction2()[2]());	//2
 
 在闭包中使用this可能会有问题。**this对象是在运行时基于函数的执行环境绑定的**：在全局函数中，this等于window，而当函数被作为某个对象的方法调用时，this等于那个对象。不过，匿名函数的执行环境具有全局性，因此其this对象通常指向window（当然在call( )或者apple( )改变函数执行环境的情况下，this会指向其他对象）。但有时候由于编写闭包的方式不同，这一代困难不会那么明显。
 
-```
+```js
 var name = 'The Window';
 
 var object = {
@@ -143,7 +143,7 @@ console.log(object.getNameFunc()());	//'The Window' （在非严格模式下）
 
 不过把外部作用域中的this对象保存在一个闭包能够访问到的变量里，就可以让闭包访问该对象了。
 
-```
+```js
 var name = 'The Window';
 
 var object = {
@@ -162,7 +162,7 @@ console.log(object.getNameFunc()());	//'My Object' （在非严格模式下）
 
 在几种特殊情况下，this的值可能会意外地改变。
 
-```
+```js
 var name = 'The Window';
 
 var object =  {
@@ -183,7 +183,7 @@ IE9之前，如果闭包的作用域链中保存着一个html原素，那么就�
 
 <div id='someElement' style="width: 100px; height: 30px; background-color: #2ca6cb">点击</div>
 
-```
+```js
 function assignHandler(){
 	var element = document.getElementById('someElement');
 	element.onclick = function(){
