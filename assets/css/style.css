@@ -2565,13 +2565,15 @@ footer {
 	border-radius: .35em;
 	word-wrap: break-word;
 	font-family: Monaco, Menlo, Consolas, Courier New, monospace;
-	max-width: 100%;
-	overflow: auto;
-	-webkit-overflow-scrolling: touch;
 }
 
 .article-content .highlight {
 	padding: 0;
+}
+
+.article-content .highlighter-rouge > div.highlight {
+	overflow: auto;
+	-webkit-overflow-scrolling: touch;
 }
 
 .article-content .highlight .rouge-gutter,
