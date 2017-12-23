@@ -672,6 +672,7 @@ header nav ul li a:hover {
 	width: 95%;
 	margin: 0 auto;
 	overflow: hidden;
+	min-height: 60vh;
 }
 
 @media only screen and (min-width:768px) {
@@ -1722,7 +1723,7 @@ footer.article-footer {
 }
 
 .article-nav {
-	padding: 0 10%;
+	padding: 0 5%;
 }
 
 @media only screen and (min-width:768px) {
@@ -1776,7 +1777,7 @@ footer.article-footer {
 .article-nav .next {
 	width: 100%;
 	float: left;
-	text-align: left;
+	text-align: right;
 }
 
 .article-nav .next strong {

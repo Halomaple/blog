@@ -18,7 +18,7 @@ CSS定义了5种通用的字体系列。
 
 ## font-family 字体系列
 
-```font-family: [[<family-name> | <generic-family>], ]* [<family-name> | <generic-family>] | inherit```
+`font-family: [[<family-name> | <generic-family>], ]* [<family-name> | <generic-family>] | inherit`
 
 初始值： 用户代理指定的值
 
@@ -38,7 +38,7 @@ font-family可以使用**通用字体系列**和**指定字体系列**。
 
 强烈建议在所有的font-family规则中都提供一个通用字体系列（备选），因为在一个跨平台的环境，将无法知道谁安装了什么字体。
 
-Note: 如果字体名中出现一个或多个空格，或者包含#或$之类的符号时，尽量使用引号 ' ' 来包住:```h1 {font-family: 'New Century Schoolbook'}```
+Note: 如果字体名中出现一个或多个空格，或者包含#或$之类的符号时，尽量使用引号 ' ' 来包住:`h1 {font-family: 'New Century Schoolbook'}`
 
 CSS2.1 规定包含符号的字体并不一定要加引号，但是这是安全的做法，是“最佳实践”。但如果字体名字和关键字相同，尽管没有空格或特殊符号，也必须使用引号，如"cursive"字体。在指定具体的通用系列时不能加引号，否则用户代理会认为你需要一个与此同名的特字体如serif，而不是一个通用字体。
 
@@ -91,7 +91,7 @@ font-size属性与用户看到的实际字体大小直径的具体关系由字�
 `p {font-size: medium}`
 `strong, em{font-size: larger}`
 
-```
+```html
 <p> medium
 	<strong> large
 		<em> x-large
@@ -105,7 +105,7 @@ font-size属性与用户看到的实际字体大小直径的具体关系由字�
 
 * 字体大小和继承：根据计算值继承
 
-```
+```css
 p {font-size: 12px;}
 em {font-size: 120%;}
 strong {font-size: 135%;}
@@ -117,7 +117,7 @@ strong {font-size: 135%;}
 
 * 使用长度单位
 
-```
+```css
 p.one {font-size: 36pt;}
 p.two {font-size: 3pc;}
 p.three {font-size: 0.5in;}
@@ -152,7 +152,7 @@ italic 和 oblique的区别：斜体（italic）是一种单独的字体风格�
 计算值： 根据指定确定
 
 若定义规则
-```
+```css
 h1 {font-variant: small-caps;}
 ```
 在h1元素的显示中，只要文本源中出现大写字母则显示一个更大的大写字母，出现一个小写字母，就显示一个小型的大写字母。

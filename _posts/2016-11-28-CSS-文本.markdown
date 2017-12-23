@@ -24,18 +24,21 @@ tags: [CSS, text]
 
 注意text-indent无法应用于行内元素，但如果首行有一个图像（行内元素）也会随着文本移动。
 
-<p style="text-indent: -6em">text-indent也可以设置为负值，利用这种技术，可以实现“悬挂缩进”，即第一行悬挂在余下元素的左边。注意文字可能超出浏览器的窗口边界</p>
+`<p style="text-indent: -6em">`text-indent也可以设置为负值，利用这种技术，可以实现“悬挂缩进”，即第一行悬挂在余下元素的左边。注意文字可能超出浏览器的窗口边界</p>
 
 text-indent是可以继承的。下面代码中p首行也会缩进10%：
 
-```
-div#inner {text-indent: 10%;}
-p {width: 200px;}
+```html
+<style type="text/css">
+	div#inner {text-indent: 10%;}
+	p {width: 200px;}
+</style>
+
 <div id="inner">
-This first line of the OlV is indented by 50 pixels.
-<p>
-This paragraph is 200px wide. ond the first line of the paragraph is indented SOpx. Thia is because canputed values for are inherited, instead of the declared values.
-</p>
+	This first line of the OlV is indented by 50 pixels.
+	<p>
+		This paragraph is 200px wide. ond the first line of the paragraph is indented SOpx. Thia is because canputed values for are inherited, instead of the declared values.
+	</p>
 </div>
 ```
 
@@ -86,21 +89,21 @@ line-height属性指文本行基线之间的距离，而不是字体大小。
 
 line-height默认值为normal，通常是字体大小的1.2倍。当其是从父元素继承来的一个值时，要从父元素计算，而不是在子元素上。
 
-```
+```css
 body {font-size: 10px;}
-div {line-height: 1em;}  //父元素 10px
-p {font-size: 18px;}  //子元素：line-height是继承值1em(10px 这里会出现font-size大于line-height的情况)
+div {line-height: 1em;}  /*父元素 10px/*
+p {font-size: 18px;}  /*子元素：line-height是继承值1em(10px 这里会出现font-size大于line-height的情况)*/
 ```
 
 当其是一个数时，line-height值会根据其font-size的值计算
 
-```
+```css
 body {font-size: 10px;}
 div {line-height: 1;}
-p {font-size: 18px;}   //line-height: 18px * 1 = 18px;
+p {font-size: 18px;}   /*line-height: 18px * 1 = 18px;*/
 
 div2 {line-height: 1.5}
-p2 {font-size: 18px}   //line-height:18px * 1.5 = 27px;
+p2 {font-size: 18px}   /*line-height:18px * 1.5 = 27px;*/
 ```
 
 ## vertical-align
@@ -124,8 +127,10 @@ p2 {font-size: 18px}   //line-height:18px * 1.5 = 27px;
 
 * `vertical-align: baseline`  //如果垂直对齐元素没有基线，那么该元素的低端与其父元素的基线对齐。
 
-```
-img {vertical-align: baseline}
+```html
+<style type="text/css">
+	img {vertical-align: baseline}
+</style>
 <p>The image found in this paragraph <img src="dot.gif"alt="A dot"/>has its bottom edge aligned with the baseline of the text in the paragraph</p>
 ```
 
@@ -135,9 +140,11 @@ img {vertical-align: baseline}
 
 * `vertical-align: super`  //和sub刚好相反，元素基线（或者低端）相对于父元素的基线升高。注意sub和super不会改变元素的字体大小！
 
-```
-span.raise {vertical-align: super;}
-span.lower {vertical-align: sub;}
+```html
+<style type="text/css">
+	span.raise {vertical-align: super;}
+	span.lower {vertical-align: sub;}
+</style>
 
 <p>This paragraph contains <span class="raise">superscripted</span> and <span class="lower">subscripted</span> text.</p>
 ```
@@ -198,7 +205,7 @@ word-spacing遇到的许多问题同样出现在letter-spacing中，唯一不同
 
 word-spacing的值可能受text-align属性值影响（调整字之间的距离来大道两端对齐）。letter-spacing为长度值时不受text-align的影响，为normal时则会受影响。无法为word-spacing和letter-spacing定义一个可继承的缩放因子来取代计算值。如果想要字母间隔与文本大小成比例，唯一的办法就是显式地设置：
 
-```
+```css
 p {letter-spacing: 0.25em}
 small {font-size: 50%; letter-spacing: 0.25em;}
 ```
@@ -231,7 +238,7 @@ small {font-size: 50%; letter-spacing: 0.25em;}
 
 text-decoration的值会替换而不是累积，如果定义了两个规则，胜出的规则会完全取代另一个规则。没有办法去掉父元素生成的下划线（或者上划线货贯穿线），考虑以下代码：
 
-```
+```css
 p {text-decoration: underline;}
 span {color: gray; text-decoration: none;}
 ```
@@ -250,7 +257,7 @@ span {color: gray; text-decoration: none;}
 
 CSS2定义了text-shadow，CSS2.1中没有保留，CSS3中包含了。前两个长度确定了阴影与文本的偏移距离，第三个长度可以。要定义一个相对于文本向右偏移0.5em的绿色阴影，而且不模糊，可以写作：
 
-```
+```css
 p {text-shadow: green 5px 0.5em;}
 ```
 
