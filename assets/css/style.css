@@ -1283,15 +1283,15 @@ article .article-content video,
 article .article-content figure img {
 	max-width: 100%;
 	height: auto;
-	vertical-align: middle;
-	padding-top: .5em;
+	vertical-align: middle;	/*padding-top: .5em;*/
 }
 
 @media only screen and (min-width:1024px) {
 	article .article-content img,
 	article .article-content video,
 	article .article-content figure img {
-		padding-top: .7em;
+
+		/*padding-top: .7em;*/
 	}
 
 }
@@ -2602,6 +2602,10 @@ footer {
 .article-content .highlight .rouge-gutter .lineno,
 .article-content .highlight .gutter .lineno {
 	color: #666;
+}
+
+.article-content .clickable-header {
+	cursor: pointer;
 }
 
 #totop {
