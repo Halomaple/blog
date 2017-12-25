@@ -246,15 +246,29 @@ p.wide{
 </div>
 ```
 
+![不同情况下的百分数高度](https://ws1.sinaimg.cn/large/006tKfTcgy1fmrtz654psj316c0d4jrw.jpg)
+
 #### 2.2.3 auto高度
 
 最简单情况下，如果块级元素设置为height: auto，显示时其高度将恰好足以包含其内联内容（包括）文本的行盒。
 
-如果块级正常流的元素高度设置为auto，而且只有块级子元素，其默认的高度将是从最高块级子元素的外边框边界到最低块级子元素边框边界之间的距离。如果元素有上内边距或下内边距，或者有上边框或下边框，其高度则是从其最高子元素的上外边距边界到其最低的子元素的下外边距边界之间的距离。(注：有点难理解，将在下一节2.2.4说明)
+如果块级正常流的元素高度设置为auto，而且只有块级子元素，其默认的高度将是从最高块级子元素的外边框边界到最低块级子元素边框边界之间的距离。因此，子元素的外边距会“超出”包含这些子元素的元素。如果元素有上内边距或下内边距，或者有上边框或下边框，其高度则是从其最高子元素的上外边距边界到其最低的子元素的下外边距边界之间的距离。(注：有点难理解，将在下一节2.2.4说明)
+
+```html
+<div style="height: auto; background: silver;">
+	<p style="margin-top: 2em; margin-bottom: 2em;">A paragraph</p>
+</div>
+
+<div style="height: auto; border-top: 1px solid; border-bottom: 1px solid; background: silver;">
+	<p style="margin-top: 2em; margin-bottom: 2em;">Another paragraph!</p>
+</div>
+```
+
+![有块级元素且高度为auto](https://ws3.sinaimg.cn/large/006tKfTcgy1fmru8p11vej31640aiq3h.jpg)
 
 #### 2.2.4 合并垂直外边距
 
-合并行为只应用于外边距。如果元素有内边距，它们不会合并。
+垂直格式化的另一个重要方面是垂直相邻外边距的合并。合并行为只应用于外边距。如果元素有内边距，它们不会合并。
 
 ```css
 li {
@@ -263,7 +277,11 @@ li {
 }
 ```
 
-每个列表项有10px的上外边距和15像素的下外边距。不过，在显示这个列表时，相邻列表之间的距离是15像素，而不是25像素。因为相邻外边距会沿着竖轴“合并”。两个外边距中较小的会被一个较大的合并。也可以用“重叠”来理解合并。
+每个列表项有10px的上外边距和15像素的下外边距。不过，在显示这个列表时，相邻列表之间的距离是15像素，而不是25像素。因为相邻外边距会沿着竖轴“合并”。两个外边距中较小的会被一个较大的合并。也可以用“重叠”来理解合并。下图展示了合并外边距与未合并外边距之间的差别：
+
+![合并外边距与未合并外边距](https://ws1.sinaimg.cn/large/006tKfTcgy1fmrujaac8yj31600e8gmq.jpg)
+
+
 
 如果相邻有多个外边距，也会出现合并。考虑一下规则：
 
@@ -275,7 +293,7 @@ h1 { margin-top: 28px;}
 
 列表中最后一项的下外边距为20px，ul的下外边距为15px，后面的h1的上外边距为28px。所以一旦合并这些外边距，li的结尾到h1的开始之间有28px的距离，如下图所示。
 
-![合并外边距](https://ws2.sinaimg.cn/large/006tKfTcgy1fmngjee871j30uc0cejs8.jpg)
+![合并外边距详解](https://ws2.sinaimg.cn/large/006tKfTcgy1fmngjee871j30uc0cejs8.jpg)
 
 回到上一节2.2.3的例子，在包含块上设置边框或内边距时，会使其子元素的外边距包含在包含块内。为了解这种行为，可以在前面的例子中为ul增加一个边框：
 
@@ -291,20 +309,30 @@ h1 { margin-top: 28px;}
 
 #### 2.2.5 负外边距
 
-负外边距会影响外边距如何合并。
+负外边距会影响外边距如何合并：
 
 * 如果垂直外边距都设置为负值，浏览器会取两个外边距绝对值的最大值；
 * 如果一个正外边距和一个负外边距合并，会从正外边距减去这个负外边距的绝对值。
 
 ```css
-ul { margin-bottom: -15px;}
-li { margin-bottom: -18px;}
-h1 { margin-top: 20px;}
+ul { margin-bottom: 20px;}
+li { margin-bottom: -15px;}
+h1 { margin-top: -18px;}
 ```
+
+两个负外边距中较大的一个（-18px）增加到了最大的正外边距上（20px），这就得到了20px-18px=2px。因此，列表项内容底端与h1内容顶端之间只有2个像素的距离：
 
 ![正负外边距合并详解](https://ws1.sinaimg.cn/large/006tKfTcgy1fmngwlor1gj311807cdge.jpg)
 
+由于负外边距而导致元素彼此重叠，很难区分哪些元素在上面。如果使用了背景色，其内容可能会被后面的背景色覆盖。这是一种可预见的行为，因为浏览器总会按从前到后的顺序显示元素，所以文档中后出现的正常流元素可能会覆盖较早出现的元素（如果这两个元素重叠）。
+
 ### 2.3 列表项
+
+列表项有自身的一些特殊规则。这些列表项前面通常有一个标志，如一个圆点或一个数字。这个标志实际上并不是列表项内容区的一部分。
+
+![列表项的内容](https://ws4.sinaimg.cn/large/006tKfTcgy1fmrv7ilgpwj315y0ait9e.jpg)
+
+CSS1对这些标志相对于文档布局的放置和效果涉及很少。CSS2引入了专门为解决这个问题而设计的一些属性，如`marker-offset`。不过，因为缺少实现，这个属性在CSS2.1中又被去掉了。所以目前标志的放置不在创作人员的控制范围内。
 
 与一个列表项元素关联的标志可能在列表项之外，也可能处理为内容开始处的一个内联标志，这取决于属性`list-style-position`的值。
 
@@ -312,70 +340,114 @@ h1 { margin-top: 20px;}
 
 ## 3 行内元素
 
+
 注：本节介绍的所有行为都不适用于表元素。CSS2对于表和表内容的处理引入了一些新的属性和行为，表元素的表现与块级元素或行内元素大相径庭。
 
 ### 3.1 行布局
 
+对于行内元素来说，布局没有块级元素那么简单和直接，块级元素只是生成框，通常不允许其他内容与这些框并存。为了理解如何生成行，首先来考虑这样一种情况，一个元素包含一个很长的文本行，如下图所示。注意，这里将整行包围在一个span元素中，从而为这一个行加了一个边框，然后为之指定边框样式。
+
+```css
+span {border: 1px dashed black;}
+```
+
+![单行行内元素](https://ws3.sinaimg.cn/large/006tKfTcgy1fmrvs46s71j316w01ot8s.jpg)
+
+来看更熟悉的情况，你所要做的只是确定元素应当有多宽，然后断行，使断开的各部分能适应元素的宽度刚好放下。这样就得到了下图所示的结果：
+
+![多行行内元素](https://ws3.sinaimg.cn/large/006tKfTcgy1fmrvvvsyxyj316y05qq3j.jpg)
+
+在上图中，每个文本行的边框刚好与各行的顶端和底端吻合（没有设置内边距或外边距）。实际上边框彼此稍有些重叠，因为边框实际上画在各行之外的一个像素上。由于各行紧挨着，所以其他边框会重叠。
+
+如果改变span样式，使其有一个背景色，这些行的具体摆放就很清楚了：
+
+![显示有不同对齐方式的文本行](https://ws3.sinaimg.cn/large/006tKfTcgy1fmrw0uuej1j316u0m2tbi.jpg)
+
+可以看到并不是每一行都达到其父段落内容区的边界。对于左对齐的段落，行都压到段落内容区的左边对齐，各行在换行处结束。右对齐的段落则刚好相反。居中段落中，文本行的中心与段落的中心对齐。在最后一种情况下，即`text-align`的值为`justify`，各行必须与段落的内容区宽度相等，所以行边界要达到段落的内容边界。要调整各行中字母和字之间的间隔来弥补行实际长度与段落宽度之间的差距。因此，文本两端对齐时`word-spacing`的值可能被覆盖（如果`letter-spacing`是一个长度值，这个值则不能被覆盖）。
+
 ### 3.2 基本术语和概念
 
-* 匿名文本：指未包含在行内元素内的文本，包括空格`<p>Anonymous <em>not anonymous text</em> text <p>`
-* em框：在字体中定义，实际字体可能比其em框更高。
-* 内容区： 可以是元素中各字符的em框串在一起构成的框，也可以是由元素中字符字形描述的框。
-* 行间距： 行间距（leading）是font-size值和line-height值之差。这个差分为两半，分别应用到内容区的顶部和底部。行间距只应用于非替换元素。
+* 匿名文本：指未包含在行内元素内的文本，包括空格：<br />`<p>Anonymous <em>not anonymous text</em> text <p>`。
+* em框：在字体中定义，也称为字符框（character box）。实际字体可能比其em框更高。CSS中，`font-size`的值确定了em框的高度。
+* 内容区： 可以是元素中各字符的em框串在一起构成的框，也可以是由元素中字符字形描述的框。本书采用前一种即em框的定义。在替换元素中，内容区就是元素的固有高度再加上说可能有的外边距、边框或内边距。
+* 行间距： 行间距（leading）是`font-size`值和`line-height`值之差。这个差分为两半，分别应用到内容区的顶部和底部。这两部分称为半间距（half-leading）。行间距只应用于非替换元素。
 * 行内框： 这个框通过内容区增加行间距来描述。对于非替换元素，元素行内框的高度刚好等于line-height的值。对于替换元素，元素行内框的高度则恰好等于内容区的高度，因为行间距不应用到替换元素。
-
 * 行框： 包含该行中出现的行内框的最高点和最低点的最小框。行框的上边界要位于最高行内框的上边界，而行框的底边要放在最低行内框的下边界。
 
-#### 3.2.1 CSS还提供了一组行为和有用的概念：
+根据前面介绍的术语和定义，CSS还提供了一组行为和有用的概念：
 
-内容区类似于一个块级元素的内容框；行内元素的背景应用于内容区及所有内边距；行内元素的边框要包围内容区及所有内边距和边框；非替换元素的内边距、边框和外边距对行内元素或其生成的框没有垂直效果，也就是说它们不会影响元素行内框的高度（也不会影响行框的高度）；替换元素的外边距和边框确实会影响该元素行内框的高度，相应地也可能影响包含该元素的行框的高度；行内框在行中根据其vertical-align属性值垂直对齐。
+* 内容区类似于一个块级元素的内容框；
+* 行内元素的背景应用于内容区及所有内边距；
+* 行内元素的边框要包围内容区及所有内边距和边框；
+* 非替换元素的内边距、边框和外边距对行内元素或其生成的框没有垂直效果，也就是说它们不会影响元素行内框的高度（也不会影响行框的高度）；
+* 替换元素的外边距和边框确实会影响该元素行内框的高度，相应地，也可能影响包含该元素的行框的高度；
+* 行内框在行中根据其`vertical-align`属性值垂直对齐。
 
-#### 3.2.2 构造行框的步骤：
 
-* 按以下步骤确定行中个元素行内框的高度：
+来看如何逐步构造一个行框，可以通过这个过程来了解一行的各部分如何共同确定其高度：
 
+* 1. 按以下步骤确定行中个元素行内框的高度：
 	a. 得到各行内非替换元素及属于后代行内元素的所有文本的font-size值和line-height值，再将line-height减去font-size，得到框的行间距。这个间距除以2，分别应用于em框的顶部和底部
 
 	b. 得到各元素的height、margin-top、margin-bottom、padding-top、padding-bottom、border-top-width和border-bottom-width值，把它们加在一起。
 
-* 对于各内容区，确定它在整行基线的上方和下方分别超出多少。此操作需要知道各元素及匿名文本各部分的基线的位置，还要知道该行本身基线的位置，然后把它们对齐。另外，对于替换元素，要将其底边放在整行的基线上。
+* 2. 对于各内容区，确定它在整行基线的上方和下方分别超出多少。此操作需要知道各元素及匿名文本各部分的基线的位置，还要知道该行本身基线的位置，然后把它们对齐。另外，对于替换元素，要将其底边放在整行的基线上。
 
-* 对于指定了vertical-align值的元素，确定其垂直偏移量。由此可知钙元素的行内框要向上或向下移动多远，并改变元素在基线上方或下方超出的距离。
+* 3. 对于指定了vertical-align值的元素，确定其垂直偏移量。由此可知该元素的行内框要向上或向下移动多远，并改变元素在基线上方或下方超出的距离。
 
-* 知道了所有行内框会放在哪里，再计算最后的行框高度。只需将基线与最高行内框顶端之间的距离加上基线与最低行内框低端之间的距离。
+* 4. 知道了所有行内框会放在哪里，再计算最后的行框高度。只需将基线与最高行内框顶端之间的距离加上基线与最低行内框底端之间的距离。
+
+下面详细考虑整个过程，这对于聪明地设置内联内容的样式很关键。
 
 ### 3.3 行内格式化
 
-行的高度（或行框的高度）由其组成元素和其他内容（如文本）的高度确定。line-height实际上只影响行内元素和其他行内内容，而不影响块级元素。也可以为一个块级元素设置line-height值，但是这个值只是应用到块级元素的内联内容，并未该块级元素的内容设置一个最小行距高度。
+所有元素都有一个`line-height`。这个值会显著地影响行内元素如何显示，所以要特别注意。行的高度（或行框的高度）由其组成元素和其他内容（如文本）的高度确定。line-height实际上只影响行内元素和其他行内内容，而不影响块级元素。也可以为一个块级元素设置line-height值，但是这个值只是应用到块级元素的内联内容。从某种程度上讲，块级元素中包含的各文本行本身都是行内元素，而不论是否真正用行内元素包围起来。
+
+```html
+<p>
+	<line>This is a paragraph with a number of</line>
+	<line>lines of text which make up the</line>
+	<line>contents.</line>
+</p>
+```
+
+尽管line标记并不存在，但是段落表现得就像有这些标记一样，每个文本行从段落继承了样式。因此只需为块级元素创建line-height规则，而不必显式地为其所有行内元素（也许只是虚构的行内元素）声明line-height。
 
 ### 3.4 行内非替换元素
 
+在前面的格式化知识基础上，来讨论如果行中只包含非替换元素（或匿名文本）将如何构造。
+
 #### 3.4.1 建立框
 
-对于行内替换元素或匿名文本的一部分，font-size值确定了内容区的高度。如果一个行内元素font-size为15px，则内容区的高度为15像素，因为元素中所有em框的高度都是15像素，如下图示：
+**对于行内替换元素或匿名文本的一部分，font-size值确定了内容区的高度**。如果一个行内元素font-size为15px，则内容区的高度为15像素，因为元素中所有em框的高度都是15像素，如下图示：
 
-![em框确定内容区高度](https://ws3.sinaimg.cn/large/006tKfTcgy1fmngzffgc8j30km05074g.jpg)
+![em框确定内容区高度](https://ws3.sinaimg.cn/large/006tKfTcgy1fms2t17z07j316u08ydgc.jpg)
 
-行内框的生成： line-height（21px）减去font-size（15px）之后均分两半（3px）分别应用到内容区的顶部和底部，这就得到了行内框。
+下面来考虑line-height的值，以及它与font-size值之差。如果一个行内非替换元素的font-size为15px，line-height为21px。用户代理将这6px一分为二，将其一半分别应用到内容区的顶部和底部，这就得到了行内框。
 
 ![内容区加上行间距就等于行内框](https://ws3.sinaimg.cn/large/006tKfTcgy1fmnh09bqogj30mq05iglu.jpg)
 
-考虑一下代码：
+考虑以下代码：
 
-```css
+```html
 <p style="font-size: 12px; line-height: 12px;">
-	This is text, <em>some of which is emphasized</em>, plus other text <br>
-	which is <strong style="font-size: 24px;">strongly emphasized</strong>
-	and which is <br>
+	This is text, <em>some of which is emphasized</em>, plus other text <br/>
+	which is <strong style="font-size: 24px;">strongly emphasized</strong> and which is <br/>
 	larger than the surrounding text.
 </p>
 ```
 
+对于font-size和line-height都为12px的各部分文本，行内框高度为12px（高度差为12px-12px=0）。对于**strong**文本，line-height和font-size相差-12px，分两半-6px分别应用到顶部底部，就得到了行内框。由于这里增加的都是负数，所以最后行内框高度为12px（24px + (-6px) + (-6px) = 12px）。12px高的行内框在元素内容区（24px）中垂直居中，所以行内框实际上小于内容区。如果有上下行，可能会发生重叠。
+
+第二行中的行内框尽管大小相同，但它们排列得并不整齐，因为文本都是按基线对齐的：
+
 ![行中的行内框](https://ws3.sinaimg.cn/large/006tKfTcgy1fmnh0y8rraj30o0044t8v.jpg)
 
-对于font-size和line-height都为12px的个部分文本，行内框高度为12px。对于**strong**文本，line-height和font-size相差-12px（两半-6px分别应用到顶部底部），最后行内框高度为12px。12px高的行内框在元素内容区（24px）中垂直居中，所以行内框实际上小于内容区。如果有上下行，可能会发生重叠。
+由于行内框确定了整个行框的高度，其相互位置很重要。行框定义为行中最高行内框的顶端到最低行内框底端之间的距离，而且各行的顶端挨着上一行行框的底端。根据上图的结果，段落将如下图所示：
 
 ![段落中的行框](https://ws2.sinaimg.cn/large/006tKfTcgy1fmnhd5edx2j30qw04cdga.jpg)
+
+图中可以看到，中间一行比另外两行要高，不过还是不够大，不能把所有文本都包含在内。匿名文本的行内框确定了行框的底端，strong元素行内框的顶端则设置了行框的顶端。由于行内框的顶端在元素内容区内部，所以元素的内容落在了行框的外面，实际上与其他行框发生了重叠。其结果是，文本行看上去很不规则。
 
 #### 3.4.2 垂直对齐
 
@@ -383,15 +455,190 @@ h1 { margin-top: 20px;}
 
 ```html
 <p style="font-size: 12px; line-height: 12px;">
-	This is text, <em>some of which is emphasized</em>, plus other text <br>
-	which is <strong style="font-size: 24px; vertical-align: 4px;">strongly emphasized</strong>
-	and which is <br>
+	This is text, <em>some of which is emphasized</em>, plus other text <br/>
+	that is <strong style="font-size: 24px; vertical-align: 4px;">strongly emphasized</strong> and that is <br/>
 	larger than the surrounding text.
 </p>
 ```
 
 这个改动会把元素上升4px，这会同时提升其内容区和行内框。由于strong元素的行内框顶端已经是行中最高点，对垂直对齐的这个修改会把整个行框的顶端也向上移4px，如下图所示：
 
-![垂直对齐影响行框高度](https://ws3.sinaimg.cn/large/006tKfTcgy1fmnhdryq9wj30qg04274o.jpg)
+![垂直对齐影响行框高度](https://ws2.sinaimg.cn/large/006tKfTcgy1fms4a0ps1aj316w07qgmj.jpg)
+
+下面来考虑另一种情况，strong文本所在行上还有一个行内元素，其对齐方式未设置为基线对齐：
+
+```html
+<p style="font-size: 12px; line-height: 12px;">
+	This is text, <em>some of which is emphasized</em>, plus other text <br/>
+	that is <strong style="font-size: 24px;">strong</strong> and 
+	<span style="vertical-align: top;">tall</span> and that is <br/>
+	larger than the surrounding text.
+</p>
+```
+
+注意tall文本是如何对齐的：
+
+![行内元素与行框对齐](https://ws2.sinaimg.cn/large/006tKfTcgy1fms4iqe4h2j317406qdgk.jpg)
+
+在这种情况下，tall文本行内框的顶端与行框的顶端对齐。由于tall文本的font-size和line-height值相等，所以其内容高度与行内框相同。不过，再考虑以下情况：
+
+```html
+<p style="font-size: 12px; line-height: 12px;">
+	This is text, <em>some of which is emphasized</em>, plus other text <br/>
+	that is <strong style="font-size: 24px;">strong</strong> and 
+	<span style="vertical-align: top; line-height: 4px">tall</span> and that is <br/>
+	larger than the surrounding text.
+</p>
+```
+
+由于tall文本的line-height值小于其font-size，该元素的行内框比其内容区要小。这会改变文本本身的放置，因为其行内框的顶端必须与该行行框的顶端对齐。所以得到结果如下：
+
+![文本再一次超出行框](https://ws3.sinaimg.cn/large/006tKfTcgy1fms4ocdapoj316o03amxb.jpg)
+
+当然也可以为tall文本设置line-height的大于font-size的值如18px，这将得到行内框为18像素。这个行内框的顶端与行框的顶端对齐。类似地，如果vertical-align设置为bottom，则把行内元素行内框的底端与行框的底端对齐。
+
+`vertical-align`各个关键字值的效果描述如下：
+
+* top：将元素行内框的顶端与包含该元素的行框的顶端对齐。
+* bottom：将元素行内框的底端与包含该元素的行框的底端对齐。
+* text-top：将元素行内框的顶端与父元素内容区的顶端对齐。
+* text-bottom：将元素行内框的底端与父元素内容区的底端对齐。
+* middle：将元素行内框的垂直中点与父元素基线上0.5ex处的一点对齐。（注：一个ex是一个字体的x-height。x-height通常是字体尺寸的一半)
+* super：将元素的内容区和行内框上移。上移的距离未指定，可能因用户代理的不同而不同。
+* sub：与super相同，只不过元素是往下移。
+* &lt;percentage&gt;：将元素上移或下移一定距离，这个距离由相对于元素的line-height值指定一个百分数确定。
+
+这些值在第6章做过详细解释。
+
+#### 3.4.3 管理line-height
+
+前面介绍过，改变一个行内元素的line-height可能导致文本行相互重叠。不过，在所有情况下，这种修改都是针对单个元素的。下面介绍几种以一般的方式影响元素的line-height并避免内容重叠的方法。
+
+一种办法是**对font-size有改变的元素结合使用em单位**。例如：
+
+```html
+<style type="text/css">
+	p {font-size: 14px; line-height: 1em;}
+	big {font-size: 250%; line-height: 1em;}
+</style>
+
+<p>
+	Not only does this paragraph have "normal" text, but it also
+	<br/>contains a line in which <big> some big text </big> is found.
+	<br/>This large text helps illustrate our point.
+</p>
+```
+
+通过为big元素设置一个line-height，就提高了行框的总高度，从而提高足够的空间来显示这个big元素，而不会与任何其他文本重叠，也不会改变段落中所有行的line-heihgt。这里使用了值1em，所以big元素的line-heihgt将设置为与big的font-size大小相等。要记住**line-height相对于元素本身的font-size设置**，而不是相对于父元素设置。结果如下所示：
+
+![为行内元素指定line-height属性](https://ws3.sinaimg.cn/large/006tKfTcgy1fms6cgallgj317405c74o.jpg)
+
+注意，以下样式也会生成上面的效果：
+
+```css
+p {font-size： 14px； line-height: 1;}
+big {font-size: 250%;}
+```
+
+除非line-height值作为缩放因子被继承，否则p和big元素的line-height值都为1。因此，行内的高度与内容区高度一致。
+
+另外一种方法是增加段落的line-height。这将会影响整个元素的每一行。由于各行上下都增加了额外的空间，超链接的边框不会覆盖其他行：
+
+```css
+p {font-size: 14px; line-height: 24px}
+a:link {border: 5px solid blue;}
+```
+
+![增加line-height以为行内元素边框留出空间](https://ws4.sinaimg.cn/large/006tKfTcgy1fms78fipc8j316u05mglx.jpg)
+
+如果行中还有另外一些元素改变了行框的高度，边框情况也可能发生变化。考虑以下规则：
+
+```css
+p {font-size: 14px; line-height: 24px;}
+a:link {border: 5px solid blue;}
+big {font-size: 150%; line-height: 1.5em;}
+```
+
+根据这些规则，段落中big元素行内框的高度将是31.5px（14 x 1.5 x 1.5），这也是行框的高度。为了保证基线间隔一致，必须让p元素的line-height等于或大于32px。
+
+基线与行高：各行框的具体高度取决于其组成元素相互之间如何对齐。这种对齐往往很大程度上依赖于基线落在各元素（或匿名文本各部分）中的哪个位置，因为这个位置确定了其行内框如何摆放。基线在各em框中的位置对于不同的字体是不同的。这个信息内置在字体文件中，除非直接编辑字体文件，否则无法修改。因此，要得到一致的基线间隔，这更像是一门艺术而不只是一门科学。如果使用一种单位（如em）来声明所有字体大小和行高，就很有可能得到一致的基线间隔。不过，如果混合使用了不同的单位，就会困难得多，甚至是不可能。
+
+#### 3.4.4 缩放行高
+
+设置line-height的最好办法是使用一个原始数字值，因为这个数会成为缩放因子，而该因子是一个继承值而非计算值。假设你希望一个文档所有元素的line-height都是其font-size的1.5倍，可以如下声明：
+
+```css
+body {line-height: 1.5;}
+```
+
+缩放因子1.5在元素间逐层传递，在各层上，这个因子都作为一个乘数与各元素的font-size相乘。
+
+```html
+<style type="text/css">
+	p {font-size: 15px; line-height: 1.5;}
+	small {font-size: 66%;}
+	big {font-size: 200%;}
+</style>
+
+<p>This paragraph has a line-height of 1.5 times its font-size. 
+In addition, any elements within it <small>such as this small element</small> 
+also have line-height 1.5 times their font-size...and that includes 
+<big>this big element right here</big>. 
+By using a scalling factor, line-heights scale to match the font-size of any element.
+</p>
+```
+
+![对line-height使用缩放因子](https://ws3.sinaimg.cn/large/006tKfTcgy1fms7uirkxxj316s08u757.jpg)
+
+本例中，small元素的行高为15px，而对于big元素则为45px。当然，如果不希望big文本生成太多的行间距，也可以为big指定一个line-height值，这会覆盖继承的缩放因子：
+
+```css
+p {font-size: 15px; line-height: 1.5;}
+small {font-size: 66%;}
+big {font-size: 200%; line-height: 1em;}
+```
+
+还有一种解决方案（可能是最简单的一种方法），即适当地设置样式，使行高恰好能包含行内容，而没有多余的空间。这里可能需要设置line-height的值1.0。这个值乘以每个font-size，其结果与各元素font-size值完全相等。因此，对于每个元素，行内框与内容区相同，这意味着会使用所需的绝对最小大小来包含各元素的内容区。
+
+注意：大多数字体在字符字形行之间还显示有一点空间，因为字符往往比其em框要小。只有script("cursive")字体除外，其字符往往大于其em框。
+
+#### 3.4.5 增加框属性
+
+从前面的讨论可以了解到，内边距、外边距和边框都可以应用于行内非替换元素。行内元素的这些方面根本不会影响行框的高度。如果对一个无内外边距的span元素应用某个边框，可能得到如下所示的结果：
+
+![行内边框和行框布局](https://ws4.sinaimg.cn/large/006tKfTcgy1fms875di0nj316w07eq41.jpg)
+
+行内元素的边框边界由font-size而不是line-height控制。换句话说，如果一个span元素的font-size为12px，line-height为36px，其内容区就是12px高，边框将包围该内容区。
+
+或者，可以为行内元素指定内边距，这会把边框从文本本身拉开：
+
+```css
+span {border: 1px solid black; padding: 4px;}
+```
+
+注意，这个内边距并没有改变内容区的具体形状，不过它会影响这个元素行内框的高度。类似地，向一个行内元素增加边框也不会影响行框的生成和布局：
+
+![内边距和边框不改变行高](https://ws1.sinaimg.cn/large/006tKfTcgy1fms8wvyb1yj316s09275l.jpg)
+
+至于外边距，实际上，外边距不会应用到行内非替换元素的顶端和低端，它们不影响行框的高度。不过行内元素的两端则是另一回事。
+
+注意：CSS2.1中明确指定了外边距的放置：它定义了margin-top和margin-bottom可以应用到不是行内非替换元素的所有其他元素，而不是简单地说用户代理应当忽略上、下外边距。
+
+可以把行内元素想成是一个纸片，外围有一些塑料边。在多行上显示行内元素就像是把一个大纸片剪成一些小纸片。不过，每个小纸片上不会增加额外的塑料边。小纸片上的塑料边还是最初那个大纸片上的塑料边，所以看上去只是原来纸片（行内元素）最前和最后两端上出现塑料边。
+
+所以，如果行内元素有一个背景，而且边距足够大以至于行背景重叠，就会发生以下情况：
+
+```css
+p {font-size: 15px; line-height: 1em;}
+p span {background: #999; padding-top: 10px; padding-bottom: 10px;}
+```
+
+![行内背景重叠](https://ws4.sinaimg.cn/large/006tNc79gy1fmteqvnq76j316s050dga.jpg)
+
+CSS2.1明确指出按文档的顺序绘制：“这会导致后续行的边框在前面行的边框和文本上绘制。”这个原则同样适用于背景，如上图所示。另一方面，CSS2允许用户代理“‘切掉’边框和内边距区（也就是不显示边框和内边距）”。因此，具体结果可能很大程度上取决于用户代理遵循哪一个规范。
+
+
+
+
 
 >【本文内容摘自：《CSS权威指南》（第三版） Eric A. Meyer 著   尹志忠 侯妍 译】
