@@ -637,8 +637,279 @@ p span {background: #999; padding-top: 10px; padding-bottom: 10px;}
 
 CSS2.1明确指出按文档的顺序绘制：“这会导致后续行的边框在前面行的边框和文本上绘制。”这个原则同样适用于背景，如上图所示。另一方面，CSS2允许用户代理“‘切掉’边框和内边距区（也就是不显示边框和内边距）”。因此，具体结果可能很大程度上取决于用户代理遵循哪一个规范。
 
+### 3.5 行内替换元素
+
+一般认为行内替换元素（如图像）有固有高度和宽度；例如，一个图像的高度和宽度可能是某个像素数。因此，有固有高度的替换元素可能导致行框比正常要高。这不会改变行中任何元素的line-height值，包括替换元素本身。相反，只是会让行框的高度恰好能包含替换元素（以及所有框属性）。换句话说，会用替换元素整体（包括内容、外边距、边距和内边距）来定义元素的行内框。
+
+```css
+p {font-size: 15px; line-height: 18px;}
+img {height: 30px; margin: 0; padding: 0; border: none;}
+```
+
+![替换元素可以增加行框的高度，但不影响line-height值](https://ws3.sinaimg.cn/large/006tNc79gy1fmvkk7llduj316u07c0te.jpg)
+
+然而，行内替换元素还是有一个line-height值。在最常见的情况下，行内替换元素需要这个值，从而在垂直对齐时能正确定位元素。例如，`vertical-align`的百分数值要相对于元素line-height来计算。所以：
+
+```css
+p {font-size: 15px; line-height: 18px;}
+img {vertical-align: 50%;}
+```
+```html
+<p>The image in this sentence <img src="test.gif" alt="test image"> will be raised 9 pixels.</p>
+```
+
+line-height的继承值使图像上升9px（而不是其他数字）。如果没有line-height值，它就无法完成百分数值指定的垂直对齐。对于垂直对齐来说，图像本身的高度无关紧要；关键是line-height的值。
+
+#### 3.5.1 增加框属性
+
+内边距和边框像平常一样应用到替换元素；内边距在具体内容插入空间，边框围绕着内边距。这个过程的不寻常之处在于，内边距和边框确实会影响行框的高度，因为它们要作为替换元素元素的行内框的一部分（不同于行内非替换元素）。
+
+```css
+img {height: 20px; width20px;}
+img.one {margin: 0; padding: 0; border: 1px dotted;}
+img.two {margin: 5px; padding: 3px; border: 1px solid;}
+```
+
+![为行内替换元素增加内边距、边框和外边距会增大其行内框](https://ws1.sinaimg.cn/large/006tNc79gy1fmvm4n8jcpj316u06ymxo.jpg)
+
+外边距也包含在行框中，不过外边距有自己的问题。设置正外边距没有什么特殊的地方，只是使替换元素的行内框更高。设置负外边距也有类似的效果：这会减少替换元素行内框的大小。如下图示，负外边距会把图像上面的一行向下拉：
+
+```css
+img.two {margin-top: -10px;}
+```
+
+![行内替换元素有负外边距的效果](https://ws2.sinaimg.cn/large/006tNc79gy1fmvm9wir5kj316q05omxn.jpg)
+
+#### 3.5.2 替换元素和基线
+
+默认地，行内替换元素位于基线上。如果向替换元素增加下内边距、外边距或边框，内容区会上移。替换元素并没有自己的基线，所以相对来讲最好的办法是将其行内框的底端与基线对齐。因此，实际上是下外边距边界与基线对齐，如下图所示：
+
+![行内替换元素位于基线上](https://ws4.sinaimg.cn/large/006tNc79gy1fmvmf5f5csj316y07y3ys.jpg)
+
+这种基线对齐会有一个意想不到的后果：如果一个表单元格中只有一个图像，这个图像要让表单元格足够高，从而能把包含该图像的行框包含在内。即使没有具体的文本，甚至没有空白符，包含图像的表单元格中还是会出现这种大小调整。
+
+```html
+<style type="text/css">
+	td {font-size: 12px;}
+</style>
+
+<td><img src="spacer.gif" height="1" width="10"></td>
+```
+
+在CSS行内格式模型中，表单元格将是12px，图像位于单元格的基线上。所以图像下面可能有3像素的空间，上面有8像素的空间（具体要取决于所用的字体系列及其基线的位置）。这种行为不限于表单元格中的图像；只要一个行内替换元素是块级元素或表单元格元素中的唯一后代，都会有这种行为。例如，div中的一个图像也会放在基线上。对于这种情况，最常用的办法是使间隔图像成为块级元素，这样它们就不会生成行框，例如：
+
+```html
+<style type="text/css">
+td {font-size: 12px;}
+img.block {display: block;}
+</style>
+
+<td><img src="spacer.gif" height="1" width="10" class="block"/></td>
+```
+
+另一个可取的修正办法是，将包含图像的表单元的font-size和line-height都设置为1px，这会使行框的高度只能放下1px像素的图像。
+
+行内替换元素位于基线上还有一个有意思的效果：如果应用一个负的下外边距，元素实际上会被向下拉，因为其行内框的底端将比其内容区的底端高。因此，以下规则会得到下面的结果：
+
+```css
+p img {margin-bottom: -10px;}
+```
+
+![负的下外边距会使行内替换元素向下拉](https://ws2.sinaimg.cn/large/006tNc79gy1fmvn6iy3bkj316w06c74v.jpg)
 
 
+## 4 改变元素显示
+
+可以为属性`display`设置一个值来影响用户代理显示的方式。
+
+**display**
+
+值： `none | inline | block | inline-block | list-item | run-in | table |`
+	`inline-table | table-row-group | table-header-group | table-footer-group |`
+	`table-row | table-column-group | table-column | table-cell | table-caption | inherit`
+
+初始值： inline
+
+应用于： 所有元素
+
+继承性： 无
+
+计算值： 对于浮动、定位和根元素，计算值可变；否则，根据指定确定
+
+说明：CSS2中还有值compact和marker，不过由于缺乏广泛的支持，在CSS2.1中已经去掉
+
+我们将忽略与表有关的值，它们将在第11章讨论；在此，还忽略了值`list-item`，因为这个值将在第12章详细介绍。下面介绍`inline-block`和`run-in`元素，不过之前先介绍一下改变元素显示角色将如何改变布局。
+
+### 4.1 改变角色
+
+假设一个div中有一系列链接，需要把这个div布局为一个垂直边栏：
+
+```html
+<div id="navigation">
+	<a href="index.html">WidgetCo Home</a><a href="products.html">Products</a>
+	<a href="services.html">Services</a><a href="fun.html">Widgety Fun!</a>
+	<a href="support.html">Support</a><a href="about.html" id="current">About Us</a>
+	<a href="contact.html">Contact</a>
+</div>
+```
+
+可以把所有的链接都放在表格中，或者每个链接都包含在其自己的div中，或者还可以让它们都是块级元素，如下：
+
+```css
+div#navigation a {display: block;}
+```
+
+这会让导航栏div中的每一个a元素都是一个块级元素。如果在增加一些样式，可以得到如下结果：
+
+![将显示角色由inline改为block](https://ws4.sinaimg.cn/large/006tKfTcgy1fmwp1iqb4nj316y09adg1.jpg)
+
+还可以让元素作为行内元素。假设有一个无序的人名列表：
+
+```html
+<ul id="rollcall">
+	<li>Bob.C</li>
+	<li>Marcio G.</li>
+	<li>Eric M.</li>
+	<li>Kar M.</li>
+	<li>Tristan N.</li>
+	<li>Arun R</li>
+	<li>Doron R.</li>
+	<li>Susie W.</li>
+</ul>
+```
+
+对于以上标记，假设让这些名字成为一系列行内名，期间间隔用竖线间隔（另外在列表的左右两端也有竖线）。为此，唯一的办法就是修改其显示角色：
+
+```css
+#rollcall li {display: inline; border-right: 1px solid; padding: 0 0.33em;}
+#rollcall li:first-child {border-left: 1px solid;}
+```
+
+![将显示角色由list-item改为inline](https://ws3.sinaimg.cn/large/006tKfTcgy1fmwpad52mgj316u02imxa.jpg)
+
+**不过有一点要注意，改变的只是元素的显示角色，而不是其本质。换句话说，让一个段落生成行内框并不会把这个段落真正变成一个行内元素。**
+
+行内元素可能是一个块级元素的后代，反过来则不行。因此，尽管链接可以放在一个段落中，但是链接却不能包围段落。不论如何设计元素的样式，都是如此。考虑如下标记：
+
+```html
+<a href="http://www.example.com/" style="display: block;"></a>
+	<p style="display: inline;">this is wrong</p>
+</a>
+```
+
+这个标记将是无效的，因为块级元素（p）嵌套在一个行内元素（a）中。改变显示角色也不会使以上标记变的合法。display之所以得名就是因为它影响的是元素如何显示，而不影响它是何种元素。
+
+### 4.2 行内块元素
+
+值`inline-block`是一个混合产物。行内块元素（inline-block element）是块级元素和行内元素的混合。这个display的值是CSS2.1新增的。
+
+行内块元作为一个行内框与其他元素和内容相关。换句话说，它就像图像一个放在一个文本行中，实际上，行内块元素会作为替换元素放在行中。这说明，行内块元素的底端默认地位于文本行的基线上，而且内部没有行分隔符。
+
+在行内块元素内部，会像块级元素一样设置内容的样式。就像所有块级或行内替换元素一样，行内块元素也有属性width和height，如果比周围内容高，这些属性会使行高增加。
+
+来考虑下面一些示例标记：
+
+```html
+<div id="one">
+This text is the content of a block-level element. Within this block-level element is another block-level element. <p> Look, it's a block-level paragraph.</p> Here's the rest of the DIV, which is still block-level. 
+</div>
+
+<div id="two">
+This text is the content of a block-level element. Within this block-level element is another inline element. <p> Look, it's an inline paragraph.</p> Here's the rest of the DIV, which is still block-level. 
+</div>
+
+<div id="three">
+This text is the content of a block-level element. Within this block-level element is another inline-block element. <p> Look, it's a inline-block paragraph.</p> Here's the rest of the DIV, which is still block-level. 
+</div>
+```
+
+```css
+div {margin: 1em 0; border: 1px solid;}
+p {border: 1px dotted;}
+div#one p {display: block; width: 6em; text-align: center;}
+div#two p {display: inline; width: 6em; text-align: center;}
+div#three p {display: inline-block; width: 6em; text-align: center;}
+```
+
+结果如下所示：
+
+![行内块元素的行为](https://ws4.sinaimg.cn/large/006tKfTcgy1fmwq2v3bzcj316y0nydi1.jpg)
+
+注意，在第二个div中，行内段落格式化为正常的行内内容，这说明width和text-align被忽略了（它们不能应用与行内元素）。不过，对于第三个div元素，作为行内块元素的段落则有这两个属性，因为它们作为一个块级元素被格式化。这个段落还要求文本行更高一些，因为它会影响行，就好像这是一个替换元素一样。
+
+如果行内块元素的width为定义，或者显式生命为auto，元素框会收缩以适应内容。也就是说，元素框的宽度刚好足够包含该内容，而没有多余的空间。行内框也会这样做，不过行内框可能会跨多个文本行，而行内块元素不能。因此，以下规则应用到前面的示例标记时：
+
+```css
+div#three p {display: inline-block; height: 2em;}
+```
+
+会创建一个较高的框，它的宽度刚好能包含内容，如下图：
+
+![行内块元素自动调整大小](https://ws4.sinaimg.cn/large/006tKfTcgy1fmwqb7j5n9j31720ms0ut.jpg)
+
+### 4.3 run-in元素
+
+CSS2引入了一个值`run-in`，这也是一个有意思的块／行内元素混合，可以使某些块级元素成为下一个元素的行内部分。这种功能对于某些标题效果很有用，这在打印排版中相当常见，即标题作为文本段落的一部分出现。
+
+在CSS中，只需改变元素的display值，并使下一个元素框作为块级元素框，就可以使元素成为run-in元素。注意，这里所说的是框，而不是元素本身。所以不论元素是块级元素还是行内元素都无关紧要，重要的是元素生成的框。设置为`display: block`的strong元素会生成一个块级框，设置为`display: inline`的段落则会生成一个行内框。
+
+所以，如果一个元素生成run-in框，而且该框后面是一个块级框，那么该run-in元素将成为块级框开始处的一个行内框。例如：
+
+```html
+<h3 style="display: run-in; border: 1px dotted; font-size: 125%; font-weight: bold;">Run-ni Element</h3>
+<p style="border-top: 1px soid balck; padding-top: 0.5em;">
+Another interesting block/inline hybrid is the value <code>run-in</code>, introduced in CSS2, which has the ability to take block-level elements and make them an inline part of a following element. This is useful for certain heading effects that are quite common in print typography, where a heading will appear as part of a paragraph of text.
+</p>
+```
+
+由于h3后面的元素生成一个块级框，所以h3元素将变成p元素内容开始处的一个行内元素，如下图所示。
+
+![使标题成为run-in元素](https://ws4.sinaimg.cn/large/006tKfTcgy1fmwqw570lsj316y086my5.jpg)
+
+注意两个元素的边框是如何放置的。这种情况下使用run-in的效果与使用以下标记完全相同：
+
+```html
+<p style="border-top: 1px soid balck; padding-top: 0.5em;">
+<span style="border: 1px dotted; font-size: 125%; font-weight: bold;">Run-ni Element</span>
+Another interesting block/inline hybrid is the value <code>run-in</code>, introduced in CSS2, which has the ability to take block-level elements and make them an inline part of a following element. This is useful for certain heading effects that are quite common in print typography, where a heading will appear as part of a paragraph of text.
+</p>
+```
+
+不过，run-in框与上面的的标记之间还存在一个小小的差别。即使run-in框格式化为另一个元素中的行内框，它们仍从文档中的父元素继承属性，而不是说它们放在哪个元素中就从哪个元素继承属性。
+
+要记住重要的一点，只有当run-in框后面是一个块级框时run-in才起作用。如果不是这样，run-in框本身将成为块级框。因此，给定以下标记，h3仍然是（或者会变成）块级元素，因为table元素的display值是table：
+
+```html
+<h3 stlyle="display: run-in;">Prices</h3>
+<table>
+	<tr><th>Apples</th><td>$0.59</td></tr>
+	<tr><th>Peaches</th><td>$0.79</td></tr>
+	<tr><th>Pumpkin</th><td>$1.29</td></tr>
+	<tr><th>Pie</th><td>$6.99</td></tr>
+</table>
+```
+
+### 4.4 计算值
+
+如果元素是浮动元素或定位元素，display的计算值可以改变。如果为一个根元素声明display值，计算值也可以改变。实际上，display、position和float值会互相影响。
+
+如果一个元素是绝对定位元素，float的值设置为none。对于浮动元素或绝对定位元素，计算值由声明确定，如下表：
+
+
+| 声明值                                                                                        | 计算值      |
+| -------------------------------------------------------------------------------------------- |------------|
+| inline-table                                                                                 | table      |
+| inline, run-in,  table-row-group, table-column,                                              | block      |
+| table-column-group, table-header-group, table-footer-group,                                  |            |
+| table-row, table-cell, table-caption, inline-block                                           |            |
+| 所有其他                                                                                      | 根据指定确定 |
+
+对于根元素，如果声明值为inline-block或table，都会得到计算值table，声明为none时则会得到同样的计算值（none）。所有其他display值都计算为block。
+
+
+## 5 小结
+
+尽管CSS格式化模型的某些方面乍看起来有些不太直观，不过等你多熟悉一些就会发现这是有道理的。很多情况下，最初看上去没道理甚至荒谬的规则最后看来确实是合理的，它们会防止一些奇怪的或我们不期望的文档显示结果。在很多方面，块级元素都很容易理解，调整其布局通常是一个简单的任务。另一方面，行内元素则可能很难管理，因为有很多影响因素，其中也包括元素是替换元素还是非替换元素。
 
 
 >【本文内容摘自：《CSS权威指南》（第三版） Eric A. Meyer 著   尹志忠 侯妍 译】
