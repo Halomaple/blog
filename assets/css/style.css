@@ -1928,6 +1928,10 @@ section.comment {
 	transition: color 0.3s ease-out
 }
 
+.toc-number {
+	display: none;
+}
+
 .active {
 	color: #2ca6cb !important;
 }
