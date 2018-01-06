@@ -1,4 +1,4 @@
-<script src="https://cdn.bootcss.com/jquery/2.0.3/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/jquery/2.0.3/jquery.js"></script>
 <!-- <script src="{{ site.baseurl }}{{ site.assets }}/js/jquery-2.0.3.min.js"></script> -->
 <script src="{{ site.baseurl }}{{ site.assets }}/js/jquery.imagesloaded.min.js?v=1.0.1"></script>
 <!-- <script src="{{ site.baseurl }}{{ site.assets }}/js/gallery.js?v=1.0"></script> -->
@@ -250,7 +250,7 @@ $(document).ready(function(){
 $(document).ready(function(){
     var show_post = function(anchor) {
         $(".post").hide();
-        var cls = anchor.substr(1);
+        var cls = decodeURI(anchor.substr(1));
         $("." + cls).show();
         $(".archive-folder").text(cls);
     }
