@@ -9,6 +9,13 @@
 
 <script type="text/javascript">
 $(document).ready(function(){
+  $('#site-author').attr({'href' : window.location.protocol + '//' + window.location.host + '/about/'});
+  $('#site-title').attr({'href' :  window.location.protocol + '//' + window.location.host});
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){
   $('.navbar').click(function(){
     $('header nav').toggleClass('shownav');
   });
