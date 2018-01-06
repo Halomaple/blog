@@ -18,7 +18,6 @@ tags: [Git]
 
 `git diff` 查看文件的修改内容
 
-<br />
 `git add <file>` 缓存修改
 
 `git add .` 缓存所有修改，同 `git add -all (-a)`
@@ -29,7 +28,6 @@ tags: [Git]
 
 `git pull` 拉取远程代码到本地
 
-<br />
 `git branch` 查看当前分支
 
 `git branch -a` 查看所有分支（local和remote）
@@ -42,9 +40,8 @@ tags: [Git]
 
 `git branch -d <branch_name>` 删除本地分支
 
-`git push origin -d <branch_name>`, `git push origin --delete <branchName>` 或者 `git push origin :<branch_name>` 删除远程分支
+`git push origin -d <branch_name>`，`git push origin --delete <branchName>`，或者 `git push origin :<branch_name>` 删除远程分支
 
-<br />
 `git checkout --<file>` 撤销未缓存的文件修改
 
 `git rm --cached <file>`，`git rm -r --cached <files>` 删除新加入ignore的文件
@@ -55,13 +52,10 @@ tags: [Git]
 
 `git push <remote> <branch> --force (-f)` 推送到服务器
 
-<br />
 `git rm <file>` 删除文件,之后需要commit
 
-<br />
 `git remote set-url origin git@github.com:<Username>/<Project>.git` 更换远程仓库地址（ssh）
 
-<br />
 `git config --global alias.acm '!git commit -a -m'` 可以自定义acm命令，实现add + commit -m的功能，之后就可以使用`git acm`了
 
 使用git在本地创建一个项目的过程
