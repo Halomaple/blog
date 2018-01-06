@@ -250,9 +250,13 @@ $(document).ready(function(){
 $(document).ready(function(){
     var show_post = function(anchor) {
         $(".post").hide();
-        var cls = decodeURI(anchor.substr(1));
-        $("." + cls).show();
-        $(".archive-folder").text(cls);
+        var cls = decodeURI(anchor.substr(1)).split(' '),
+            classString = '';
+        cls.forEach(function(c){
+          classString += '.' + c;
+        });
+        $(classString).show();
+        $(".archive-folder").text(classString.slice(1).replace(/\./g, ' '));
     }
     if (document.location.hash) {
         show_post(document.location.hash);
