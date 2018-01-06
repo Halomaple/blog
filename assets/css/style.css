@@ -1262,7 +1262,7 @@ article .article-content table td>code {
 	border-radius: .25em;
 }
 
-article .article-content > p {
+article .post-content > p {
 	line-height: 1.5;
 	margin-top: .7em;
 	text-indent: 2em;
