@@ -1,0 +1,872 @@
+---
+layout: post
+title: "CSS 内边距边框和外边距"
+date: 2018-01-05 21:10:00 +0800
+categories: [Learning, CSS]
+tags: [CSS, Padding, Border, Margin, 内边距, 边框, 外边距]
+---
+
+CSS的作者们下了很大功夫，允许创作人员为段落、标题、div、锚和图像（几乎是Web页面可以包含的一切）定义边框。这些边框可以将一个元素与其他元素区别开，强调其外观，将某类数据标志为有改变，或者达到其他效果。
+
+CSS还允许在一个元素外围定义一些区域，来控制如何相对于内容摆放边框，以及其他元素与该元素边框可以有多远。在一个元素的内容及其边框之间，可以看到元素的内边距（padding），边框外则是外边距（margin）。当然，这些属性影响着整个文档如何布局，不过，更重要的是，它们会严重影响给定元素的外观。
+
+## 1 基本元素框
+
+[第7章](http://halomaple.com/learning/css/2016/12/10/CSS基本视觉格式化/)曾讨论过，所有文档元素都生成一个矩形框，这称为**元素框**（element box），它描述了一个元素在文档布局中所有占的空间大小。因此，每个框影响着其他元素框的位置和大小。例如，如果文档中第一个元素框是1英寸高，下一个框就至少会从文档顶端向下1英寸出开始。如果第一个元素框改为2英寸高，后面的各元素都会向下移1英寸，第二个元素框将至少从文档顶端向下2英寸出开始：
+
+![一个元素如何影响所有元素](https://ws4.sinaimg.cn/large/006tNc79gy1fn6zilokx0j31620kiwh4.jpg)
+
+默认地，一个可以显示的文档由多个矩形组成，这些矩形框分布开，从而不会相互重叠。另外，根据某些限制，这些框要尽可能地少占空间，同时还要保证相互之间有足够的空间，以便清楚地看出哪些内容属于哪个元素。为了充分理解外边距、内边距和边框，必须清楚地掌握框模型（这在第7章做过解释）。为了便于参考，这里摘录了[第7章的框模型图](http://halomaple.com/learning/css/2016/12/10/CSS基本视觉格式化/#2-块级元素)。
+
+![CSS框模型](https://ws1.sinaimg.cn/large/006tNc79gy1fn7wqvci1gj316s0ootap.jpg)
+
+### 1.1 宽度和高度
+
+**一个元素的width被定义 为从左内边界到右内边界的距离；height被定义为为上内边界到下内边界的距离**。对于这两个属性有一点很重要：它们不能应用到行内非替换元素（CSS兼容的浏览器会忽略这些声明）。考虑以下规则：
+
+```css
+a:link {color: red; background: silver; height: 15px; width: 60px;}
+```
+
+最后会得到有银色背景的红色链接，其高度和宽度由链接的内容确定，将不会是15像素高60像素宽。
+
+**width**
+
+值：`<length> | <percentage> | auto | inherit`
+
+初始值：auto
+
+应用于：块级元素和替换元素
+
+继承性：无
+
+百分数：相对于包含块的width
+
+计算值：对于auto和百分数，根据指定确定；否则是一个绝对长度，除非元素不能应用该属性（此时为auto）
+
+**height**
+
+值：`<length> | <percentage> | auto | inherit`
+
+初始值：auto
+
+应用于：块级元素和替换元素
+
+继承性：无
+
+百分数：相对于包含块的height计算
+
+计算值：对于auto和百分数，根据指定确定；否则是一个绝对长度，除非元素不能应用该属性（此时为auto）
+
+### 1.2 外边距和内边距
+
+元素框在元素之间只提供了很少的空间。有3种方法可以在元素外围生成额外的空间，可以增加内边距，或者增加外边距，还可以同时增加内边距和外边距。某些情况下，选择哪种方法并不重要。不过如果元素有背景，则会影响你的决定，因为背景会延伸到内边距中，但不会延伸到外边距。
+
+因此，为元素指定的内边距和外边距会影响元素的背景何时结束。如果为元素设置了背景色，如下图所示，可以清楚地看出二者的差别。有内边距的元素的背景范围更大，而有外边距的元素的背景则不受影响。
+
+![有不同外边距和内边距的段落，利用背景说明其差别](https://ws3.sinaimg.cn/large/006tNc79gy1fn82ssnt6yj316y0jowgt.jpg)
+
+## 2 外边距
+
+大多数正常流元素间出现的间隔都是因为存在元素外边距。设置外边距会在元素外创建额外的“空白”。“空白”通常指不能放其他元素的区域，而且在这个区域中可以看到父元素的背景。
+
+![有外边距和无外边距的段落](https://ws4.sinaimg.cn/large/006tNc79gy1fn82w9374lj316s0gyq5j.jpg)
+
+**margin**
+
+值：`[ <length> | <percentage> | auto]{1, 4} | inherit`
+
+初始值：未定义
+
+应用于：所有元素
+
+继承性：无
+
+百分数：相对于包含块的width计算
+
+计算值：见各个属性
+
+`margin`可以接收任何长度度量，可以是像素、英寸、毫米或em。不过，margin的默认值是0，所以如果没有为margin声明一个值，就不会出现外边距。
+
+不过在实际中，浏览器对许多元素已经提供了预定的样式，外边距也不例外。例如，在支持CSS的浏览器中，外边距会在每个段落元素的上面和下面生成“空行”。
+
+### 2.1 长度值和外边距
+
+可以使用任何长度来设置外边距。例如，要在段落元素外围应用一个10像素的空白区：
+
+```css
+p {background-color: silver; margin: 10px;}
+```
+
+![段落对照（虚线只是用来说明，在浏览器中并不出现）](https://ws1.sinaimg.cn/large/006tNc79gy1fn837pk1l7j316q09qjsu.jpg)
+
+有时，可能需要一个元素各边上的空白不同。例如，如果希望h1元素的上外边距为10像素，右外边距为20像素，下外边距为15像素，左外边距为5像素，只需以下规则：
+
+```css
+h1 {margin: 10px 20px 15px 5px;}
+```
+
+这些值的顺序很重要，应当遵循以下模式（即顺时针旋转）：
+
+```css
+margin: top right bottom left;
+```
+
+也可以混合使用各类型的长度值。一个规则中并不限制只能使用一种长度类型，如下所示：
+
+```css
+h2 {margin: 14px 5em 0.1in 3ex;}
+```
+
+### 2.2 百分数和外边距
+
+**百分数是相对于父元素的width计算的**，所以如果父元素的width以某种方式发生改变，百分数也会改变。例如，假设有以下规则：
+
+```html
+<style>
+	p {margin: 10%}
+</style>
+
+<div style="width: 200px; border: 1px dotted;">
+	<p>
+		This paragraph is contained within a DIV that has a width of 200 pixels,
+		so its margin will be 10% of the width of the paragraph's parent (the DIV).
+		Given the declared width of 200 pixels, the margin will be 20 pixels on all sides.
+	</p>
+</div>
+
+<div style="width: 100px; border: 1px dotted;">
+	<p>
+		This paragraph is contained within a DIV with a width of 100 pixels, so its margin will still be 10% of the width of the paragraph's parent. There will, therefore, be half as much margin on this paragraph as that on the first paragraph.
+	</p>
+</div>
+```
+
+![父元素的width与百分数](https://ws4.sinaimg.cn/large/006tNc79gy1fn84qgnrxij31640z0gnb.jpg)
+
+百分数定义为相对于父元素的width，这不仅应用于左右外边距，也应用于上下外边距。因此，给定以下样式和标记，段落的上外边距将是50px：
+
+```html
+<style>
+	div p {margin: 10%;}
+</style>
+<div style="width: 500px;">
+	<p>
+		This is a paragraph, and its top margin is 10% the width of its parent element.
+	</p>
+</div>
+```
+
+如果div的width改变，段落的上外边距也会改变。看上去有些奇怪。可以这样来考虑，我们认为，正常流中的大多数元素都会足够高以包含其后代元素（包括其外边距）。如果一个元素的上下外边距是父元素的height的一个百分数，就可能导致一个无限循环，父元素的height会增加，以适应后代元素上下外边距的增加，而相应地，上下外边距又必须增加，以适应父元素height，如此继续。规范的作者没有简单地忽略上下外边距百分数，而是决定让它与父元素的width相关，不会根据其后代元素的width而改变。
+
+注意：对于定位元素，上下外边距如果是百分数，其处理会有所不同。更多的详细内容将在第10章解释。
+
+还可以混合使用百分数和长度值。
+
+```css
+h1 {margin: 0.5em 10% 0.5em 10%;}
+```
+
+### 2.3 值复制
+
+有时，为外边距输入的值会有些重复：
+
+```css
+p {margin: 0.25em 1em 0.25em 1em;}
+```
+
+可以将上面写成这样：
+
+```css
+p {margin: 0.25em 1em;}
+```
+
+这两个值足以取代前面的4个值。因为CSS定义了一些规则，允许为外边距指定少于4个值：
+
+* 如果缺少左外边距的值，则使用右外边距的值。
+* 如果缺少下外边距的值，则使用上外边距的值。
+* 如果缺少右外边距的值，则使用上外边距的值。
+
+![值复制模式](https://ws4.sinaimg.cn/large/006tNc79gy1fn8bo2hw5zj316806cjro.jpg)
+
+换句话说，如果为外边距指定了3个值，则第4个值（即坐外边距）会从第2个值（右外边距）复制得到。如果给定了两个值，第4个会从第2个址复制得到，第3个值（下外边距）会从第1个值（上外边距）复制得到。最后一种情况，如果只给定了一个值，那么其他3个外边距都由这个值（上外边距）复制得到。
+
+利用这种简单的机制，创作人员只需指定必要的值，而不必全部都应用4个值。如下所示：
+
+```css
+h1 {margin: 0.2em 0 0.5em;} /*same as '0.25em 0 0.5em 0'*/
+h2 {margin: 0.15em 0.2em;} /*same as '0.15em 0.2em 0.15em 0.2em'*/
+p {margin: 0.5em 10px;} /*same as '0.5em 10px 0.5em 10px'*/
+p.close {margin: 0.1em;} /*same as '0.1em 0.1em 0.1em 0.1em'*/
+```
+
+这种方法有一个小问题。假设想要将h1元素的上外边距和左外边距设置为10像素，下外边距和右外边距设置为20像素。在这种情况下，必须写作：
+
+```css
+h1 {margin: 10px 20px 20px 10px;} /*can't be any shorter*/
+```
+
+再来看另一个例子，如果希望除了左外边距之外的所有其他外边距都是auto（左外边距为3em）：
+
+```css
+h2 {margin: auto auto auto 3em;}
+```
+
+### 2.4 单边外边距属性
+
+幸运的是，确实有一种办法可以为元素单边上的外边距设置值。假设只需把h2元素的左外边距设置为3em。不必使用margin，而是可以采用以下方法：
+
+```css
+h2 {margin-left: 3em;}
+```
+
+`margin-left`是专门用来设置元素框各边外边距的4个属性之一：
+
+**margin-top、margin-right、margin-buttom、margin-left**
+
+值：`<length> | <percentage> | auto | inherit`
+
+初始值：0
+
+应用于：所有元素
+
+继承性：无
+
+百分数：相对于包含块的width计算
+
+计算值：对于百分数，根据指定确定；否则，为绝对长度
+
+使用其中任何一个属性将只设置该边上的外边距，而不会直接影响所有其他外边距。一个规则中可以使用多个这种单边属性。例如：
+
+```css
+h2 {
+	margin-left: 3em; 
+	margin-bottom: 2em; 
+	margin-right: 0;
+	margin-top: 0;
+	background: silver;
+}
+/*这种情况下使用margin会方便一点`margin: 0 0 2em 3em;`*/
+```
+
+![多个单边外边距](https://ws4.sinaimg.cn/large/006tNc79gy1fn8c79vnnbj3164088t90.jpg)
+
+### 2.5 负外边距和合并外边距
+
+[第7章](http://halomaple.com/learning/css/2016/12/10/CSS基本视觉格式化/)曾讨论过，可以为元素设置负外边距。这会导致元素框超出其父元素，或者与其他元素重叠，但并不违反框模型。考虑以下规则：
+
+```css
+div {border: 1px dotted gray; margin: 1em;}
+p {margin: 1em; border: 1px dashed silver;}
+p.one {margin: 0 -1em;}
+p.two {margin: -1em 0;}
+```
+
+![负外边距的实际使用](https://ws4.sinaimg.cn/large/006tNc79gy1fn8cqxke23j315y0j8tc1.jpg)
+
+在第一个例子中，根据数学计算，这个段落的width计算值加上其左右外边距刚好等于父元素的div的width。所以，这个段落最后将比其父元素宽2em，但从数学角度讲实际上并没有更“宽”。在第二个例子中，负的上下外边距实际增加了元素的height计算值，将其上下外边界向外移，这就与它之前和之后的段落发生了重叠。
+
+### 2.6 外边距和行内元素
+
+外边距可以应用到行内元素，不过效果稍有不同。假设你想要在重点强调的文本上设置上下外边距：
+
+```css
+strong {margin-top: 20px; margin-bottom: 50px;}
+```
+
+这在规范中是允许的，不过由于任何一个行内非替换元素应用外边距，它对于行高没有任何影响。由于外边距实际上是透明的，所以这个声明没有任何视觉效果。其原因就在于行内非替换元素的外边距不会改变一个元素的行高。
+
+注意：对于只包含文本的行，能改变行间距的属性只有line-height、font-size和vertical-align，见第7章的介绍
+
+这对于行内非替换元素的上下边成立，左右两边则是另一回事。先来考虑一个简单的情况，将一个小的行内非替换元素放在一行上。在此，如果设置了左外边距或右外边距则是可见的：
+
+```css
+strong {margin-left: 25px; background: silver;}
+```
+
+![有左外边距的行内非替换元素](https://ws3.sinaimg.cn/large/006tNc79gy1fn8dbv85zdj31620280su.jpg)
+
+也可以在两端增加额外的空间：
+
+```css
+strong {margin: 25px; background: silver;}
+```
+
+![有25像素外边距的行内非替换元素](https://ws3.sinaimg.cn/large/006tNc79gy1fn8ddw334oj315u038q34.jpg)
+
+如果一个行内非替换元素跨多行，情况稍有变化：
+
+```css
+strong {margin: 25px; background: silver;}
+```
+
+![有25像素外边距的行内非替换元素跨两个文本行显示](https://ws2.sinaimg.cn/large/006tNc79gy1fn8dgkvl2qj315w038q36.jpg)
+
+左外边距应用到这个元素的开始处，右外边距应用到该元素的末尾。外边距只是通过改变元素内容在行中的起点来影响换行。
+
+如果向行内非替换元素应用负外边距，元素的上下外边距不受影响，行高也不受影响，不过元素的左右两端可能与其他内容重叠。如下图所示：
+
+```css
+strong {margin: -25px; background: silver;}
+```
+
+![有负外边距的行内非替换元素](https://ws2.sinaimg.cn/large/006tNc79gy1fn8dkxcy6hj316802it8u.jpg)
+
+替换元素又有所不同：为替换元素设置的外边距确实会影响行高，可能回使行高增加或减少，这取决于上下外边距的值。行内替换元素的左右外边距与非替换元素的左右外边距的作用一样。
+
+![有不同外边距值的行内替换元素](https://ws1.sinaimg.cn/large/006tNc79gy1fn8e2ka4v0j316007mmy5.jpg)
+
+## 3 边框
+
+元素外边距内就是元素的边框（border）。元素的边框就是围绕元素内容和内边距的一条或多条线。因此，元素的背景会在外边框边界处停止，因为背景不会延伸到外边距以内，而边框就在外边距内部。
+
+每个边框都有3个方面：其宽度或粗细、其样式或外观，以及其颜色。边框的宽度默认值为medium，这个值没有明确定义，不过通常是2个像素。尽管如此，你不一定能看到边框，原因是边框的默认样式为none，这样一来，就不会有边框了。如果一个边框没有样式，它就不必存在（不存在边框还会重置width值，稍后再讨论这个问题）。
+
+最后，默认的边框颜色是元素本身的前景色。如果没有为边框声明颜色，它将与元素的文本颜色相同。另一方面，如果一个元素没有任何文本，假设它有一个表，其中只包含图像，那么该表的边框颜色就是其父元素的文本颜色（因为color可以继承）
+
+### 3.1 边框和背景
+
+CSS规范清楚地指出**元素的背景会延伸到边框边界之外**，因为规范中提到，边框绘制在“元素的背景之上”。这很重要，因为有些边框是“间断的”（例如，点线边框或虚线框），元素的背景应当出现在边框的可见部分之间。
+
+发布CSS2时，它指出背景只延伸到内边距，而不是边框。后来又对此做了更正，CSS2.1明确指出**元素的背景是内容、内边框和边框区的背景**。大多数浏览器都遵循CSS2.1定义，不过有些较老的浏览器可能会有所不同。
+
+### 3.2 有样式的边框
+
+CSS为属性`border-style`定义了10个不同的非inherit样式，包括默认值none。这些样式如下图所示：
+
+**border-style**
+
+值：`[none | hidden | dotted | dashed | solid | double | groove | ridge | inset | outset]{1,4} | inherit`
+
+初始值：对简写属性没有定义
+
+应用于：所有元素
+
+继承性：无
+
+计算值：见各个属性（border-top-style等）
+
+说明：  根据CSS1和CSS2，HTML用户代理只需支持solid和none；其余的值（除hidden外）可能被解释为solid；这个限制在CSS2.1中被去除。样式hidden等价于none。不过应用到表时除外，对于表，hidden用于解决边框冲突。
+
+![边框样式](https://ws4.sinaimg.cn/large/006tNc79gy1fn8enoyf7xj316a0lmace.jpg)
+
+最不可预测的边框样式是double。它定义为两条线的宽度再加上这两条线之间的空间等于`border-width`值。不过，CSS规范并没有说明其中一条线是否比另一条线粗，或者两条线是否应该一样粗，也没有指出线之间的空间是否应当比线粗。所有这些都由用户代理决定。边框样式的外观总是以某种方式基于边框的颜色，虽然具体的方式可能随用户代理的不同而有所不同。例如，下图展示了一个显示inset边框的两种不同方法。
+
+![显式inset边框的两种有效方法](https://ws3.sinaimg.cn/large/006tNc79gy1fn8etttowfj316605cq3f.jpg)
+
+假设为包含在为访问的超链接内部的图像定义一个边框样式。用outset使之看上去像是“凸起按钮”：
+
+```css
+a:link img {border-style: outset;}
+```
+
+![向包含在超链接中的图像应用outset边框](https://ws3.sinaimg.cn/large/006tNc79gy1fn8f0iwv6ij316a03et8n.jpg)
+
+同样地，边框对颜色要基于元素的color值。在这个例子中，这个值很可能是blue，因为图像包含在一个超链接中，而超链接的前景色通常是blue。
+
+#### 3.2.1 多种样式
+
+可以为给定边框定义多个样式，例如：
+
+```css
+p.aside {border-style: solid dashed dotted solid;}
+```
+
+其结果是段落有一个实线上边框、虚线右边框、点线下边框和一个实线左边框。我们又看到了这里的值采用了`top-right-bottom-left`的顺序，讨论多个值设置不同外边距时也见过这个顺序。关于外边距和内边距值复制的规则同样适用于边框样式。因此，以下两个规则应该有相同的效果，如下图所示：
+
+```css
+p.new1 {border-style: solid dashed none;}
+p.new2 {border-style: solid dashed none dashed;}
+```
+
+![相等的border样式规则](https://ws4.sinaimg.cn/large/006tNc79gy1fnapcmr0slj31640dwjsx.jpg)
+
+#### 3.2.2 单边样式
+
+**border-top-style、border-right-style、border-bottom-style、border-left-style**
+
+值：`none | hidden | dotted | dashed | solid | double | groove | ridge | inset | outset | inherit`
+
+初始值：none
+
+应用于：所有元素
+
+继承性：无
+
+计算值：根据指定确定
+
+单边边框样式属性的含义不言自明。border与单边属性结合使用的情况很常见。假设需要一个标题的三个边上设置实线边框，但是没有左边框，如下图所示：
+
+![去掉左边框](https://ws1.sinaimg.cn/large/006tNc79gy1fnaphbtaqrj316a0420sv.jpg)
+
+为此，有两种等价的方法：
+
+```css
+h1 {border-style: solid solid solid none;}
+/*the method above is aame as the one below*/
+h1 {border-style: solid; border-left-style:none;}
+```
+
+要记住重要的一点，如果使用第二种方法，必须把单边属性放在简写属性之后，对于简写属性通常都是这样。这是因为如果声明`border-style: solid`，实际上是在声明`border-style: solid solid solid solid`。倘若把`border-style-left:none`放在`border-style`声明之前，简写属性的值就会覆盖单边值none。
+
+### 3.3 边框宽度
+
+一旦为一个边框设定样式，接下来就是使用`border-width`为它指定一个宽度。
+
+**border-width**
+
+值：`[thin | medium | thick | <length>]{1,4} | inherit`
+
+初始值：对于简写属性未定义
+
+应用于：所有元素
+
+继承性：无
+
+计算值：见各个属性（border-topo-style等）
+
+还可以使用它的某个相关（单边）属性：
+
+**border-top-width、border-right-width、border-bottom-width、border-left-width**
+
+值：`thin | medium | thick | <length> | inherit`
+
+初始值：medium
+
+应用于：所有元素
+
+继承性：无
+
+计算值：绝对长度；如果边框的样式为none或hidden，则为0
+
+当然，这些属性用于设置某个特定边框边的宽度，这与单边外边距属性类似。
+
+注意：在CSS2.1中，边框宽度还不能指定为百分数，这确实有待改进。
+
+为边框指定宽度有4种方法：可以指定一个长度值，如4px或0.1em；或者使用3个关键字之一。这3个关键字分别是thin、medium（默认值）和thick。这些关键字不一定对应某个特定的高度，它们只是相对定义。根据规范，thick总是比medium宽，而medium总是比thin宽。不论用户代理对各个关键字具体使用多大的宽度，不管边框出现在哪里，各关键字对应的宽度在文档中总保持不变。
+
+还可以使用我们熟悉的两种方法设置边框宽度。第一种是特定属性如border-bottom-width。另一种方法是在border-width中使用值复制，如下图所示：
+
+```css
+h1 {border-style: dotted; border-width: thin 0;}
+p {border-style: solid; border-width: 15px 2px 7px 4px;}
+```
+
+![值复制和不均匀的边框宽度](https://ws2.sinaimg.cn/large/006tNc79gy1fnaq2qxqhpj316607wgm8.jpg)
+
+#### 3.3.1 根本没有边框
+
+下面考虑在border-style设置为none时会出现什么情况：
+
+```css
+p {margin: 5px; border-style: none; border-width: 20px;}
+```
+
+尽管边框的宽度为20px，但style设置为none。在这种情况下，不仅边框的样式没有了，其宽度也会变成0。边框消失了。本章开头时说“样式未none的边框不存在”。由于边框不存在，所以它不可能有宽度，因此width自动设置为0，而不论原先定义的是什么。只有在边框存在时才能讨论边框的宽度。
+
+这一点很重要，因为忘记声明边框样式时一个常犯的错误。根据以下规则，所有h1元素都不会有任何边框，更不用说20像素宽了：
+
+```css
+h1 {border-width: 20px;}
+```
+
+由于border-style的默认值是none，如果没有声明样式，就相当于声明`border-style: none`。因此，如果希望出现边框，就必须声明一个边框样式！
+
+### 3.4 边框颜色
+
+CSS使用属性`border-color`来设置边框颜色。
+
+**border-color**
+
+值：`[<color> | transparent]{1,4} | inherit`
+
+初始值：对于简写未定义
+
+应用于：所有元素
+
+继承性：无
+
+计算值：见单个属性（border-top-color等）
+
+如果值小于4个，值复制就会起作用。假设h1元素有细的黑色上下边框，而且有粗的灰色左右边框，另外p元素外有中等粗细的灰色边框，就可以使用以下标记：
+
+```css
+h1 {border-style: solid; border-width: thin thick; border-color: black gray;}
+p {border-style: solid; border-color: gray;}
+```
+
+![边框有很多方面](https://ws4.sinaimg.cn/large/006tNc79gy1fnbsgibimyj31600esmyj.jpg)
+
+可以使用任何类型的颜色值，例如可以是命名颜色，也可以是十六进制和RGB值：
+
+```css
+p {border-style: solid; border-width: thick; border-color: black rgb(25%, 25%, 25%) #808080 silver;}
+```
+
+如果没有声明颜色，默认则是元素的前景色。如：
+
+```css
+p {border-style: solid; border-width: thick; color: gray;}
+p {border-style: solid; border-width: thick; border-color: black;}
+```
+
+![根据元素的前景色及border-color属性确定的边框颜色](https://ws1.sinaimg.cn/large/006tNc79gy1fnbskdvx5ij316206m0tc.jpg)
+
+还有一些单边border-color属性。其原理与单边样式可宽度属性相同。
+
+**border-top-color、border-right-color、border-bottom-color、border-left-color**
+
+值：`<color> | transparent | inherit`
+
+初始值：元素的`color`值
+
+应用于：所有元素
+
+继承性：无
+
+计算值：如果没有指定值，则使用同一元素的color属性的计算值；否则，根据指定确定
+
+#### 3.4.1 透明边框
+
+前面说过如果一个边框没有样式，就没有宽度。不过，有些情况下可能需要创建一个不可见的边框，这就引入了边框颜色值transparent。
+
+假设你希望包含3个链接的一组链接有边框，默认地这些边框不可见，不过鼠标停留在链接上时边框要凸起。为此，可以让边框在链接处处于非悬停状态下透明：
+
+```css
+a:link, a:visited {border-style: solid; border-width: 5px; border-color: transparent;}
+a:hover {border-color: gray;}
+```
+
+其效果如下：
+
+![为链接使用透明边框](https://ws1.sinaimg.cn/large/006tNc79gy1fnbssoifx3j316202uwel.jpg)
+
+某种意义上说，使用透明边框就像是额外的内边距一样；此外还有一个好处就是需要的时候可见。
+
+### 3.5 简写边框属性
+
+假设想要所有h1元素上应用一个粗的灰色实现边框，不过是只是底边上有此边框。如果只使用我们之前讨论过的属性，应用这样一个边框时需要3个声明：
+
+```css
+/*Option #1*/
+h1 {
+	border-bottom-width: thick;
+	border-bottom-style: solid;
+	border-bottom-color: gray;
+}
+
+/*Option #2*/
+h1 {
+	border-width: 0 0 thick;
+	border-style: none none solid;
+	border-color: gray;
+}
+```
+
+以上两种做法都很不方便。在此，我们可以使用简写：
+
+```css
+h1 {border-bottom: thick solid gray;}
+```
+
+这只是向底边框应用值，如下图所示，而其他所有的边框仍为其默认值。由于默认的边框样式为none，所以元素其他三个边上不出现边框。
+
+![用简写属性设置底边边框](https://ws1.sinaimg.cn/large/006tNc79gy1fnbtab0s37j3168070aag.jpg)
+
+总共有4个这样的简写属性：
+
+**border-top、border-right、border-bottom、border-left**
+
+值：`[<border-width> || <border-style> || <border-color>] | inherit`
+
+初始值：对简写属性未定义
+
+应用于：所有元素
+
+继承性：无
+
+计算值：见单个属性（border-width等）
+
+可以使用这些属性创建一些复杂的边框：
+
+```css
+h1 {
+	border-left: 3px solid gray;
+	border-right: black 0.25em dotted;
+	border-top: thick silver inset;
+	border-bottom: double rgb(33%, 33%, 33%) 10px;
+}
+```
+
+![非常复杂的边框](https://ws1.sinaimg.cn/large/006tNc79gy1fnbtft19u3j316407qaal.jpg)
+
+可以看到，具体等顺序并不重要。以下三个规则会得到完全相同的边框效果：
+
+```css
+h1 {border-bottom: 3px solid gray;}
+h2 {border-bottom: solid gray 3px;}
+h3 {border-bottom: 3px gray solid;}
+```
+
+还可以省略一些值，使用其默认值：
+
+```css
+h3 {color: gray; border-bottom: 3px solid;}
+```
+
+由于没有使用任何边框颜色，因此会应用默认值（元素的前景色）。要记住，如果没有设置边框样式，默认样式值none会边框不复存在。
+
+相反，如果只设置了样式，还是会得到一个边框。假设你想要一个样式为dashed的上边框，而且希望其宽度为默认值medium，颜色与元素本身的文本颜色相同。在这种情况下，所需的就是以下标记：
+
+```css
+p.roof {border-top: dashed;}
+```
+
+![元素顶端的虚像边框](https://ws2.sinaimg.cn/large/006tNc79gy1fnbtmtgqsdj31660cit9r.jpg)
+
+另一个要注意的是，由于这些“单边边框”属性只应用到一个特定的边，所以不可能进行值复制——这是没有意义的。每种值只能有一个：也就是说，只能一个宽度、一个颜色值和一个边框样式。所以不要为同一类型声明多个值：
+
+```css
+h2 {border-top: thin thick solid purple;} /*two width values -- WRONG*/
+```
+
+在这种情况下，整个语句都将无效，用户代理会将其全部忽略。
+
+### 3.6 全局边框
+
+下面我们来看所有边框中最简短的简写属性：`border`
+
+**border**
+
+值：`[<border-width> || <border-style> || <border-color>] | inherit`
+
+初始值：根据单个属性
+
+应用于：所有元素
+
+继承性：无
+
+计算值：根据指定确定
+
+先来看border如何工作。如果希望所有h1元素都有一个粗的银色边框，这很简单：
+
+```css
+h1 {border: thick silver solid;}
+```
+
+![一个非常短的边框声明](https://ws1.sinaimg.cn/large/006tNc79gy1fnbtv3mgobj31620760t6.jpg)
+
+这些值会应用到所有4个边，和下面的声明效果一致：
+
+```css
+/*Same as previous example*/
+h1 {
+	border-top: thick silver solid;
+	border-right: thick silver solid;
+	border-bottom: thick silver solid;
+	border-left: thick silver solid;
+}
+```
+
+使用border的局限在于：只能定义“全局”样式、宽度和颜色。换句话说，为border提供的值将完全相同地应用到所有4个边。如果希望有一条边不一样，可以利用层叠：
+
+```css
+h1 {
+	border: thick silver solid;
+	border-left-width: 20px;
+}
+```
+
+第二个规则会覆盖第一个规则为左边框设置的width值，将宽度设置为20px。如下图所示：
+
+![充分利用层叠设置不同边框](https://ws3.sinaimg.cn/large/006tNc79gy1fnbu17dq69j316a07amxl.jpg)
+
+与往常一样，简写属性需要特别当心：如果少了一个值，就会自动地填入默认值，这可能会有意想不到的后果。
+
+```css
+h4 {border-style: dashed solid double;}
+h4 {border: medium green;}
+```
+
+在此第二个规则中没有指定border-style，这意味着会使用默认值none，这样一来，所有的h4元素都不会有任何边框。
+
+### 3.7 边框和行内元素
+
+对于处理边框和行内元素，其规则很大程度上与外边距和行内元素的相应规则相同。不论为行内元素的边框指定怎样的宽度，元素的行高都不会改变：
+
+```css
+strong {border-top: 10px solid gray; border-bottom: 5px solid silver;}
+```
+
+![行内非替换元素的边框](https://ws2.sinaimg.cn/large/006tKfTcgy1fnf4dlyvu0j3164048t97.jpg)
+
+边框该放那里就会放在哪里。同样地，所有这些只是对元素的上下边成立；左右边则是另一回事。如果应用一个左边框或右边框，不仅该边框可见，而且文本会在其旁显示（即不会覆盖），如下图所示：
+
+```css
+strong {border-left: 25px double gray; background: silver;}
+```
+
+![有左边框的行内非替换元素](https://ws4.sinaimg.cn/large/006tKfTcgy1fnf4h93llnj316a05sgm7.jpg)
+
+就像外边距一样，如果设置了边框，浏览器计算换行时并不受行内元素所设置的任何框属性的直接影响。唯一的作用是边框所占空间可能把行中的某些部分向后移一点点，而这有可能改变位于行尾的词。
+
+## 4 内边距
+
+元素框的内边距在边框和内容区之间。
+
+**padding**
+
+值：`[<length> | <percentage>]{1,4} | inherit`
+
+初始值：对于简写元素未定义
+
+应用于：所有元素
+
+继承性：无
+
+百分数：相对于包含块的width
+
+计算值：见单个属性（padding-top等）
+
+说明：内边距绝不能为负
+
+这个属性接受任何长度值或者某个百分数值。假设希望所有h1元素的各边都有10像素的内边距，这很容易：
+
+```css
+h1 {padding: 10px; background-color: silver;}
+```
+
+可以使元素的内边距不均匀：
+
+```css
+h1 {padding: 10px 0.25em 3ex 3cm; background: gray;}
+h2 {padding: 0.5em 2em; background: silver;}
+```
+
+元素的背景延伸到其内边距。前面讨论过，它还会延伸到边框的外边界，不过背景到达边框之前必须先经过内边距。
+
+![利用背景色查看内边距](https://ws2.sinaimg.cn/large/006tKfTcgy1fnf4vnfi8zj31640e0dhe.jpg)
+
+默认地，元素没有内边距。如果没有内边距，元素的边框与元素本身的内容相当接近。因此，在元素上放边框时，同时增加内边距通常是一个好注意。如下图示：
+
+![在有边框的块级元素上设置内边距的效果](https://ws4.sinaimg.cn/large/006tKfTcgy1fnf4zo94pgj315y0w8goe.jpg)
+
+即使没有使用边框，内边距也能以特有的方式起作用。考虑以下规则：
+
+```css
+p {margin: 1em 0; padding: 1em 0;}
+p.one p.three {background: gray;}
+p.two p.four {background: silver;}
+p.three p.four {margin: 0;}
+```
+
+在这里，所有4个段落都有1em的上下内边距，而且其中两个还有1em的上下外边距。
+
+![内边距和外边距的差别](https://ws3.sinaimg.cn/large/006tKfTcgy1fnf53gcyznj31660h40u9.jpg)
+
+前两段有内边距，由于外边距合并，它们之间只间隔1em。第二段和第三段也有1em的间隔，这是第二段的下外边距带来的。第三段和第四段之间没有间隔，因为它们没有外边距。不过，最后两段内容区之间的距离：这里相距2em，因为内边距不合并。
+
+可以使用内边距来分隔元素的内容区，还可以在段落之间插入分隔边框：
+
+```css
+p {
+	margin: 0; padding: 0.5em 0; 
+	border-bottom: 1px solid gray;
+	border-left: 3px double black;
+}
+```
+
+![使用内边距而不是外边距来分隔内容区](https://ws3.sinaimg.cn/large/006tKfTcgy1fnf5a7oz36j31640o8juv.jpg)
+
+### 4.1 百分数值和内边距
+
+像外边距一样，百分数值要相对于其父元素的width计算，所以如果父元素的width改变，它们也会改变。例如，假设有以下规则：
+
+```html
+<style>
+	p {padding: 10%; background-color: silver;}
+</style>
+
+<div style="width: 200px">
+	<p>
+		This paragraph is contained within d DIV that has a width of 200 pixels, 
+		so its padding will be 10% of the width of the paragraph's parent element. 
+		Given the declared width of 200 pixels, the padding will be 20 pixels on 
+		all sides.
+	</p>
+</div>
+
+<div style="width: 100px;">
+	<p>
+		This paragraph is contained within a DIV with a width of 100 pixels, 
+		so its padding will still be 10% of the width of the paragraph's parent. 
+		There will, therefore, be half as much padding on this paragraph as that 
+		on the first paragraph.
+	</p>
+</div>
+```
+
+注意，上下内边距与左右内边距一致；也就是说，上下内边距的百分数会相对于父元素宽度而计算，而不是相对于高度。
+
+![内边距、百分数和父元素的width](https://ws4.sinaimg.cn/large/006tKfTcgy1fnf5nyj1c5j31660pw402.jpg)
+
+### 4.2 单边内边距
+
+CSS提供了一些属性来设置框的单边内边距，而不影响其他边上的内边距：
+
+**padding-top、padding-right、padding-bottom、padding-left**
+
+值：`<length> | <percentage> | inherit`
+
+初始值：0
+
+应用于：所有元素
+
+继承性：无
+
+百分数：相对于包含块的width
+
+计算值：对于百分数，根据指定确定；对于长度值，则为绝对长度
+
+说明：内边距绝对不能为负
+
+#### 4.2.1 内边距和行内元素
+
+对于行内元素，外边距和内边距存在一个重要的区别。为了说明这一点，下面先来看看左右内边距。如果为左右内边距设置了值，左右内边距将是可见的。
+
+```css
+strong {padding-left: 10px; padding-right: 10px; background: silver;}
+```
+
+![行内非替换元素的内边距](https://ws3.sinaimg.cn/large/006tKfTcgy1fnf9hzarohj316004kmxo.jpg)
+
+注意，行内非替换元素的两端都出现了额外的空背景。这是所设置的内边距。像外边距一样，左内边距应用到元素的开始处，右内边距应到到元素的最后；不过，内边距不会应用到各行的左右两边。对于替换也是如此，不过当然这种元素是不会跨行。
+
+理论上，对于有背景色和内边距的行内非替换元素，背景可以向元素上面和下面延伸：
+
+```css
+strong {padding-top: 0.5em; background-color: silver;}
+```
+
+![行内非替换元素的更多内边距](https://ws3.sinaimg.cn/large/006tKfTcgy1fnf9p4t7igj316604eaal.jpg)
+
+当然，行高没有改变，不过由于内边距确实能延伸背景，因此背景与前面的行重叠。
+
+#### 4.2.2 内边距和替换元素
+
+不论替换元素时块级元素还是行内元素，内边距都会围绕其内容。背景色将填入入该内边距，还可以看到内边距会把元素的边框推离其内容：
+
+```css
+img {background: silver; padding 1em;}
+```
+
+![对替换元素加内边距](https://ws3.sinaimg.cn/large/006tKfTcgy1fnf9uw2ad1j31640agwf3.jpg)
+
+不过，在CSS2.1中，关于如何对表单元素（如input）设置样式还存在一些混淆。例如，复选框的内边距在哪里就不是很清楚。另一个可能的限制时，很多较老的浏览器不向图像应用内边距，包括windows平台的IE5.
+
+## 5 小结
+
+能够向所有元素应用外边距、边框和内边距，是CSS超越传统Web标记语言的要素之一。过去，如果要把一个标题放在一个有边框的有色方框中，就意味着要把这个标题包围在一个表中，只是为了创建如此简单的效果，这么做确实是一种很笨拙的办法。正是这种很强大的功能使得CSS如此流行。
+
+
+>【本文内容摘自：《CSS权威指南》（第三版） Eric A. Meyer 著   尹志忠 侯妍 译】
