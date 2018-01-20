@@ -9,6 +9,9 @@ highlighter: rouge
 # For more see: http://jekyllrb.com/docs/permalinks/
 permalink: pretty
 
+#### Generate future post
+future: true
+
 #### Markdown Processors
 # 'redcarpet' is unsupported on GitHub Pages now.
 markdown: kramdown
