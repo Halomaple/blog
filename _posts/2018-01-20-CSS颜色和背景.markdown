@@ -1,0 +1,831 @@
+---
+layout: post
+title: "CSS 颜色和背景"
+date: 2018-01-20 15:00:00 +0800
+categories: [Learning, CSS]
+tags: [CSS, Color, Background]
+---
+
+以前的Web页面总是灰色背景上的黑色文本，期间有一些蓝色的链接。突然之间，开发人员可以按自己的意愿使用任何颜色组合，这要功归于`<FONT COLOR="...">`。一旦能增加背景图像，那么一切皆有可能，或者起码看上去是这样。CSS在颜色和背景方面则走的更远，它允许向一个页面应用多种不同的颜色和背景，而且根本不需要任何FONT或TABLE标记。
+
+## 1 颜色
+
+设计页面时，要在开始前先做好计划。不论什么情况都是如此，不过对于颜色这一点更为重要。例如，如果让常规文本和超链接文本的颜色相同，要找出超链接就会困难得多，实际上，如果链接没有加下划线，则几乎不可能识别出超链接。
+
+如果使用得当，颜色确实能强化文档的表示。例如，假设你有一个设计，其中所有h1元素都是绿色，大多少h2元素是蓝色，所有超链接都应当是暗红色。不过，在某些情况下你希望h2元素是深蓝色，因为与之关联有不同类型的信息。要处理这种情况，最容易的办法是为应当为深蓝色的各个h2指定一个class，然后作一下声明：
+
+```css
+h1 {color: green;}
+h2 {color: blue;}
+h2.dkblue {color: navy;}
+a {color: maroon;}  /*a good dark red color*/
+```
+
+注意：选择的类名最好描述其中包含的信息类型，而不是你想要达到什么效果。例如，假设你希望对所有作为下级标题的h2元素应用深蓝色。更可取的做法是选择subsec或者sub-section作为类名，这就能反映某种含义，而且更重要的是，这不依赖于任何表示概念。毕竟，也许你以后会决定所有下级标题使用深红色而不是深蓝色，如果是这样，写作`h2.dkblue {color: maroon;}`看上去就会有些傻。
+
+**CSS中实际上只有一种颜色类型，即纯色**。如果将一个文档的color设置为red，文档都将是红色。当然，HTML的做法也一样。使用HTML3.2时，如果声明<BODY LINK="blue" VLINK="blue">，那么所有超链接都将是蓝色，而不论它们放在文档的哪个位置。
+
+使用CSS时同是如此。如果使用CSS将所有链接（包括已访问和未访问）的color都设置为blue，它们将全是蓝色。同样，如果使用样式设置body的背景为green，那么整个body的背景都是同样的绿色。
+
+在CSS中，可以为任何元素设置前景色和背景色，从body到强调元素和超链接元素，再到几乎所有一切（列表项、整个列表、标题、表单元格，甚至从某种程度上图像也可以设置前景色和背景色）。不过，要理解这是如何工作的，重要的是应当理解元素前景色中有什么、没有什么。
+
+先来讨论前景本身：**一般来说，前景是元素的文本，不过前景色还包括元素周围的边框。**因此，有两种方式直接影响一个元素的前景色：可以使用`color`属性，也可以使用某个边框属性设置边框颜色，这在上一章讨论过。
+
+## 2 前景色
+
+**color**
+
+值：`<color> | inherit`
+
+初始值：用户代理特定的值
+
+应用于：所有元素
+
+继承性：有
+
+计算值：根据指定确定
+
+在第4章曾经讨论过，这个属性接受任何合法的颜色类型的值，例如#FFCC00或rgb(100%, 80%, 80%)，也可以接受第13章将介绍的系统颜色关键字。
+
+对于非替换元素，color设置了元素文本的颜色，如下图所示：
+
+```html
+
+<p style="color: gray;">This paragraph has a graph foreground.</p>
+<p>This paragraph has the default foreground.</p>
+```
+
+![声明颜色与默认颜色](https://ws1.sinaimg.cn/large/006tNc79gy1fnn6lgwqycj310g04amx9.jpg)
+
+注意：在上图中，默认前景色为黑色。并非总是如此，因为用户可能让其浏览器（或其他用户代理）使用另外一种前景（文本）颜色。如果默认文本设置为绿色，上例中的第二段将是绿色而不是黑色，但第一段还是灰色。
+
+color还有很多用法。例如，可能有些段落中包含一些文本，提醒用户某个可能的问题。为了突出这些文本，可能决定将其设置为红色。只需为包含警告文本的各个段落提供一个class值warn（&lt;p class="warn"&gt;），并设置以下规则：
+
+```css
+p.warn {color: red;}
+```
+
+color的另一个用法是让用户注意某类文本。例如，粗体文本已经很明显了，不过你可能想让它们有另一种颜色，使之更显突出：
+
+```css
+b, strong {color: maroon;}
+```
+
+然后可能决定class为highlight的所有表单元格要包含淡黄色文本：
+
+```css
+td.highlight {color: #FF9;}
+```
+
+当然，如果你没有为任何文本设置背景色，可能会有风险，因为用户的设置与你自己的设置可能不一致。例如，如果一个用户将其浏览器的背景色设置为灰黄色，如#FFC，那么前面的规则就会在灰黄的背景上生成淡黄色文本。因此，通常最好同时设置前景和背景色（本章后面将谈到背景色）。
+
+### 2.1 替换属性
+
+color有很多用法，其中最基本的是替换HTML3.2中的BODY属性TEXT、LINK、ALINK和VLINK。利用锚伪类，color完全可以替换这些BODY属性。下例中的第一行可以用后面的CSS重写：
+
+```html
+<body text="black" link="#808080" alink="silver" vlink="#333333"></body>
+```
+```css
+body {color: black;}
+a:link {color: #808080;}
+a:active {color: silver;}
+a:visited {color: #333333;}
+```
+
+![用CSS替换BODY属性](https://ws4.sinaimg.cn/large/006tNc79gy1fnn7l3eui3j310i08yjsb.jpg)
+
+尽管着看上去好像要键入很多额外的代码。不过与使用BODY属性的老办法相比，这是一个重大的改进，使用老办法只能在文档级进行修改。如果希望某些链接是中灰色，而另外一些时很深的深灰色，利用BODY属性是办不到的。相反，你必须再每个需要是深灰色的锚上使用<FONT COLOR="#666666">。但CSS不同，现在只需要所有灰色的锚增加一个类，再相应地修改样式：
+
+```css
+body {color: black;}
+a:link {color: #808080;} /*medium gray*/
+a.external:link {color: silver}
+a:active {color: silver;}
+a:visited {color: #333;} /*a very dark gray*/
+```
+
+这会把class为external的所有锚设置为银色而不是中灰色。一旦被访问过，这些链接将是深灰色，除非对此再增加一个特殊规则：
+
+```css
+body {color: black;}
+a:link {color: #808080;} /*medium gray*/
+a.external:link {color: silver}
+a:active {color: silver;}
+a:visited {color: #333;} /*a very dark gray*/
+a.external:visited {color: black;}
+```
+
+这样一来，在访问之前，所有external链接是中灰色，在访问后将变成黑色，而所有其他链接访问后为暗灰色。
+
+### 2.2 影响边框
+
+color值还可以影响元素周围的边框。假设已经声明了以下样式，其结果如下图所示：
+
+```css
+p.aside {color: gray; border-style: solid;}
+```
+
+![边框元素取自内容的颜色](https://ws2.sinaimg.cn/large/006tNc79gy1fnn7up7ig6j310g0ck407.jpg)
+
+元素&lt;p class="aside"&gt;有灰色文本和灰色中等宽度的实线边框。这是因为，**默认地前景色会应用到边框**。要覆盖这种行为，最基本的办法是使用属性border-color:
+
+```css
+p.aside {color: gray; border-style: solid; border-color: black;}
+```
+
+这会使文本为灰色，但边框是黑色。为border-color设置的值总会覆盖color值。
+
+有时利用边框可以影响图像的前景色。由于图像本身就由颜色组成，所以实际上这些使用color是无法影响的，不过可以改变图像周围任何边框的颜色。这可以利用color或border-color做到。
+
+```css
+img.type1 {color: gray; border-color: solid;}
+img.type2 {border-color: gray; border-style: solid;}
+```
+
+![为图像设置边框颜色](https://ws4.sinaimg.cn/large/006tNc79gy1fnn9a3bucmj310c05m0st.jpg)
+
+### 2.3 影响表单元素
+
+（从理论上讲）也可以为表单元素设置color值，声明select元素有暗灰色文本就很简单：
+
+```css
+select {color: rgb(33%, 33%, 33%);}
+```
+
+这可能还会设置select元素周围边框的颜色，也可能不会。这完全取决于用户代理及其默认样式。
+
+另外，还可以设置input元素的前景色，如下图所示，这会把所有设置的颜色应用到所有输入元素，从文本框到单选钮再到复选框都会使用这种颜色：
+
+```css
+select {color: rgb(33%, 33%, 33%);}
+input {color: gray;}
+```
+
+![改变表单元素前景色](https://ws4.sinaimg.cn/large/006tNc79gy1fnn9ozdo8gj310g06yaac.jpg)
+
+在上图中可以注意到，挨着复选框的文本颜色还是黑色。这是因为你只是为input和select之类的元素指定了样式，而没有为常规的段落（或其他）文本指定样式。
+
+CSS1无法区分不同类型的input元素。所以，如果要让复选框的颜色不同于单选按钮，就必须为它们分别指定不同的类，以得到所需的结果：
+
+```css
+input.radio {color: #666;}
+input.check {color: #CCC;}
+```
+```html
+<input type="radio" name="r2" value="a" class="radio" />
+<input type="checkbox" name="c3" value="core" class="check" />
+```
+
+在CSS2及以后的版本中则要容易一些，可以根据不同的元素属性来区分元素，这归功于属性选择器：
+
+```css
+input[type="radio"] {color: #333;}
+input[type="checkbox"] {color: #666;}
+```
+```html
+<input type="radio" name="r2" value="a" />
+<input type="checkbox" name="c3" value="one"/>
+```
+
+利用属性选择器，就可以不再使用类，至少这里是如此。
+
+### 2.4 继承颜色
+
+**由于color的定义可知，这个属性是可以继承的**。这是有道理的，因为如果声明了`p {color: gray;}`，你可能希望该段落中的所有文本也应当是黑色，即便是强调文本、粗体文本等也不例外。当然，如果你希望这些元素有不同的颜色，这也很容易：
+
+```css
+em {color: gray;}
+p {color: black;}
+```
+
+![为不同元素设置不同颜色](https://ws1.sinaimg.cn/large/006tNc79gy1fnnbfdzwzaj310k04gq36.jpg)
+
+由于color是可以继承的，理论上讲，可以把一个文档中所有正常文本设置为某种颜色，如通过声明`body {color: red;}`设置为红色。这会把所有没有其他样式的文本变成红色（如锚就不包含在内，锚有其自己的颜色样式）。不过，还有一些浏览器对表之类的元素设置有预定的颜色，这就使得body颜色无法继承到表单元格中。在这种浏览器中，由于table元素的color值由浏览器定义，浏览器的值会比继承的值更优先。解决这个问题很容易，只需使用列出各表元素的选择器。例如，要让所有表内容与文档一样都是红色，可以用以下规则：
+
+```css
+body, table, td, th {color: red;}
+```
+
+这一般都能解决问题。注意，对于大多数现代浏览器来说，都没有必要使用这种选择器，因为现代浏览器早已经修正了先前版本中存在的这种继承bug。
+
+## 3 背景
+
+**元素的背景区包括前景之下直到边框外边界的所有空间；因此，内容框和内边距都是元素背景的一部分，且边框画在背景之上。**CSS允许应用纯色作为背景，也允许使用背景图像创建相当复杂的效果；CSS在这方面的能力远远在HTML之上。
+
+### 3.1 背景色
+
+类似于设置前景色，可以为元素的背景声明一个颜色。为此，可以使用属性`background-color`，毫不奇怪，它接受所有合法的颜色，还可以接受一个使背景透明的关键字。
+
+**background-color**
+
+值：`<color> | transparent | inherit`
+
+初始值：transparent
+
+应用于：所有元素
+
+继承性：无
+
+计算值：根据指定确定
+
+如果你希望背景色从元素中向外稍有延伸，只需增加一些内边距：
+
+```css
+p {background-color: gray; padding: 10px;}
+```
+
+![背景和内边距](https://ws3.sinaimg.cn/large/006tNc79gy1fnnffeslxcj310g0byab1.jpg)
+
+可以为几乎所有元素设置背景色，这包括body一直到em和a等行内元素。**background-color不能继承。其默认值是transparent**，这是有道理的：如果一个元素没有指定的颜色，那么背景就应当是透明的，这样祖先的背景才能可见。
+
+大多数情况下都没有必要使用关键字transparent，因为这是默认值。不过，有些情况下这个关键字可能很有用。假设一个用户将其浏览器设置为使所有链接都有一个白色背景。在你设计页面时，将锚设置为有一个白色前景，而且你不希望这些锚有背景。为了确保你的设计选择可行，需要以下声明：
+
+```css
+a {color: white; background-color: transparent;}
+```
+
+如果没有背景色，白色前景和用户指定的白色背景就会混在一起，这样一来链接将变得完全不可读。尽管这个例子不太实际，不过确实有可能。
+
+#### 3.1.1 历史问题
+
+所以，设置背景色很简单——对此只有一个小小的警告：Navigator4对背景色的处理完全是错误的。它不是将背景色应用到整个内容和内边框，背景色只出现再文本下面，如下图所示：
+
+![Navigator4.x的错误行为](https://ws1.sinaimg.cn/large/006tNc79gy1fnnfqixlv0j310e07qaao.jpg)
+
+这种行为完全是错误的。为了解决这种错误，必须在元素上设置一个边框，然后将其设置为与文档背景色相同的颜色：
+
+```css
+body {background: silver;}
+p {background-color: gray; padding: 0.1px; border: 1px solid silver;}
+```
+
+注意要使用这个技术，必须设置一个border-style。可以使用这个特定属性，也可使用一个border属性值，使用哪一个并不重要。
+
+当然，这样做是在设置元素的边框，这个边框也会在其他用户代理中出现。除此之外，Navigator还不能很好地处理内边距，所以前例中内容框和边框之间会出现少量空白。好在新浏览器都不存在这些问题。
+
+#### 3.1.2 特殊效果
+
+只需结合color和background-color，就可以创建一些有用的效果：
+
+```css
+h1 {
+	color: white; 
+	background-color: rgb(20%, 20%, 20%;);
+	font-family: Arial, sans-serif;
+}
+```
+
+![H1元素的一个漂亮的效果](https://ws2.sinaimg.cn/large/006tNc79gy1fnng0qvym6j310e0703z5.jpg)
+
+当然，颜色有很多，颜色组合就更多了。下面来看一个另一个例子，这个样式表稍有些复杂：
+
+```css
+body {color: black; background-color: white;}
+h1, h2 {color: yellow; background-color: rgb(0, 51, 0);}
+p {color: #555;}
+a:link {color: black; background-color: silver;}
+a:visited {color: gray; background-color: white;}
+```
+
+![一个更复杂的样式表的结果](https://ws1.sinaimg.cn/large/006tNc79gy1fnng4xq6wej310c0fwta7.jpg)
+
+### 3.2 背景图像
+
+下面来讨论背景图像。在HTML3.2中，可以通过使用BODY属性BACKGROUND向文档的背景关联一个图像：
+
+```html
+<BODY BACKGROUND="bg23.gif">
+```
+
+这会使用户代理加载文件bg23.gif，然后把它“平铺”在文档背景中，沿水平方向和垂直方向上重复放置这个图像，填满文档的整个背景。这种效果可以利用CSS达到，不过CSS并不只是简单地将背景图像平铺，还能做更多的工作。
+
+#### 3.2.1 使用图像
+
+首先，要把图像放入背景，需要使用属性`background-image`。
+
+**background-image**
+
+值：`<uri> | none | inherit`
+
+初始值：none
+
+应用于：所有元素
+
+继承性：无
+
+计算值：绝对URI
+
+默认值none表示的含义正是你期望的：背景上没有放任何图像。如果你希望有一个背景图像，必须为这个属性指定一个URL值：
+
+```css
+body {background-image: url(bg23.gif);}
+```
+
+如果其他背景属性取默认值，这就会把图像bg23.gif平铺在文档的背景上。如下图所示：
+
+![在CSS中应用一个背景图像](https://ws3.sinaimg.cn/large/006tNc79gy1fnnz4ryrecj31260hgmze.jpg)
+
+**允许向任何元素应用背景图像，可以是块级元素也可以是行内元素**。当然，大多数背景都应用到body元素，不过并不仅限于此。
+
+还可以为一个段落或者一个超链接应用背景。
+
+```css
+p.starry {background-image: url(http://www.site.web/pix/stars.fig); color: white;}
+a.grid {background-image: url(smallgrid.gif);}
+```
+```html
+<p class="starry">
+	It's the end of autumn, which means the stars will be brighter than ever!
+	<a href="join.html">Join us</a> for a fabulous everning of planets, stars, nebulae, and more...
+</p>
+```
+
+![为块级元素和行内元素应用背景图像](https://ws3.sinaimg.cn/large/006tNc79gy1fnofrkulrpj310w0c40tt.jpg)
+
+可以用波浪模式或小圆点填充标题的背景。甚至可以在表单元格中填入模式，使之与页面中的其他部分区别：
+
+```css
+td.nav {background-image: url(darkgrid.gif);}
+```
+
+![设置表单元格的背景图像](https://ws1.sinaimg.cn/large/006tNc79gy1fnofwgrynzj310u0dqabq.jpg)
+
+理论上讲，甚至可以向textareas和select列表等替换元素的背景应用图像，不过并不是所有用户代理都能很好地处理这种情况。
+
+类似于background-color，background-image也不能继承——实际上，**所有背景属性都不能继承**。还要记住，指定背景URL时，关于url值的限制和警告还是一如从前：**相对URL要结合样式表来解释**。
+
+#### 3.2.2 为什么背景不能继承
+
+**背景不能继承**。从背景图像可以了解到为什么继承背景不是一件好事。假设背景确实能继承，而且向body应用了一个背景图像。这个图像将用于文档所有元素的背景，而且每个元素都完成自己的平铺，如下图所示：
+
+![继承背景对布局的作用](https://ws4.sinaimg.cn/large/006tNc79gy1fnog5v3ctzj310q0lqjv7.jpg)
+
+注意，模式在每个元素的左上角都重新开始，也包括链接。这并不是大多数创作人员所要的，正因如此，背景属性不能继承。如果处于某种原因你确定想要这种特定效果，可以使用以下规则：
+
+```css
+* {background-image: url(yinyang.gif);}
+```
+
+或
+
+```css
+body {background-image: url(yinyang.gif);}
+* {background-image: inherit;}
+```
+
+#### 3.2.3 关于背景的良好实践
+
+图像放在所指定的背景之上。如果完全平铺GIF、JPEG或其他不透明的图像类型，图像在背景颜色之上并不会造成任何不同，因为完全平铺的图像会填满文档背景，可以这么说，没有地方能让颜色“透出来”。不过对于有alpha通道的图像格式，如PNG，可能会部分或完全透明，这会导致图像与背景色结合。另外，如果出于某种原因无法加载图像，用户代理就会使用指定的背景色取代图像。
+
+![没有背景图像的后果](https://ws4.sinaimg.cn/large/006tNc79gy1fnoghgi5iqj310u0aydg6.jpg)
+
+### 3.3 有方向的重复
+
+过去，如果想要某种“边栏”背景，必须创建一个很短但非常宽的图像放在背景上。有一段时间，这种图像最佳大小是10像素高1500像素宽。当然，图像的大部分都是空白：只有左边100像素左右包含“边栏”图像。图像的余下部分基本上都被浪费了。
+
+如果能创建一个只有10像素高100像素宽的边栏图像，而没有浪费的空白空间，然后只在垂直方向上重复这个图像，这样不是更高效吗？下面来看看`background-repeat`。
+
+**background-repeat**
+
+值：`repeat | repeat-x | repeat-y | no-repeat | inherit`
+
+初始值：repeat
+
+应用于：所有元素
+
+继承性：无
+
+计算值：根据指定确定
+
+你可能猜到，repeat导致图像在水平垂直方向上都平铺，就像以往背景图像通常做法一样。repeat-x和repeat-y分别导致图像只在水平或垂直方向上重复，no-repeat则不允许图像在任何方向上平铺。
+
+默认地，背景图像将会从一个元素的左上角开始（本章后面将介绍如何改变这种默认行为）。
+
+```css
+body {background-image: url(yinyang.gif); background-repeat: repeat-y;}
+```
+
+![垂直平铺背景图像](https://ws3.sinaimg.cn/large/006tNc79gy1fnohifd2raj310y0hqmyx.jpg)
+
+假设你希望图像在文档的顶端重复。不必为此创建一个特殊图像，使其下面全部都是空白。只需对规则做一个小改动：
+
+```css
+body {background-image: url(yinyang.gif); background-repeat: repeat-x;}
+```
+
+![水平平铺](https://ws1.sinaimg.cn/large/006tNc79gy1fnohkabf4ej310u0d63zy.jpg)
+
+最好，你可能根本不希望重复背景图像。在这种情况下，可以使用值no-repeat：
+
+```css
+body {background-image: url(yinyang.gif); background-repeat: no-repeat;}
+```
+
+这个值看上去可能用处不大。因为这个声明只会把一个小图像放在文档的左上角，不过，再来看一个大得多的符号：
+
+```css
+body {background-image: url(bigyinyang.gif); background-repeat: no-repeat;}
+```
+
+![放一个大背景图像](https://ws4.sinaimg.cn/large/006tNc79gy1fnohnahx4qj310u0rkadq.jpg)
+
+由于能控制重复方向，这使得可能达到的效果大大增加。例如，假设你希望文档中每个h1元素的左边有一个三重边框。可以把这个概念再进一步，在每个h2元素的顶端设置一个波浪线边框。图像采用特定方式着色，使之能与背景色混合，得到下图所示的波浪效果：
+
+```css
+h1 {background-image: url(triplebor.gif); background-repeat: repeat-y;}
+h2 {background-image: url(wavybord.gif); background-repeat: repeat-x; background-color: #CCC;}
+```
+
+![对有背景图像的元素加边框](https://ws1.sinaimg.cn/large/006tNc79gy1fnohs8ymx0j310s0hi0un.jpg)
+
+### 3.4 背景定位
+
+利用background-repeat，可以把一个大图像放在文档的背景中，然后使之一直重复。在此基础上，下面来看如何改变图像在背景中的位置。例如，可以在body元素中将一个背景图像居中放置。
+
+```css
+body {
+	background-image: url(bigyinyang.gif);
+	background-repeat: no-repeat;
+	background-position: center;
+}
+```
+
+这里在背景上放了一个图像，然后使用值no-repeat使之不能重复。每个包含图像的背景都从第一个图像开始，再根据background-repeat的值重复（或不重复）。这个起点称为原图像（origin image）。
+
+**background-repeat**
+
+值：`[[<percentage> | <length> | left | center | right] [<percentage>] 
+	| <length> | top | center | bootom]?]
+	 || [[left | center | right] || [top | center | bottom]] | inherit`
+
+初始值：0% 0%
+
+应用于：块级元素和替换元素
+
+继承性：无
+
+百分数：相对于元素和原图像上的相应点（见本章后面“百分数值”一节的解释）
+
+计算值：如果指定了<length>，则为绝对长度偏移；否则是百分数值
+
+![背景图像居中](https://ws3.sinaimg.cn/large/006tNc79gy1fnoivrlyc5j310u0i40u5.jpg)
+
+原图像的放置由background-position属性决定，为这个属性提供值有很多方法。首先，可以使用一些关键字：top、bottom、left、right和center。通常，这些关键字会成对出现，不过也并不总是这样。还可以使用长度值，如50px或2cm，最后也可以使用百分数值。不同类型的值对于背景图像的放置稍有差别。
+
+还要提到一点：就是放置背景图像的上下文。CSS2和CSS2.1指出，根据background-position，将相对于元素的内边距边界放置原图像。换句话，放置图像的上下文是内边框边界，尽管背景区会延伸到外边框边界。并非所有浏览器都能正确地放置图像；有些浏览器就会相对于外边框边界而不是内边框边界来放置原图像。不过如果没有边框，无论是哪一种浏览器，效果都是一样的。
+
+尽管有图像放置的上下文，不过完全平铺的背景图像确实会填充边框区的背景，因为平铺图像会在4个方向上延伸。稍后会更详细地讨论这一点。首先，需要了解原图像在元素中如何定位。
+
+#### 3.4.1 关键字
+
+图像放置关键字最容易理解。其作用如其所表明的；例如，top、right使原图像放在元素内边距的右上角。
+
+```css
+p {
+	background-image: url(yinyang.gif);
+	background-repeat: no-repeat;
+	background-position: top right;
+}
+```
+
+这会在每个段落内边距右上角放置一个不重复的原图像。其结果（如下图所示）与将位置声明为right top是一样的。（根据规范）位置关键字可以按任何顺序出现，只要保证不能超过两个关键字——**一个对应水平方向，另一个对应垂直方向。**
+
+![在段落右上角放置背景图像](https://ws2.sinaimg.cn/large/006tNc79gy1fnokztqlgaj310s0js416.jpg)
+
+如果只出现了一个关键字，则认为另一个关键字是center。下表显示了等价的关键字。
+
+![等价的位置关键字](https://ws3.sinaimg.cn/large/006tNc79gy1fnolfc8ompj30hk0f0jrs.jpg)
+
+所以，如果希望每个段落中的中部上方出现一个图像，只需如下声明：
+
+```css
+p {
+	background-image: url(yinyang.gif);
+	background-repeat: no-repeat;
+	background-position: top;
+}
+```
+
+#### 3.4.2 百分数值
+
+百分数与关键字紧密相连，不过其表现方式更为复杂。假设你希望用百分数值将原图像在其元素居中。这很容易：
+
+```css
+p {
+	background-image: url(bigyinyang.gif);
+	background-repeat: no-repeat;
+	background-position: 50% 50%;
+}
+```
+
+**这会导致原图像适当放置，其中心与其元素的中心对齐。换句话说，百分数值同时应用于元素和原图像。**
+
+下面更详细地分析这个过程。将原图像在一个元素中居中时，图像中描述为50% 50%的点（中心点）与元素中描述为50% 50%的点（中心点）对齐。如果图像位于0% 0%，其左上角将放在元素内边距区的左上角。如果图像位置是100% 100%，会使原图像的右下角放在内边距区的右下角：
+
+```css
+p {
+	background-image: url(oransqr.gif);
+	background-repeat: no-repeat;
+	padding: 5px;
+	border: 1px dotted gray;
+}
+p.c1 {background-position: 0% 0%;}
+p.c2 {background-position: 50% 50%;}
+p.c3 {background-position: 100% 100%;}
+p.c4 {background-position: 0% 100%;}
+p.c5 {background-position: 100% 0%;}
+```
+
+下图展示了这些规则的效果：
+
+![百分数设置的各种位置](https://ws4.sinaimg.cn/large/006tNc79gy1fnolr6vnelj310q0o2gp3.jpg)
+
+因此，如果你想将一个原图像放在水平方向1/3、垂直方向2/3处，可以声明如下：
+
+```css
+p {
+	background-image: url(bigyinyang.gif);
+	background-repeat: no-repeat;
+	background-position: 33% 66%;
+}
+```
+
+注意，如果用百分数设置位置，水平值总是先出现。如果只提供了一个百分数值，所提供的这个值将用作为水平值，垂直假设为50%。这与关键字类似，即如果只指定了一个关键字，另一个关键字则假设为center。例如：
+
+```css
+p {
+	background-image: url(yinyang.gif);
+	background-repeat: no-repeat;
+	background-position: 25%;
+}
+```
+
+原图像位于元素内容区和内边距区水平向右1/4、垂直向下1/2处。如下图所示：
+
+![只声明一个百分数值意味着垂直位置等于50%](https://ws3.sinaimg.cn/large/006tNc79gy1fnolyp3jyej310w0a8abl.jpg)
+
+下表给出了关键字与百分数的等价关系：
+
+![等价的位置关键字和百分数值](https://ws1.sinaimg.cn/large/006tKfTcgy1fnomy0vxl7j30n40o8753.jpg)
+
+background-position的默认值是0% 0%，这在功能上就相当于top left。正是因为这个原因，背景图像总是从元素内边距区的左上角开始平铺，除非你设置了不同的位置值。
+
+#### 3.4.3 长度值
+
+在为原图像的位置提供长度值时，这些长度值将解释为从元素内边距区左上角的偏移。偏移点是原图像的左上角；因此，如果设置值为20px 30px，原图像的左上角将在元素内边距区左上角向右20像素、向下30像素的位置上：
+
+```css
+p {
+	background-image: url(yinyang.gif);
+	background-repeat: no-repeat;
+	background-position: 20px 30px;
+	border: 1px dotted gray;
+}
+```
+
+![使用长度度量设置背景图像的偏移](https://ws2.sinaimg.cn/large/006tKfTcgy1fnplio2y3zj310w07kq44.jpg)
+
+这与百分数值大不相同，因为偏移只是从一个左上角到另一个左上角的偏移。换句话说，原图像的左上角与background-position声明中指定的点对齐。不过，可以结合使用长度和百分数值，得到“二者兼得”的效果。假设你需要一个背景图像，它要一直延伸到元素的右边，并且要从顶部向下延伸10像素，如下图所示：
+
+```css
+p {
+	background-image: url(yinyang.gif);
+	background-repeat: no-repeat;
+	background-position: 100% 10px;
+	border: 1px dotted gray;
+}
+```
+
+![结合使用百分数值和长度值](https://ws4.sinaimg.cn/large/006tKfTcgy1fnplqmi0x3j310q07q3zt.jpg)
+
+警告：在CSS2.1之前的版本中，不能将关键字与其他值混合使用。
+
+如果使用长度值或百分数值，可以使用负值将原图像拉出元素的背景区：
+
+```css
+p {
+	background-image: url(bigyinyang.gif);
+	background-repeat: no-repeat;
+	background-position: -200px -200px;
+	border: 1px dotted gray;
+}
+```
+
+![使用负长度值定位原图像](https://ws2.sinaimg.cn/large/006tKfTcgy1fnplx2vmt3j310s0b2wgd.jpg)
+
+理论上负百分数值也是允许的，不过对此存在两个问题。第一个问题是用户代理可能有限制，无法识别负的background-position值。另一个问题是，负百分数值计算起来很有意思。比方说，原图像和元素很可能大小不同，而这会导致意想不到的后果。例如：
+
+```css
+p {
+	background-image: url(pix/bigyinyang.gif);
+	background-repeat: no-repeat;
+	background-position: -10% -10%;
+	border: 1px dotted gray;
+	width: 500px;
+}
+```
+
+![负百分数值的不同效果](https://ws3.sinaimg.cn/large/006tKfTcgy1fnpm3h2syaj310u0piwht.jpg)
+
+这个规则要求原图像外由-10% -10%定义的点与各段落中同样定义为-10% -10%的一个点对齐。图像的宽度和高度都是300px，所以我们知道，其对齐点可以描述位于图像顶部之上30px、左边界再向左30px的位置（也就是-30px -30px）。段落元素的宽度都相等（500px），所以水平对齐点是其内边距区左边界再向左50像素处。这说明，每个原图像的左边界将在段落左内边距边界向左20像素的位置。这是因为，图像的-30px对齐点与段落的-50px点对齐。二者之间相差20像素。
+
+不过，各段落的高度不同，所以每个段落的垂直对齐点都不同。半随机地选择一个例子，如果一个段落为300像素高，原图像的顶端将与元素内边距区的顶端对齐，因为二者的垂直对齐点都是-30px。如果是一个段落高度为50像素，其对齐点将是-5px，相应地，原图像的顶端实际上将在内边距区顶端向下25像素处。
+
+正百分数值也可能出现同样的问题（可以想象一下，如果将原图像与比该图像矮的一个元素的底端对齐，会发生什么情况）。所以，以上介绍并不是说不应该使用负值，而只是提醒你往往存在一些要考虑的问题。
+
+在这一节中，每个例子使用的重复值都是no-repeat。下面来看看重复的情况：
+
+```css
+p {
+	background-image: url(bigyinyang.gif);
+	background-position: -150px 50%;
+	border: 1px dotted gray;
+}
+```
+
+![使用background-position属性设置平铺模式的起点](https://ws2.sinaimg.cn/large/006tKfTcgy1fnpmtgf1w5j310s0hkad9.jpg)
+
+可以看到，平铺模式将从background-position指定的位置开始。
+
+### 3.5 有方向的重复（深入）
+
+在前面关于重复的一节中，我们介绍了值repeat-x、repeat-y和repeat，并说明了它们对背景图像的平铺有何影响。不过，对于这些值，平铺模式总是从包含元素（例如p）的左上角开始。当然，并不要求如此；我们已经看到，background-position的默认值是0% 0%。所以，除非改变原图像的位置，否则平铺就会从左上角开始。
+
+先看一个例子：
+
+```css
+p {
+	background-image: url(yinyang.gif);
+	background-position: center;
+	border: 1px dotted gray;
+}
+p.c1 {
+	background-repeat: repeat-y;
+}
+p.c2 {
+	background-repeat: repeat-x;
+}
+```
+
+![居中原图像并重复](https://ws2.sinaimg.cn/large/006tKfTcgy1fnpn8a1m3hj310u0b4405.jpg)
+
+上图所示的例子中，因为原图像放在第一个p元素的中心，然后沿着y轴在两个方向上平铺；换句话说，同时向上和向下平铺。对于第二个段落，图像则分别向右和向左重复。
+
+因此，将一个大图像设置在p的中心，再让它充分重复，将导致它在4个方向上都平铺，即向上、向下、向左和向右。background-position造成的唯一差别是确定平铺从哪里开始。下图显示了从元素中心平铺和从元素左上角平铺的差别。
+
+![从中心重复和从左上角重复的差别](https://ws3.sinaimg.cn/large/006tKfTcgy1fnpnfgkas5j310w0b2dhx.jpg)
+
+注意元素各边界上的差别。当从中心重复时（第一段中），阴阳符号网格在元素内居中，这会在各边界上得到一致的“剪裁”效果。在第二段中，平铺从内边距区左上角开始，所以剪裁是不一致的。
+
+### 3.6 关联
+
+如果将一个图像放在body元素的中心，这个背景图像对读者可能不可见。如果文档太长，以至于无法在这个窗口内完全显示，用户需要向前或向后滚动文档才能看到文档中心（背景图像）。如果滚动超过了图像的位置，原图像就会消失。有办法防止这种滚动。
+
+**background-attachment**
+
+值：`scroll | fixed | inherit`
+
+初始值：scroll
+
+应用于：所有元素
+
+继承性：无
+
+计算值：根据指定确定
+
+**通过使用属性background-attachment，可以声明原图像对于可视区是固定的（fixed），因此不会受滚动的影响**：
+
+```css
+body {
+	background-image: url(bigyinyang.gif);
+	background-repeat: no-repeat;
+	background-position: center;
+	background-attachment: fixed;
+}
+```
+
+这样做有两个直接的后果：首先，原图像不会随文档滚动；其次，原图像的放置由可视区的大小确定，而不是由包含该图像的元素的大小（或在可视区中的位置）决定。
+
+![固定背景](https://ws3.sinaimg.cn/large/006tKfTcgy1fnpose96pmj310u10mq86.jpg)
+
+在一个Web浏览器中，随着用户调整浏览器窗口的大小，可视区可能会改变。这会导致背景的原图像随着窗口大小的改变移动位置。**所以说，图像并不是固定的，它只是在可视区大小不改变的情况下保持固定。**
+
+![保持居中](https://ws4.sinaimg.cn/large/006tKfTcgy1fnpoyufmx1j310u0yq431.jpg)
+
+除了fixed，另外只有一个background-attachment值，即默认值scroll。如果设为scroll，会导致背景随其余文档滚动，而且当窗口大小调整时，不一定改变原图像的位置。如果文档宽度是固定的（可能为body元素显式指定了一个宽度），那么可视区大小的调整根本不会滚动关联的原图像的放置。
+
+#### 3.6.1 有意思的效果
+
+从技术上讲，如果一个背景图像已经固定（fixed），它会相对于可视区定位，而不是相对于包含该图像的元素定位。不过，背景将只在起包含元素中可见。这带来一个很有意思的后果。
+
+假设有一个文档，其中有一个看上去像是平铺的砖块背景，还有一个有相同模式的h1元素，只不过颜色不同。body和h1元素都设置为有固定（fixed）背景，这会得到如下效果：
+
+```css
+body {
+	background-image: url(grid1.gif);
+	background-repeat: repeat;
+	background-attachment: fixed;
+}
+h1 {
+	background-image: url(grid2.gif);
+	background-repeat: repeat;
+	background-attachment: fixed;
+}
+```
+
+![背景的理想对齐](https://ws4.sinaimg.cn/large/006tKfTcgy1fnppbn6obpj310u0ge0v9.jpg)
+
+这种理想对齐怎么做到的呢？要记住，一个背景如果是固定的（fixed），原元素会根据视窗定位。因此，背景模式都从视窗的左上角开始平铺，而不是从单个元素的左上角开始。对于body，可以看到整个重复模式。不过，对于h1，只是在h1本身的内边距和内容区能看到它的背景。由于两个背景图像大小相同，而且它们有相同的起点，所以看上去就会像上图那样“对齐”。
+
+还有一种情况，对于分页媒体（如打印输出），每个页面都生成自己的视窗。因此，固定关联在打印输出的每一页上都应当显示。这可以用于实现某些效果，例如，对文档中的所有页面加水印。对此存在两方面问题：一来使用CSS无法强制打印背景图像，二来并非所有浏览器都能适当地处理固定关联背景的打印。
+
+### 3.7 汇总
+
+与字体属性一样，背景属性可以汇总到一个简写属性：background。这个属性可以从各个其它背景属性取一个值，而且可以采用任何顺序。
+
+**background**
+
+值：`[ <background-color> || <background-image> || <background-repeat> || <background-attachment> || <background-position>] | inherit`
+
+初始值：根据单个属性
+
+应用于：所有元素
+
+继承性：无
+
+百分数：&lt;background-position&gt;允许的值
+
+计算值：见单个属性
+
+因此，以下语句都等价：
+
+```css
+body {
+	background-color: white; 
+	background-image: url(yinyang.gif);
+	background-position: top left;
+	background-repeat: repeat-y;
+	background-attachment: fixed;
+}
+body {
+	background: white url(yinyang.gif) top left repeat-y fixed;
+}
+body {
+	background: fixed url(yinyang.gif) white top left repeat-y;
+}
+body {
+	background: url(yinyang.gif) white repeat-y fixed top left;
+}
+```
+
+实际上，对background中值的顺序有一个小小的限制：如果background-position有两个值，它们必须一起出现，而且如果这两个值是长度或百分数值，则必须按水平值在前垂直值在后的顺序。这并不奇怪，不过记住这一点很重要。
+
+就像所有简写属性一样，如果省略了某些值，就会自动填入相应属性的默认值。因此，以下两个语句是等价的：
+
+```css
+body {background: white url(yinyang.gif);}
+body {background: white url(yinyang.gif) top left repeat scroll;}
+```
+
+![使用简写属性](https://ws3.sinaimg.cn/large/006tKfTcgy1fnpq4nwjmxj310q0h8wg3.jpg)
+
+更妙的是，background没有必不可少的值——只要至少出现一个值就行，而省略所有其它属性值。因此，可以使用这个简写属性只设置背景色，这是一个很常见的做法：
+
+```css
+body {background: white;}
+```
+
+这是完全合法的，而且可以减少键次数。另外，其效果是所有其他背景属性都设置为相应的默认值，这意味着background-image将会被设置为none。这有助于确保可读性，防止其它规则（例如，读者样式表中的规则）在背景上设置图像。
+
+以下所有规则也是合法的：
+
+```css
+body {background: url(yinyang.gif) bottom left repeat-y;}
+h1 {background: silver;}
+h2 {background: url(h2bg.gif) center repeat-x;}
+p {background: url(parabg.gif);}
+```
+
+最后记住一点：background是一个简写属性，因此，其默认值会覆盖先前给定元素指定的值。例如：
+
+```css
+h1, h2 {background: gray url(thestress.jpg) center repeat-x;}
+h2 {background: silver;}
+```
+
+给定上述规则，h1元素将根据第一个规则设置样式。h2元素则将根据第二个规则设置样式，这意味着它们都将有银色背景。但不会对h2背景应用任何图像，更不用说让背景图像居中和水平重复了。创作人员可能原本想这样做：
+
+```css
+h1, h2 {background: gray url(thestress.jpg) center repeat-x;}
+h2 {background-color: silver;}
+```
+
+这会改变背景色，而不会覆盖所有其他值。
+
+## 4 小结
+
+通过设置元素的颜色和背景，可以大大增强创作人员的能力。CSS超越传统方法的优点就在于可以向文档中的任何元素应用颜色和背景，而不只是表单元格或FONT标记中包含的内容。尽管某些实现存在一些bug，不过背景属性确实使用非常广泛。不难理解它们为什么这么流行，因为利用颜色可以很容易地区分不同的页面。
+
+
+>【本文内容摘自：《CSS权威指南》（第三版） Eric A. Meyer 著   尹志忠 侯妍 译】
