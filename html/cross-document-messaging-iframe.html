@@ -12,18 +12,18 @@
 	//iframe框架内
 	window.addEventListener('message', function (event) {
 		//确保发送消息的域是已知的域
-		if (event.origin == 'http://localhost:8100') {
+		if (event.origin == window.origin) {
 			//处理接收到的数据
 			processMessage(event.data);
 
 			//可选：向来源窗口发送回执
-			event.source.postMessage('iframe Received data: ' + event.data, 'http://localhost:8100/');
+			event.source.postMessage('iframe Received data: ' + event.data, window.origin);
 		}
 	});
 
 	function processMessage(data) {
 		document.getElementById('message-list').innerHTML += JSON.stringify(data) + '<hr />';
-		console.warn('iframe receive data: ', data);
+		console.warn('iframe - receive data: ', data);
 	}
 </script>
 
