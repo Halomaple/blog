@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "跨文档消息传递"
+title: "Cross Document Messaging - 跨文档消息传递"
 date: 2018-05-16 22:00:00 +0800
 categories: [Learning, JS, HTML]
 tags: [JS, HTML, iFrame]
@@ -51,6 +51,6 @@ XDM还有一些怪异之处。首先postMessage()的第一个参数**最早是�
 
 支持XDM的浏览器有IE8+、Firefox3.5+、Safari4+、Opera、Chrome、iOS版Safari及Android版Webkit。XDM已经作为一个规范独立出来，现在它的名字叫Web Messaging，官方页面是[http://dev.w3.org/html5/postmsg/](http://dev.w3.org/html5/postmsg/)。
 
-
+[Live Demo](/html/cross-document-messaging.html)
 
 >【本文内容摘自：《JavaScript高级程序设计》（第3版）Nicholas C.Zakas 著   李松峰 曹力 译】

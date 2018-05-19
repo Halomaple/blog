@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Cross Document Messaging - 跨文档消息传递</title>
+</head>
+
+<body>
+	<iframe src="/html/cross-document-messaging-iframe.html" id="myframe" width="100%" height="500"></iframe>
+	<h3>Send a message to &lt;iframe&gt; every two seconds.</h3>
+	<p id="message-list"></p>
+</body>
+
+<script type="text/javascript">
+	//当前文档
+	window.addEventListener('message', function (event) {
+		//确保发送消息的域是已知的域
+		if (event.origin == 'http://localhost:8100') {
+			//处理接收到的数据
+			processMessage(event.data);
+		}
+	});
+
+	function processMessage(data) {
+		document.getElementById('message-list').innerHTML += JSON.stringify(data) + '<hr />';
+		console.log('Window receive data: ', data);
+	}
+
+	window.onload = function () {
+		setInterval(function () {
+			var iframeWindow = document.getElementById('myframe').contentWindow;
+			iframeWindow.postMessage('A secret to iframe on ' + new Date(), 'http://localhost:8100');
+		}, 2000);
+	};
+</script>
+
+</html>
