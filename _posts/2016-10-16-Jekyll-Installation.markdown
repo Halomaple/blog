@@ -1,9 +1,11 @@
 ---
 layout: post
-title: "Jekyll安装与使用"
+title: Jekyll安装与使用
 date: 2016-10-16 14:40:00 +0800
 categories: [Jekyll]
 tags: [Jekyll, 安装]
+keywords: Jekyll,Jekyll installation,Jekyll使用方法
+description: Jekyll installation on macOS - Mac下的Jekyll安装与使用
 ---
 
 ### Jekyll安装

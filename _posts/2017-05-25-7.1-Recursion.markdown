@@ -1,9 +1,11 @@
 ---
 layout: post
-title: "7.1 递归"
+title: 7.1 递归
 date: 2017-05-25 22:00:00 +0800
 categories: [Learning, JavaScript, Recursion]
 tags: [JS, Recursion]
+keywords: JavaScript,recursion
+description: JavaScript递归介绍
 ---
 
 递归是在一个函数**调用自身**的情况下构成的

@@ -1,9 +1,11 @@
 ---
 layout: post
-title: "12.2 DOM2 DOM3 小结"
+title: 12.2 DOM2 DOM3 小结
 date: 2017-11-25 11:30:00 +0800
 categories: [Learning, JavaScript]
 tag: [JS, DOM2, DOM3]
+keywords: JavaScript,DOM2,DOM3
+description: DOM2和DOM3规范小结
 ---
 
 **DOM2级规范**定义了一些模块，用于增强DOM1级。**“DOM2级核心”**为不同的DOM类型引入了一些与XML命名空间有关的方法。这些变化只在使用XML或XHTML文档时才有用；对于HTML文档没有实际意义。除了与XML命名空间有关的方法外，“DOM2级核心”还定义了以编程方式创建`Document`实例的方法，也支持了创建`DocumentType`对象。

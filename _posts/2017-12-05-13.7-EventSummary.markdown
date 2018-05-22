@@ -1,9 +1,11 @@
 ---
 layout: post
-title: "13.7 Event小结"
+title: 13.7 Event小结
 date: 2017-12-05 22:00:00 +0800
 categories: [Learning, JavaScript]
 tag: [JS, Event]
+keywords: JavaScript,event
+description: Event小结
 ---
 
 事件是将JavaScript与网页联系在一起的主要方式。“DOM3级事件”规范和HTML5定义了常见的大多数事件。即使有规范定义了基本事件，但很多浏览器仍然在规范之外实现了自己的专有事件，从而为开发人员提供更多掌握用户交互的手段。有些专有事件与特定设备关联，例如移动Safari中的`orientationchange`事件就是特定关联iOS设备的。

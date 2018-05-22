@@ -1,9 +1,11 @@
 ---
 layout: post
-title: "6.2 创建对象"
+title: 6.2 创建对象
 date: 2017-04-16 18:00:00 +0800
 categories: [Learning, JavaScript, Create Object]
 tags: [JS, Object]
+keywords: JS,object,factory
+description: Creating JavaScript objects - 创建JavaScript对象
 ---
 
 ## 1. 工厂模式

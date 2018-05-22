@@ -1,9 +1,11 @@
 ---
 layout: post
-title: "14.6 小结"
+title: 14.6 小结
 date: 2017-12-16 12:00:00 +0800
 categories: [Learning, JavaScript]
 tag: [JS, DOM, RichEdit]
+keywords: JavaScript,RichEdit,DOM
+description: JavaScript富文本（RichEdit）小结
 ---
 
 虽然HTML和Web应用自诞生以来已经发生了天翻地覆的变化，但Web表单相对却没什么改变。使用JavaScript可以增强已有的表单字段，从而创造出新的功能，或者提升表单的易用性。为此，表单、表单字段都引入了相应的属性和方法，以便JavaScript使用。下面是本章介绍的几个概念。

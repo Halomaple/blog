@@ -1,9 +1,11 @@
 ---
 layout: post
-title: "Markdown Learning"
+title: Markdown Learning
 date: 2016-08-26 14:49:39 +0800
 categories: Learning
 tags: markdown
+keywords: markdown,md,markdown syntax
+description: Markdown introducing and learning - Markdown语法介绍与使用
 ---
 
 # First - Headings

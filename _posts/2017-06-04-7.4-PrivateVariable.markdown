@@ -1,9 +1,11 @@
 ---
 layout: post
-title: "7.4 私有变量"
+title: 7.4 私有变量
 date: 2017-06-04 18:00:00  +0800
 categories: [Learning, JavaScript]
 tags: [JS, Private Variable]
+keywords: JavaScript,private,variable
+description: JavaScript私有成员
 ---
 
 严格来讲，JavaScript没有**私有成员**的概念；所有对象属性都是公有的。不过，倒是有一个私有变量的概念。任何在函数中定义的变量，都可以认为是私有变量，因为不能在函数的外部访问这些变量。

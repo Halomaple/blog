@@ -1,9 +1,11 @@
 ---
 layout: post
-title: "JavaScript中reverse( )和sort( )方法"
+title: JavaScript中reverse( )和sort( )方法
 date: 2016-12-04 22:40:00 +0800
 categories: [Learning, JavaScript, Array]
 tags: [JS, reverse, sort]
+keywords: JS,Array,JS数组
+description: JS Array reverse and sort - JS数组方法reverse和sort
 ---
 
 ## reverse( )

@@ -1,9 +1,11 @@
 ---
 layout: post
-title: "7.3 模仿块级作用域"
+title: 7.3 模仿块级作用域
 date: 2017-05-30 14:00:00  +0800
 categories: [Learning, JavaScript, Block Scope]
 tags: [JS, Block Scope]
+keywords: JavaScript,Scope,function
+description: JavaScript作用域介绍
 ---
 
 JavaScript没有块级作用域的概念。这意味着在块级语句中定义的变量，实际上是在包含函数中而非语句中创建的。

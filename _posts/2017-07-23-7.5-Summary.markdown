@@ -1,9 +1,11 @@
 ---
 layout: post
-title: "7.5 小结"
+title: 7.5 小结
 date: 2017-06-04 18:00:00  +0800
 categories: [Learning, JavaScript]
 tags: [JS, Private Variable]
+keywords: JavaScript,private,variable,summary
+description: JavaScript函数表达式
 ---
 
 在JavaScript编程中，函数表达式是一种非常有用的技术。使用函数表达式可以无须对函数命名，从而实现动态编程。**匿名函数**，也称为**拉姆达函数**（ Lambda λ） ，是一种使用JavaScript函数的强大方式。

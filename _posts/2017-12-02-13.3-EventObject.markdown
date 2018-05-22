@@ -1,9 +1,11 @@
 ---
 layout: post
-title: "13.3 Event对象"
+title: 13.3 Event对象
 date: 2017-12-02 12:30:00 +0800
 categories: [Learning, JavaScript]
 tag: [JS, Event]
+keywords: JavaScript,event
+description: Event处理方法介绍
 ---
 
 EventUtil:

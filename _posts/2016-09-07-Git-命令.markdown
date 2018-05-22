@@ -1,9 +1,11 @@
 ---
 layout: post
-title: "Git 命令大全"
+title: Git 命令大全
 date: 2016-09-07 14:49:39 +0800
 categories: [Learning, Git]
 tags: [Git]
+keywords: git,commands,git helpful commands
+description: Git helpful commands - 一些很有用的git命令介绍与使用
 ---
 
 最近常用到的一些命令，记录下来

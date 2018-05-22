@@ -1,9 +1,11 @@
 ---
 layout: post
-title: "3.7 函数"
+title: 3.7 函数
 date: 2017-12-06 21:15:00 +0800
 categories: [Learning, JavaScript]
 tag: [JS, Function]
+keywords: JavaScript,function
+description: JavaScript中的function详解
 ---
 
 函数对于任何语言来说都是一个核心概念。通过函数可以封装任意多条语句，而且可以在任何地方、任何时候调用执行。ECMAScript中的函数使用`function`关键字来声明，后跟一组参数以及函数体。函数的基本语法如下所示：

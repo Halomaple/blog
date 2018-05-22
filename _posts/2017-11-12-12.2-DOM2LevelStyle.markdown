@@ -1,9 +1,11 @@
 ---
 layout: post
-title: "12.2 DOM2 级别 样式"
+title: 12.2 DOM2 级别 样式
 date: 2017-11-12 15:00:00 +0800
 categories: [Learning, JavaScript]
 tag: [JS, DOM2, DOM2LevelStyle]
+keywords: JavaScript,DOM2,DOM2LevelStyle
+description: DOM2级别样式介绍
 ---
 
 `getBoundingClientRect()` 返回元素在页面中相对于视口的位置。

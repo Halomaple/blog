@@ -1,9 +1,11 @@
 ---
 layout: post
-title: "CSS 基本视觉格式化"
+title: CSS 基本视觉格式化
 date: 2016-12-10 22:40:00 +0800
 category: [Learning, CSS]
 tag: [CSS, 盒模型, 块级元素, 行内元素, 对齐]
+keywords: CSS,box-model,block,inline-element,盒模型,块级元素,行内元素,对齐
+description: CSS基本视觉格式化介绍
 ---
 
 ## 1 基本框

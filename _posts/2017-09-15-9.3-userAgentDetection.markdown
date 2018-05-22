@@ -1,9 +1,11 @@
 ---
 layout: post
-title: "9.3 用户代理检测"
+title: 9.3 用户代理检测
 date: 2017-09-15 21:00:00 +0800
 categories: [Learning, JavaScript]
 tag: [JS, BOM, userAgent]
+keywords: JavaScript,user agent,kernel,os,detect,device,mobile
+description: 呈现引擎、平台、操作系统和设备的检测方法
 ---
 
 检测呈现引擎、平台、Windows操作系统、移动设备和游戏系统。

@@ -1,9 +1,11 @@
 ---
 layout: post
-title: "Cross Document Messaging - 跨文档消息传递"
+title: Cross Document Messaging - 跨文档消息传递
 date: 2018-05-16 22:00:00 +0800
 categories: [Learning, JS, HTML]
 tags: [JS, HTML, iFrame]
+keywords: cross document messaging,跨文档消息传递,XDM,postMessage()
+description: Cross Document Messaging - 跨文档消息传递介绍与使用
 ---
 
 **跨文档消息传送**（cross-document-messaging），有时候简称为**XDM**，指的是**在来自不同域页面间传递消息**。例如，www.wrox.com域中的页面与位于一个内嵌框架中的p2p.wrox.com域中的页面通信。在XDM机制出现之前，要稳妥地实现这种通信需要花很多功夫。XDM把这种机制规范化，让我们能既稳妥又简单地实现跨文档通信。

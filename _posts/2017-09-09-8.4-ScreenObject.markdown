@@ -1,9 +1,11 @@
 ---
 layout: post
-title: "8.4 screen对象"
+title: 8.4 screen对象
 date: 2017-09-09 13:30:00 +0800
 categories: [Learning, JavaScript]
 tag: [JS, BOM, window, screen]
+keywords: JavaScript,window,screen
+description: window.screen的介绍与使用
 ---
 
 **screen**对象基本上只用于表明客户端的能力，其中包括浏览器窗口外部的显示器的信息，如像素宽度和高度等。每个浏览器中的screen对象都包含着各不相同的属性，下表列出了所有属性及支持相应属性的浏览器。

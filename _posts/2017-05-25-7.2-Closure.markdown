@@ -1,9 +1,11 @@
 ---
 layout: post
-title: "7.2 闭包"
+title: 7.2 闭包
 date: 2017-05-25 22:50:00 +0800
 categories: [Learning, JavaScript, Closure]
 tags: [JS, Closure]
+keywords: JavaScript,Closure,闭包
+description: JavaScript闭包解析与使用介绍
 ---
 
 ## 0. 闭包

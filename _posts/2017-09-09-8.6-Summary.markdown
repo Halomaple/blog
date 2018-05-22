@@ -1,9 +1,11 @@
 ---
 layout: post
-title: "8.6 Summary"
+title: 8.6 Summary
 date: 2017-09-09 22:00:00 +0800
 categories: [Learning, JavaScript, Summary]
 tag: [JS, BOM, window]
+keywords: JavaScript,BOM,window,location,navigator,screen,history
+description: 浏览器对象模型（BOM）小结
 ---
 
 浏览器对象模型（BOM）以window对象为依托，表示浏览器窗口以及页面可见区域。同时window对象还是ECMAScript中的Global对象，因而所有全局变量和函数都是它的属性，且所有原生的构造函数及其他函数也都存在于它的命名空间下。本章讨论了下列BOM的组成部分。

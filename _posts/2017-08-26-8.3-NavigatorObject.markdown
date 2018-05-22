@@ -1,9 +1,11 @@
 ---
 layout: post
-title: "8.3 navigator对象"
+title: 8.3 navigator对象
 date: 2017-08-26 20:30:00  +0800
 categories: [Learning, JavaScript]
 tags: [JS, BOM, window, navigator]
+keywords: JavaScript,window,navigator
+description: window.navigator的介绍与使用
 ---
 
 最早由Netscape Navigator 2.0 引入的**navigator**对象，现在已经成为识别客户端浏览器的事实标准。虽然其他浏览器也通过其他方式提供了相同或者相似的信息（例如，IE中的window.clientInformation和Opera中的window.opera），但navigator对象却是所有支持JavaScript的浏览器所共有的。

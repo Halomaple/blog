@@ -1,9 +1,11 @@
 ---
 layout: post
-title: "CSS 内边距边框和外边距"
+title: CSS 内边距边框和外边距
 date: 2018-01-05 21:10:00 +0800
 categories: [Learning, CSS]
 tags: [CSS, Padding, Border, Margin, 内边距, 边框, 外边距]
+keywords: CSS,padding,border,margin
+description: CSS中的内边距（padding）、边框和外边距（margin）介绍与使用
 ---
 
 CSS的作者们下了很大功夫，允许创作人员为段落、标题、div、锚和图像（几乎是Web页面可以包含的一切）定义边框。这些边框可以将一个元素与其他元素区别开，强调其外观，将某类数据标志为有改变，或者达到其他效果。

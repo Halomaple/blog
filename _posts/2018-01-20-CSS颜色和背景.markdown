@@ -1,9 +1,11 @@
 ---
 layout: post
-title: "CSS 颜色和背景"
+title: CSS 颜色和背景
 date: 2018-01-20 15:00:00 +0800
 categories: [Learning, CSS]
 tags: [CSS, Color, Background]
+keywords: CSS,color,background
+description: CSS颜色和背景介绍与使用
 ---
 
 以前的Web页面总是灰色背景上的黑色文本，期间有一些蓝色的链接。突然之间，开发人员可以按自己的意愿使用任何颜色组合，这要功归于`<FONT COLOR="...">`。一旦能增加背景图像，那么一切皆有可能，或者起码看上去是这样。CSS在颜色和背景方面则走的更远，它允许向一个页面应用多种不同的颜色和背景，而且根本不需要任何FONT或TABLE标记。

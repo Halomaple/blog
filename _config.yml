@@ -45,11 +45,14 @@ encoding: UTF-8
 paginate: 20
 
 #### Site
-title : Halomaple
+title : Halomaple's blog
+logo_title: Halomaple
 #tagline: A fresh looking and responsive theme for Jekyll
 assets: /assets
 url:
 baseurl:
+keywords: Front End,FE,前端,JavaScript,JS,CSS,HTML,XML,Json,AJAX,Halomaple,blog
+description: Halomaple's blog of Front End majoring in JavaScript, CSS, HTML, AJAX, XML etc. 
 
 #### Language
 language: zh-CN    ## blog site languages: en, zh-CN, zh-TW, de

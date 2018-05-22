@@ -1,9 +1,11 @@
 ---
 layout: post
-title: "JavaScript Array"
+title: JavaScript Array
 date: 2016-12-08 22:40:00 +0800
 categories: [Learning, JavaScript, Array]
 tags: [JS, Array]
+keywords: JS,Array
+description: JS Array functions - JS 数组方法
 ---
 
 ## Array基本
