@@ -541,6 +541,9 @@ body > header a {
 
 .navbutton {
 	transform: scale(1.8);
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 .navbutton::before {
@@ -551,7 +554,7 @@ body > header a {
 }
 
 .navmobile::before {
-	padding-left: 1em;
+	padding: 0;
 }
 
 header nav {
@@ -613,6 +616,10 @@ header nav ul li a:hover {
 	max-height: 40em;
 }
 
+.shownav ul li {
+	margin: 10px 0;
+}
+
 .search {
 	padding: 0.1em 0 0 1em;
 }
@@ -620,7 +627,8 @@ header nav ul li a:hover {
 .search input {
 	-webkit-appearance: textfield;
 	font-size: 0.87em;
-	line-height: 1.7;
+	line-height: 1;
+	height: 30px;
 	border: 1px solid #fff;
 	color: #fff;
 	background: transparent;
