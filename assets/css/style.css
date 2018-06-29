@@ -61,8 +61,10 @@ td {
 	outline: 0;
 	font-weight: inherit;
 	font-style: inherit;
+	font-size: 100%;
 	font-family: inherit;
 	vertical-align: baseline;
+	-webkit-text-size-adjust: none;
 }
 
 body {
@@ -2506,12 +2508,12 @@ footer {
 @media (max-width: 500px) {
 	.article-content .highlight .rouge-code pre,
 	.article-content .highlight .code pre span {
-		font-size: 14px !important;
+		font-size: 12px !important;
 	}
 
 	.article-content .highlight .rouge-gutter pre.lineno,
 	.article-content .highlight .gutter pre.lineno {
-		font-size: 14px !important;
+		font-size: 12px !important;
 	}
 }
 
