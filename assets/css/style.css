@@ -2538,13 +2538,13 @@ footer {
 
 #totop {
 	position: fixed;
-	bottom: 5em;
+	bottom: 2em;
 	right: 1em;
 	cursor: pointer;
 }
 
 #totop i {
-	font-size: 2em;
+	font-size: 3em;
 }
 
 article .article-content img.emoji {
