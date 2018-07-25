@@ -1,3 +1,77 @@
+<div class="share-panel">
+	<div class="bdsharebuttonbox" data-tag="share_1">
+		<!-- 此处添加展示按钮 -->
+		<a class="bds_weixin" data-cmd="mshare">
+			<img class="c-img" src="//m.baidu.com/se/static/pmd/pmd/share/images/wxfriend_2.png">
+		</a>
+		<a class="bds_tsina" data-cmd="tsina">
+			<img class="c-img" src="//m.baidu.com/se/static/pmd/pmd/share/images/sinaweibo_2.png">
+		</a>
+		<a class="bds_qzone" data-cmd="qzone">
+			<img class="c-img" src="//m.baidu.com/se/static/pmd/pmd/share/images/qzone_2.png">
+		</a>
+		<a class="bds_sqq" data-cmd="sqq">
+			<img class="c-img" src="//m.baidu.com/se/static/pmd/pmd/share/images/qqfriend_2.png">
+		</a>
+	</div>
+	<button class="share-cancel-btn">取消</button>
+</div>
+<style>
+	.share-panel {
+		background: #eee;
+		position: fixed;
+		bottom: -140px;
+		right: 0;
+		width: 100%;
+		max-width: 500px;
+		height: 140px;
+		border-top-left-radius: 5px;
+		border-top-right-radius: 5px;
+		z-index: 1;
+	}
+
+	.bdsharebuttonbox {
+		width: 100%;
+		height: 100px;
+		display: flex;
+		justify-content: space-around;
+		align-items: center;
+	}
+
+	.bdsharebuttonbox:after {
+		display: none;
+	}
+
+	.share-panel>button {
+		width: 100%;
+		height: 40px;
+		background: white;
+		border: none;
+		box-shadow: none;
+		border-top: 1px solid #ddd;
+		font-size: 1em;
+		cursor: pointer;
+	}
+
+	.bdshare-button-style0-32 a {
+		text-indent: initial;
+		border-radius: 50%;
+		background-image: none;
+		background-position: center;
+		height: 64px;
+		width: 64px;
+		background: white;
+		margin: 0;
+	}
+
+	.bdshare-button-style0-32 a img {
+		display: inline-block;
+		width: 100%;
+		height: 100%;
+		pointer-events: none;
+	}
+</style>
+
 <script src="https://cdn.bootcss.com/jquery/2.0.3/jquery.min.js"></script>
 <!-- <script src="{{ site.baseurl }}{{ site.assets }}/js/jquery-2.0.3.min.js"></script> -->
 <script src="{{ site.baseurl }}{{ site.assets }}/js/jquery.imagesloaded.min.js?v=1.0.1"></script>
@@ -6,6 +80,26 @@
 <script src="{{ site.assets }}/js/progressBar.js?v=1.0.1"></script>
 <!-- <script src="{{ site.baseurl }}{{ site.assets }}/js/jquery.qrcode-0.12.0.min.js"></script> -->
 <script src="{{ site.baseurl }}{{ site.assets }}/js/toc.js?v=1.0.1"></script>
+
+<script>
+	window._bd_share_config = {
+		//此处添加分享具体设置
+		common: {
+			bdText: '',
+			bdDesc: '',
+			bdUrl: '',
+			bdPic: '',
+			bdMini: 3,
+		},
+		share: [{
+			"bdSize": 32,
+			"bdselectMiniList": ['weixin', 'tqq', 'kaixin001', 'bdxc', 'tqf']
+		}]
+	}
+
+	//以下为js加载部分
+	with (document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?cdnversion=' + ~(-new Date() / 36e5)];
+</script>
 
 <script type="text/javascript">
 	$(document).ready(function () {

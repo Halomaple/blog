@@ -2546,13 +2546,24 @@ footer {
 
 #totop {
 	position: fixed;
-	bottom: 2em;
+	bottom: 4em;
 	right: 1em;
 	cursor: pointer;
 }
 
 #totop i {
 	font-size: 3em;
+}
+
+#share i {
+	font-size: 2.8em;
+}
+
+#share {
+	position: fixed;
+	bottom: 1em;
+	right: 1.1em;
+	cursor: pointer;
 }
 
 article .article-content img.emoji {
