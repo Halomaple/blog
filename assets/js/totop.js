@@ -31,6 +31,7 @@
 	});
 
 	//Baidu Share
+	$('.share-panel').hide();
 	$('#share').click(function() {
 		$('.share-panel').animate({ bottom: '0' }, 300);
 	});
