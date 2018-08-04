@@ -1232,6 +1232,10 @@ article .article-content table td > code {
 	border-radius: 0.25em;
 }
 
+.code > pre {
+	tab-size: 4;
+}
+
 article .post-content > p {
 	line-height: 1.5;
 	margin-top: 0.7em;

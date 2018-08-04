@@ -1,0 +1,90 @@
+---
+layout: post
+title: 前端面试题及解决方案之双向绑定MVVM
+date: 2018-08-04 17:30:00 +0800
+categories: [Learning, JS, 前端, 面试]
+tags: [JS, 面试, 双向绑定, MVVM]
+keywords: 前端面试题及解决方案之双向绑定MVVM
+description: 前端面试题及解决方案之双向绑定MVVM
+---
+
+## 1. 原生 JavaScript 实现数据双向绑定
+
+> 题目：原生 js 实现一个简单的 input 和 数据 obj.inputVal 的实时双向绑定,#inputShow 中显示数据变动
+
+### 1.1 使用事件绑定和 setInterval( ) 定时对比数据是否更新
+
+HTML
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>MVVM</title>
+</head>
+
+<body>
+	<input id="dataInput" type="text">
+	<p id="inputShow">{{value}}</p>
+</body>
+</html>
+```
+
+JavaScript
+
+```js
+let obj = {
+	inputVal: ''
+};
+var paragrah = document.getElementById('inputShow');
+var input = document.getElementById('dataInput');
+input.addEventListener('input', () => {
+	clearInterval(tipInterval);
+	stopInterval();
+	paragrah.innerText = input.value;
+	updateModelValue(input.value);
+	console.log(obj.inputVal);
+	startInterval();
+});
+
+var interval,
+	inputValueCopy = input.value;
+function startInterval() {
+	interval = setInterval(() => {
+		if (inputValueCopy != obj.inputVal) {
+			updateTemplateValue(obj.inputVal);
+		}
+	}, 1);
+}
+function stopInterval() {
+	clearInterval(interval);
+}
+function updateTemplateValue(val) {
+	input.value = val;
+	paragrah.innerText = val;
+}
+function updateModelValue(val) {
+	obj.inputVal = val;
+	inputValueCopy = val;
+}
+
+startInterval();
+
+//忽略以下代码
+var tipArr = '请在此键入一些内容来体验数据双向绑定';
+var index = 0;
+var tipInterval = setInterval(() => {
+	obj.inputVal += tipArr.charAt(index);
+	index += 1;
+
+	if (index == tipArr.length + 1) {
+		index = 0;
+		obj.inputVal = '';
+	}
+}, 500);
+```
+
+<input id="dataInput" type="text" style="margin: 0; padding: 0; display: block; height: 40px; width: 100%;"/>
+<p id="inputShow" style="user-select: none; -webkit-user-select: none; text-indent: 0; height: 40px; width: 100%; background: #145; color: #ccc;"></p>

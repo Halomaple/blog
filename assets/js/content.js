@@ -17,22 +17,37 @@ $(document).ready(function() {
 			result += arguments[i] + ', ';
 		}
 
-		$('div.highlighter-rouge')[elementPreIndex].append($('<div class="jsoutput"> <pre>' + logCount + ': ' + result.slice(0, result.length - 2) + '</pre></div>')[0]);
+		$('div.highlighter-rouge')[elementPreIndex].append(
+			$(
+				'<div class="jsoutput"> <pre>' +
+					logCount +
+					': ' +
+					result.slice(0, result.length - 2) +
+					'</pre></div>'
+			)[0]
+		);
 		logCount++;
 	}
 
 	$('div.highlighter-rouge table td:last-child > pre').each(function(index, el) {
 		elementPreIndex = index;
 		try {
-			var skipEvalTagIndex = $(el).text().indexOf('//##skipEval');
-			if (skipEvalTagIndex == -1)
-				window.eval($(el).text());
-			else
-				window.eval($(el).text().slice(0, skipEvalTagIndex));
+			var text = $(el).text();
+			var skipEvalTagIndex = text.indexOf('//##skipEval');
+			var htmlStartCharIndex = text.indexOf('<!');
+
+			if (htmlStartCharIndex == 0) return;
+
+			if (skipEvalTagIndex == -1) window.eval(text);
+			else window.eval(text.slice(0, skipEvalTagIndex));
 		} catch (e) {
 			//Exclude Invalid character exception(not js code)
 			if (e.toString().indexOf('Invalid character') == -1) {
-				console.warn(e, 'Exception!', '===================================================\n' + $(el).text());
+				console.warn(
+					e,
+					'Exception!',
+					'===================================================\n' + $(el).text()
+				);
 			}
 		}
 
