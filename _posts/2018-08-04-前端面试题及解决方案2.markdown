@@ -1,0 +1,110 @@
+---
+layout: post
+title: 前端面试题及解决方案2
+date: 2018-08-04 19:20:00 +0800
+categories: [Learning, JS, 前端, 面试]
+tags: [JS, 面试, Object]
+keywords: 前端面试题及解决方案2
+description: 前端面试题及解决方案2
+---
+
+## 1. Persistence
+
+> Write a function, persistence, that takes in a positive parameter num and returns its multiplicative persistence,which is the number of times you must multiply the digits in num until you reach a single digit.  
+>  For example:  
+>  Because 39: 3\*9 = 27, 2\*7 = 14, 1\*4=4,and 4 has only one digit, persistence(39) === 3;  
+>  Because 999: 9\*9\*9 = 729, 7\*2\*9 = 126, 1\*2\*6 = 12, and finally 1\*2 = 2, persistence(999) === 4;  
+>  Because 4: 4 is already a one-digit number, persistence(4) === 0;
+
+```js
+function persistence(num) {
+	if (Object.prototype.toString.call(num) === '[object Number]' && num > 0) {
+		var times = 0;
+		if (num.toString().length === 1) return times;
+		return getTimesOfCaculatingASingleProductRecursively(num, times);
+	} else {
+		throw 'Please input a positive decimal Number!';
+	}
+
+	function getTimesOfCaculatingASingleProductRecursively(num, times) {
+		var digitsArray = num.toString().split('');
+		var product = digitsArray.reduce(function(current, next) {
+			return current * next;
+		});
+		times++;
+
+		if (product.toString().length === 1) {
+			return times;
+		} else {
+			return getTimesOfCaculatingASingleProductRecursively(product, times);
+		}
+	}
+}
+
+console.log(persistence(39)); //3
+console.log(persistence(999)); //4
+console.log(persistence(4)); //0
+console.log(persistence('Jeff')); //Exception: 'Please input a decimal Number!' Check the error in console.
+```
+
+## 2. Parse Object
+
+> Write a function parse to object that meets following result:  
+> parse(object, 'b.c') == 4); //true  
+> parse(object, 'd[0].e') == 5); //true  
+> parse(object, 'd.0.e') == 5); //true  
+> parse(object, 'd[1].e[g]') == 6); //true  
+> parse(object, 'd.1.e.g') == 6); //true  
+> parse(object, 'f') == 'undefined'); //true
+
+```js
+let object = {
+	b: { c: 4 },
+	d: [
+		{ e: 5 },
+		{
+			e: {
+				g: 6
+			}
+		}
+	]
+};
+
+function parse(obj, parseStr) {
+	try {
+		if (parseStr.length == 0) throw 'Please input a key string!';
+
+		var keyList = parseStr
+			.replace(/\]|\[|\./g, ' ')
+			.split(' ')
+			.filter(c => c.length > 0);
+
+		var value = 'undefined';
+		for (let i = 0; i <= keyList.length; i++) {
+			var curKey = keyList[i];
+			if (!curKey || (i == 0 && !obj.hasOwnProperty(curKey))) break;
+
+			if (i == 0) value = obj[curKey];
+			else value = value[curKey];
+
+			i += 1;
+			var nextKey = keyList[i];
+
+			if (value && value.hasOwnProperty(nextKey)) {
+				value = value[nextKey];
+			}
+		}
+
+		return value;
+	} catch (error) {
+		console.error(error);
+	}
+}
+
+console.log(parse(object, 'b.c') == 4); //true
+console.log(parse(object, 'd[0].e') == 5); //true
+console.log(parse(object, 'd.0.e') == 5); //true
+console.log(parse(object, 'd[1].e[g]') == 6); //true
+console.log(parse(object, 'd.1.e.g') == 6); //true
+console.log(parse(object, 'f') == 'undefined'); //true
+```
