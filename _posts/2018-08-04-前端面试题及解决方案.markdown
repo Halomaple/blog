@@ -38,14 +38,14 @@ JavaScript
 let obj = {
 	inputVal: ''
 };
-var paragrah = document.getElementById('inputShow');
+var paragraph = document.getElementById('inputShow');
 var input = document.getElementById('dataInput');
 input.addEventListener('input', () => {
 	clearInterval(tipInterval);
 	stopInterval();
-	paragrah.innerText = input.value;
+	paragraph.innerText = input.value;
 	updateModelValue(input.value);
-	console.log(obj.inputVal);
+	console.warn(obj.inputVal);
 	startInterval();
 });
 
@@ -63,7 +63,7 @@ function stopInterval() {
 }
 function updateTemplateValue(val) {
 	input.value = val;
-	paragrah.innerText = val;
+	paragraph.innerText = val;
 }
 function updateModelValue(val) {
 	obj.inputVal = val;
