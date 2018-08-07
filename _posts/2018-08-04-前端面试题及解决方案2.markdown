@@ -108,3 +108,133 @@ console.log(parse(object, 'd[1].e[g]') == 6); //true
 console.log(parse(object, 'd.1.e.g') == 6); //true
 console.log(parse(object, 'f') == 'undefined'); //true
 ```
+
+## 3. 正则实现千位分割
+
+> 使用正则实现函数 numSplit，把任意数字转成千位分隔符格式，如 numSplit(12345678901) => 12,345,678,901
+
+```js
+function numSplit(num) {
+	return num.toString().replace(/(\d)(?=(\d{3})+$)/g, '$1, ');
+}
+
+var result = numSplit(12345678901);
+console.log(result);
+```
+
+## 4. 数组去重和排序
+
+> 请对下列数组去重，并且实现 sort 函数按生序排序  
+> var arr = [12, 12, 9, 20, 6, 31, 24, 6, 15];
+
+```js
+var arr = [12, 12, 9, 20, 6, 31, 24, 6, 15];
+function distinctAndAscSort(arr) {
+	var hash = {};
+	var result = [];
+	arr.forEach(a => {
+		if (!hash[a]) {
+			hash[a] = true;
+			result.push(a);
+		}
+	});
+	result.sort(function(c, n) {
+		return c - n;
+	});
+
+	return result;
+}
+
+console.log(distinctAndAscSort(arr));
+```
+
+## 5. 实现一个 LazyMan
+
+> 可以按照以下方式调用
+
+> LazyMan('Hank') 输出：  
+> Hi! This is Hank!
+
+> LazyMan('Hank').sleep(10).eat('dinner') 输出：  
+> Hi! This is Hank!  
+> //等待 10 秒..  
+> Wake up after 10  
+> Eat dinner~
+
+> LazyMan('Hank').eat('dinner').eat('supper') 输出：  
+> Hi! This is Hank!  
+> Eat dinner~  
+> Eat supper~
+
+> LazyMan('Hank').sleepFirst(5).eat('supper') 输出：  
+> //等待 5 秒  
+> Wake up after 5  
+> Hi! This is Hank!  
+> Eat supper~
+
+> 以此类推
+
+```js
+function _LazyMan(name) {
+	var self = this;
+
+	self.tasks = [];
+
+	self.tasks.push(function() {
+		console.log('Hi! This is ' + name);
+		self.next();
+		return self;
+	});
+
+	self.next = function() {
+		var task = self.tasks.shift();
+		task && task();
+		return self;
+	};
+	self.sleepFirst = function(time) {
+		self.tasks.unshift(function() {
+			setTimeout(function() {
+				console.log('Wake up after ' + time);
+				self.next();
+			}, time * 1000);
+		});
+		return self;
+	};
+	self.sleep = function(time) {
+		self.tasks.push(function() {
+			setTimeout(function() {
+				console.log('Wake up after ' + time);
+				self.next();
+			}, time * 1000);
+		});
+		return self;
+	};
+	self.eat = function(food) {
+		self.tasks.push(function() {
+			console.log('Eat ' + food);
+			self.next();
+		});
+		return self;
+	};
+
+	setTimeout(self.next);
+}
+
+function LazyMan(name) {
+	return new _LazyMan(name);
+}
+
+//LazyMan('Hank');
+
+// LazyMan('Hank')
+// 	.sleep(10)
+// 	.eat('dinner');
+
+// LazyMan('Hank')
+// 	.eat('dinner')
+// 	.eat('supper');
+
+LazyMan('Hank')
+	.sleepFirst(5)
+	.eat('supper');
+```

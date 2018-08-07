@@ -55,7 +55,7 @@ $(document).ready(function() {
 	});
 
 	//Restore window.console
-	console.log = deep_copy(originLog);
+	//console.log = deep_copy(originLog);
 
 	function deep_copy(obj) {
 		var newOBJ = {};
