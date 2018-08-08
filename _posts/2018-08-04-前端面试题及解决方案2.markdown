@@ -109,23 +109,59 @@ console.log(parse(object, 'd.1.e.g') == 6); //true
 console.log(parse(object, 'f') == 'undefined'); //true
 ```
 
-## 3. 正则实现千位分割
+## 3. 数字的千位分割
+
+### 3.1 使用正则
 
 > 使用正则实现函数 numSplit，把任意数字转成千位分隔符格式，如 numSplit(12345678901) => 12,345,678,901
 
 ```js
 function numSplit(num) {
-	return num.toString().replace(/(\d)(?=(\d{3})+$)/g, '$1, ');
+	return num.toString().replace(/(\d)(?=(\d{3})+$)/g, '$1,');
 }
 
 var result = numSplit(12345678901);
 console.log(result);
 ```
 
+### 3.2 For 循环
+
+```js
+function numSplit(num) {
+	var arr = num.toString().split('');
+	var result = [];
+	for (var i = arr.length - 1; i >= 0; ) {
+		if (i >= 3) {
+			for (var j = 0; j < 3; j++) {
+				result.unshift(arr[i - j]);
+			}
+			result.unshift(',');
+			i -= 3;
+		} else {
+			result.unshift(arr[i]);
+			i--;
+		}
+	}
+
+	return result.join('');
+}
+
+var spllittedNumString = numSplit(12345678901);
+console.log(spllittedNumString);
+```
+
+### 3.3 Recursion
+
+```js
+//TBD
+```
+
 ## 4. 数组去重和排序
 
 > 请对下列数组去重，并且实现 sort 函数按生序排序  
 > var arr = [12, 12, 9, 20, 6, 31, 24, 6, 15];
+
+### 4.1 Hash table
 
 ```js
 var arr = [12, 12, 9, 20, 6, 31, 24, 6, 15];
@@ -147,6 +183,8 @@ function distinctAndAscSort(arr) {
 
 console.log(distinctAndAscSort(arr));
 ```
+
+### 4.2 More?
 
 ## 5. 实现一个 LazyMan
 
