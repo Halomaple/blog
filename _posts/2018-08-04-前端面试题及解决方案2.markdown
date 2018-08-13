@@ -116,27 +116,27 @@ console.log(parse(object, 'f') == 'undefined'); //true
 > 使用正则实现函数 numSplit，把任意数字转成千位分隔符格式，如 numSplit(12345678901) => 12,345,678,901
 
 ```js
-function numSplit(num) {
-	return num.toString().replace(/(\d)(?=(\d{3})+$)/g, '$1,');
+function numSplit(num, digits) {
+	var reg = new RegExp('(\\d)(?=(\\d{' + digits + '})+$)', 'g');
+	return num.toString().replace(reg, '$1,');
 }
 
-var result = numSplit(12345678901);
-console.log(result);
+console.log(numSplit(12345678901, 3));
 ```
 
 ### 3.2 For 循环
 
 ```js
-function numSplit(num) {
+function numSplit(num, digits) {
 	var arr = num.toString().split('');
 	var result = [];
 	for (var i = arr.length - 1; i >= 0; ) {
-		if (i >= 3) {
-			for (var j = 0; j < 3; j++) {
+		if (i >= digits) {
+			for (var j = 0; j < digits; j++) {
 				result.unshift(arr[i - j]);
 			}
 			result.unshift(',');
-			i -= 3;
+			i -= digits;
 		} else {
 			result.unshift(arr[i]);
 			i--;
@@ -146,8 +146,7 @@ function numSplit(num) {
 	return result.join('');
 }
 
-var spllittedNumString = numSplit(12345678901);
-console.log(spllittedNumString);
+console.log(numSplit(12345678901, 3));
 ```
 
 ### 3.3 Recursion
