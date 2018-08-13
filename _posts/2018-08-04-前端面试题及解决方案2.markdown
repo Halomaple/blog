@@ -153,7 +153,20 @@ console.log(spllittedNumString);
 ### 3.3 Recursion
 
 ```js
-//TBD
+function numSplit(num, digits) {
+	var numString = num.toString();
+	var numStringLen = numString.length;
+	var result = '';
+
+	if (numStringLen > digits) {
+		result = numSplit(numString.slice(0, numStringLen - digits), digits) + ',' + numString.slice(-digits);
+	} else {
+		result += numString;
+	}
+	return result;
+}
+
+console.log(numSplit(12345678901, 3));
 ```
 
 ## 4. 数组去重和排序
