@@ -1,0 +1,132 @@
+---
+layout: post
+title: 排序算法及实现
+date: 2019-08-18 15:30:00 +0800
+categories: [算法]
+tags: [算法, 排序, JS]
+keywords: 排序算法
+description: 排序算法及实现
+---
+
+## 1. 分类
+
+十种常见排序算法可以分为两大类：
+
+-   比较类：通过比较来决定元素间的相对次序，由于其时间复杂度不能突破 O(nlogn)，因此也称为非线性时间比较类排序。
+-   非比较类：不通过比较来决定元素间的相对次序，它可以突破基于比较排序的时间下界，以线性时间运行，因此也称为线性时间非比较类排序。
+
+| 比较类   | 非比较类 |
+| :------- | -------: |
+| 冒泡排序 | 计数排序 |
+|          |          |
+| 快速排序 |   桶排序 |
+|          |          |
+| 插入排序 | 基数排序 |
+|          |          |
+| 希尔排序 |          |
+|          |          |
+| 选择排序 |          |
+|          |          |
+| 堆排序   |          |
+|          |          |
+| 归并排序 |          |
+
+## 2. 复杂度
+
+![算法复杂度](http://localhost:8100/media/algorithms.png)
+
+名词解释：
+
+-   时间复杂度：对排序数据的总的操作时间。反映当 n 变化时，操作时间呈现什么规律。
+-   空间复杂度：是指算法在计算机内执行时所需存储空间的度量，它也是数据规模 n 的函数。
+-   稳定性：如果 a = b，a 原本在 b 前面，排序之后 a 仍然在 b 的前面，则为稳定；如果排序之后 a 在 b 的后面，则为不稳定。
+
+## 3. 实现
+
+### 冒泡排序 Bubble Sort
+
+**概述**：遍历数组，一次比较两个元素，把小的放在前面、大的放在后面；重复进行直到不需要交换为止。
+
+-   a.比较第一个和第二个元素，如果第一个大就和第二个换位置
+-   b.重复步骤 a 的操作比较第二和第三个，第三和第四个...
+-   c.对每一个元素重复步骤 a 和 b，除了最后一个
+
+**JavaScript 实现**
+
+```js
+function bubbleSort(arr) {
+	if (
+		Object.prototype.toString.call(arr) !== '[object Array]' ||
+		arr.some(item => typeof item !== 'number')
+	) {
+		throw Error('Please pass an array of numbers!');
+	}
+
+	if (arr.length <= 1) {
+		return arr;
+	}
+
+	for (let i = 0; i < arr.length - 1; i++) {
+		for (let j = 0; j < arr.length - i - 1; j++) {
+			if (arr[j] > arr[j + 1]) {
+				arr[j] = arr[j] ^ arr[j + 1];
+				arr[j + 1] = arr[j] ^ arr[j + 1];
+				arr[j] = arr[j] ^ arr[j + 1];
+			}
+		}
+	}
+
+	return arr;
+}
+
+console.log(bubbleSort([1, 6, 2, 8, 3, 4, 5, 9, 7, 0]));
+```
+
+### 归并排序 Merge Sort
+
+**概述**：归并算法采用的是**分治法(Divide and Conquer)**
+
+-   把长度为 n 的输入数组分成两个长度为 n/2 的子数组
+-   对这个两个子数组分别做归并排序
+-   将两个排序好的子数组再排序合并成最终的数组
+
+**JavaScript 实现**
+
+```js
+function mergeSort(arr) {
+	if (
+		Object.prototype.toString.call(arr) !== '[object Array]' ||
+		arr.some(item => typeof item !== 'number')
+	) {
+		throw Error('Please pass an array of numbers!');
+	}
+
+	if (arr.length <= 1) {
+		return arr;
+	}
+
+	const midPosition = Math.floor(arr.length / 2);
+	const leftArray = arr.slice(0, midPosition);
+	const rightArray = arr.slice(midPosition);
+
+	return merge(mergeSort(leftArray), mergeSort(rightArray));
+}
+
+function merge(leftArray, rightArray) {
+	const result = [];
+
+	while (leftArray.length > 0 && rightArray.length > 0) {
+		if (leftArray[0] <= rightArray[0]) {
+			result.push(leftArray.shift());
+		} else {
+			result.push(rightArray.shift());
+		}
+	}
+
+	return result.concat(leftArray).concat(rightArray);
+}
+
+console.log(mergeSort([1, 6, 2, 8, 3, 4, 5, 9, 7, 0]));
+```
+
+本文属原创，转载请联系：<a href="mailto:jeff.doyle@foxmail.com">jeff.doyle@foxmail.com</a>
