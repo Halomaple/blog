@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 前端面试题及解决方案之双向绑定MVVM
+title: 前端面试题1 双向绑定MVVM
 date: 2018-08-04 17:30:00 +0800
 categories: [Learning, JS, 前端, 面试]
 tags: [JS, 面试, 双向绑定, MVVM]

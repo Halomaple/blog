@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 前端面试题及解决方案2
+title: 前端面试题2
 date: 2018-08-04 19:20:00 +0800
 categories: [Learning, JS, 前端, 面试]
 tags: [JS, 面试, Object]
