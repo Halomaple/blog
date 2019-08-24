@@ -1,0 +1,32 @@
+---
+layout: post
+title: 前端面试题3
+date: 2019-08-23 17:30:00 +0800
+categories: [Learning, JS, 前端, 面试]
+tags: [JS, 面试]
+keywords: 前端面试题
+description: 前端面试题
+---
+
+## RESTFUL API是什么？
+
+RESTFUL，全称是Representational State Transfer表征状态转移，是用的URI(URI中不能有代表操作的动词)表示资源，用HTTP的方法：GET, PUT, POST, DELETE来操作资源的一套方案。
+
+RESTFUL API即是采用RESTFUL方案的API设计。
+
+## HTTP有哪些常见的状态及其含义？
+
+HTTP状态码的英文为HTTP Status Code。下面是常见的HTTP状态码：
+
+- 200 – 请求成功
+- 301 – 请求的资源已被永久的移动到新URI，返回信息会包括新的URI，浏览器会自动定向到新URI。
+- 403 - 服务器理解请求客户端的请求，但是拒绝执行此请求
+- 404 – 服务器无法根据客户端的请求找到资源（网页）
+- 500 – 内部服务器错误，无法完成请求
+
+附表 [HTTP状态码](https://www.runoob.com/http/http-status-codes.html)
+
+## 作用域链是什么？
+
+当声明一个函数时，局部作用域会一级一级向上找，整个寻找的过程就是一条作用域链。
+
