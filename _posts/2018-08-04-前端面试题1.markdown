@@ -19,16 +19,15 @@ HTML
 ```html
 <!DOCTYPE html>
 <html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<title>MVVM</title>
+	</head>
 
-<head>
-	<meta charset="UTF-8">
-	<title>MVVM</title>
-</head>
-
-<body>
-	<input id="dataInput" type="text">
-	<p id="inputShow">{{value}}</p>
-</body>
+	<body>
+		<input id="dataInput" type="text" />
+		<p id="inputShow">{{value}}</p>
+	</body>
 </html>
 ```
 
