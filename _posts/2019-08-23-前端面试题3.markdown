@@ -8,11 +8,15 @@ keywords: 前端面试题
 description: 前端面试题
 ---
 
+# Web
+
 ## RESTFUL API 是什么？
 
 RESTFUL，全称是 Representational State Transfer 表征状态转移，是用的 URI(URI 中不能有代表操作的动词)表示资源，用 HTTP 的方法：GET, PUT, POST, DELETE 来操作资源的一套方案。
 
 RESTFUL API 即是采用 RESTFUL 方案的 API 设计。
+
+# HTTP
 
 ## HTTP 有哪些常见的状态及其含义？
 
@@ -26,6 +30,21 @@ HTTP 状态码的英文为 HTTP Status Code。下面是常见的 HTTP 状态码�
 
 附表 [HTTP 状态码](https://www.runoob.com/http/http-status-codes.html)
 
+# JavaScript
+
 ## 作用域链是什么？
 
 当声明一个函数时，局部作用域会一级一级向上找，整个寻找的过程就是一条作用域链。
+
+## JavaScript 的 new 做了什么工作？可以用一个函数表达出来么？
+
+## 下面的 x 和 y 最后是多少？
+
+```
+var x = 2;
+var y = 3;
+(x-- - 2) && (--y - 3);
+console.warn(x, y)
+```
+
+##
